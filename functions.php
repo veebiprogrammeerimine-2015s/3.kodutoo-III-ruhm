@@ -4,10 +4,25 @@
 	$database = "if15_ruzjaa_3";
 	
 	
-	function getNoteData(){
+	function getNoteData($keyword=""){
+		
+				$search = "%%";
+		
+		//kas otsisona on tuhi
+		if($keyword==""){
+			//ei otsi midagi
+			echo "Ei otsi";
+			
+		}else{
+			//otsin
+			echo "Otsin ".$keyword;
+			$search = "%".$keyword."%";
+		
+		}
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, pealkiri, märkus from p2evik WHERE deleted IS NULL ");
+		$stmt = $mysqli->prepare("SELECT id, user_id, pealkiri, märkus from p2evik WHERE deleted IS NULL AND (pealkiri LIKE ? OR märkus LIKE ?) ");
+		$stmt->bind_param("ss", $search, $search);
 		$stmt->bind_result($id, $user_id_from_database, $pealkiri, $märkus);
 		$stmt->execute();
 		
