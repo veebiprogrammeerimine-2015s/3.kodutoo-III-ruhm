@@ -18,6 +18,18 @@
 		updateNote($_POST["id"], $_POST["pealkiri"], $_POST["märkus"]);
 	}
 	
+		$keywod = "";
+	//aadressireal on keyword
+	if(isset($_GET["keyword"])){
+		
+		//otsin
+		$keyword = $_GET["keyword"];
+		$array_of_notes = getNoteData($keyword);
+		
+	}else{
+		
+		//kusin koik andmed
+	
 	
 	//käivitan funktsiooni
 	$array_of_notes = getNoteData();
@@ -25,6 +37,12 @@
 ?>
 
 <h2>Tabel</h2>
+
+<form action="table.php" method="get" >
+	<input type="search" name="keyword" >
+	<input type="submit" >
+</form>
+
 <table border=1 >
 	<tr>
 		<th>id</th>
@@ -33,13 +51,14 @@
 		<th>märkus</th>
 		<th>X</th>
 		<th>edit</th>
+		<th></th>
 	</tr>
 	
 	<?php
 		// trükime välja read
 		// massiivi pikkus count()
 		for($i = 0; $i < count($array_of_notes); $i++){
-			//echo $array_of_cars[$i]->id;
+			//echo $array_of_notes[$i]->id;
 			
 			//kasutaja tahab muuta seda rida
 			if(isset($_GET["edit"]) && $array_of_notes[$i]->id == $_GET["edit"]){
@@ -65,6 +84,7 @@
 				echo "<td>".$array_of_notes[$i]->märkus."</td>";
 				echo "<td><a href='?delete=".$array_of_notes[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$array_of_notes[$i]->id."'>edit</a></td>";
+				echo "<td><a href='edit.php?edit_id=".$array_of_notes[$i]->id."'>edit.php</a></td>";
 				echo "</tr>";
 				
 			}
