@@ -1,4 +1,5 @@
 <?php
+	require_once("functionsk.php");
 
 	if(!isset($_SESSION["logged_in_user_id"])){
 		header("Location: login.php");
@@ -48,6 +49,19 @@
 				echo $message;
 			}
 		}
+	}
+	if(isset($_GET["logout"])){
+		//sessiooni peatus
+		session_destroy();
+		
+		header("Location: login.php");
+	}
+	
+	function test_input($data) {	
+		$data = trim($data);	//võtab ära tühikud,enterid,tabid
+		$data = stripslashes($data);  //võtab ära tagurpidi kaldkriipsud
+		$data = htmlspecialchars($data);	//teeb htmli tekstiks, nt < läheb &lt
+		return $data;
 	}
 ?>
 
