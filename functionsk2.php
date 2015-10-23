@@ -3,8 +3,24 @@
 	//Loome ühenduse andmebaasiga
 	require_once("../config_global.php");
 	$database = "if15_earis_3";
-	
-	function getReviewData(){
+
+	//annan vaikeväärtuse
+	function getReviewData($keyword=""){
+		
+		$search="%%";
+		
+		//kas otsisõna on tühi
+		if($keyword==""){
+			//ei otsi midagi
+			echo "Ei otsi";
+			
+		}else{
+			//otsin
+			echo "Otsin" .$keyword;
+			$search="%".$keyword."%";
+			
+		}
+		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("SELECT id, user_id, raviminimi, hinnang, kommentaar FROM ravimid WHERE deleted IS NULL");
 		$stmt->bind_result($id, $user_id, $raviminimi, $hinnang, $kommentaar);

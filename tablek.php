@@ -1,5 +1,6 @@
 <?php
-	require_once("functionsk.php");
+	require_once("functionsk2.php");
+	
 	//kas kustutame, ?delete = vastav id mida kustutada on aadressireal
 	if(isset($_GET["delete"])){
 		echo "Kustutame id" .$_GET["delete"];
@@ -19,13 +20,70 @@
 		
 		//otsin	
 		$keyword= $_GET["keyword"];
-		$review_array = getCarData($keyword);
+		$review_array = getReviewData($keyword);
 		
 	}else{
 		//küsin kõik andmed
 	//käivitan funktsiooni
-	$review_array = getCarData();
+	$review_array = getReviewData();
 	}
 	
-
 ?>
+
+<h2>Tabel</h2>
+
+<form action="tablek.php" method="get"> 
+	<input type="search" name="keyword" value="<?=$keyword;?>">
+	<input type="submit">
+</form>
+<table border="1">
+	<tr>
+		<th>Id</th>
+		<th>User id</th>
+		<th>Raviminimi</th>
+		<th>Hinnang</th>
+		<th>Kommentaar</th>
+		<th>X</th>
+		<th>Edit</th>
+		<th></th>
+	</tr>
+	<?php
+		//trükime välja read
+		//massiivi pikkus count()
+		for($i = 0; $i < count($review_array); $i++){
+			//echo $review_array[$i]->id;
+			
+			//kasutaja tahab muuta seda rida
+			if(isset($_GET["edit"]) && $review_array[$i]->id == $_GET["edit"]){
+				
+				echo "<tr>";
+				echo "<form action='tablek.php' method='post'>";
+				echo "<input type='hidden' name='id' value='".$review_array[$i]->id."'>";
+				echo "<td>".$review_array[$i]->id."</td>";
+				echo "<td>".$review_array[$i]->user_id."</td>";
+				echo "<td><input name='raviminimi' value ='".$review_array[$i]->raviminimi."'></td>";
+				echo "<td><input name='hinnang' value ='".$review_array[$i]->hinnang."'></td>";
+				echo "<td><input name='kommentaar' value ='".$review_array[$i]->kommentaar."'></td>";
+				echo "<td><a href='tablek.php'>Cancel</a></td>";
+				echo "<td><input type='submit' name='save'></td>";
+				echo "</tr>";
+				echo "</form>";
+				
+			}else{
+				echo "<tr>";
+				echo "<td>".$review_array[$i]->id."</td>";
+				echo "<td>".$review_array[$i]->user_id."</td>";
+				echo "<td>".$review_array[$i]->raviminimi."</td>";
+				echo "<td>".$review_array[$i]->hinnang."</td>";
+				echo "<td>".$review_array[$i]->kommentaar."</td>";
+				echo "<td><a href='?delete=".$review_array[$i]->id."'>X</a></td>";
+				echo "<td><a href='?edit=".$review_array[$i]->id."'>edit</a></td>";
+				echo "<td><a href='edit.php?edit_id=".$review_array[$i]->id."'>edit.php</a></td>";
+				echo "</tr>";
+			}
+			
+			
+		}
+	
+	?>
+</table>
