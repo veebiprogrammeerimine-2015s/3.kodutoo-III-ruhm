@@ -35,7 +35,7 @@
 				}
 				
 		//kõik on kohustuslikud
-		if($raviminimi_error == "" && $hinnang_error == "" && $kommentaar_error = ""){
+		if($raviminimi_error == "" && $hinnang_error == "" && $kommentaar_error == ""){
 			//salvestate ab'i fn kaudu addReview
 			//message funktsioonist
 			
