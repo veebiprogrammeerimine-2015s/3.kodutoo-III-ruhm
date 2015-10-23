@@ -24,7 +24,7 @@
 	function loginUser($username, $email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT id, email, username FROM martin_login2 WHERE email=? AND username=? AND password=?");
+		$stmt = $mysqli->prepare("SELECT id, email, username FROM martin_login WHERE email=? AND username=? AND password=?");
 		$stmt->bind_param("sss",$email, $username, $hash);
 		$stmt->bind_result($id_from_db, $username_from_db, $email_from_db);
 		$stmt->execute();
@@ -53,12 +53,12 @@
 	}
 	
 	//Kuigi muutujad on erinevad, jõuab väärtus kohale
-	function addCarPlate($car_plate, $car_color){
+	function addThread($in_thread, $in_post){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt =  $mysqli->prepare("INSERT INTO car_plates (user_id, number_plate, color) VALUES (?,?,?)");
+		$stmt =  $mysqli->prepare("INSERT INTO martin_threads (user_id, thread, post) VALUES (?,?,?)");
 				echo $mysqli->error;
 
-		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"],$car_plate, $car_color);
+		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"],$in_thread, $in_post);
 		
 		//sõnum
 		$message = "";
@@ -90,7 +90,7 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("UPDATE car_plates SET deleted=NOW() WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE martin_threads SET deleted=NOW() WHERE id=?");
 		
 		$stmt->bind_param("i", $id);
 		
@@ -109,9 +109,9 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("UPDATE car_plates SET number_plate=?, color=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE martin_threads SET thread=?, post=? WHERE id=?");
 		
-		$stmt->bind_param("ssi", $number_plate, $color, $id);
+		$stmt->bind_param("ssi", $thread, $post, $id);
 		
 		if($stmt->execute()){
 			// sai uuendatud
