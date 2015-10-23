@@ -52,7 +52,7 @@
 				
 			$hash = hash("sha512", $password);
 			
-			$stmt = $mysqli->prepare("SELECT id, email, username FROM martin_login2 WHERE (email=? OR username=?) AND password=?");
+			$stmt = $mysqli->prepare("SELECT id, email, username FROM martin_login WHERE (email=? OR username=?) AND password=?");
 			$stmt->bind_param("sss",$username_or_email, $username_or_email, $hash);
 			
 			// Muutujad tulemustele
@@ -62,7 +62,7 @@
 			//Kontrollin kas tulemusi leiti
 				if($stmt->fetch()){
 					//andmebaasis oli midagi
-						echo "Account created";
+						echo "all good";
 					}else{
 						// ei leidnud
 						echo "Wrong credentials!";
