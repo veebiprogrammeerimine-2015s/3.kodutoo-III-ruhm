@@ -86,14 +86,11 @@
 
 	}
 
-	function deleteCar($id){
+		function deleteCar($id){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		
 		$stmt = $mysqli->prepare("UPDATE martin_threads SET deleted=NOW() WHERE id=?");
-		
 		$stmt->bind_param("i", $id);
-		
 		if($stmt->execute()){
 			// sai kustutatud
 			// kustutame aadressirea tühjaks
@@ -103,9 +100,12 @@
 		
 		$stmt->close();
 		$mysqli->close();
+		
+		
+		
 	}
 	
-	function updateCar($id, $number_plate, $color);
+	function updateThread($id, $number_plate, $color);
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		

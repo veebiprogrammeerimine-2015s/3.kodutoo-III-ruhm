@@ -17,14 +17,34 @@
 		updateThread($_POST["id"], $_POST["thread"], $_POST["post"]);
 	}
 
-	//käivitan funktsiooni
-	$array_of_threads = getThreadData();
+		$keyword = "";
 	
-	// trükin välja esimese auto
+	//aadressireal on keyword
+	if(isset($_GET["keyword"])){
+		
+		//otsin
+		$keyword = $_GET["keyword"];
+		$array_of_threads = getThreadData($keyword);
+		
+	}else{
+		
+		//küsin kõik andmed
+		
+		//käivitan funktsiooni
+		$array_of_threads = getThreadData();
+	}
+	
+	
 	//echo $array_of_threads[0]->id." ".$array_of_threads[0]->thread;
 ?>
 
 <h2>Threads</h2>
+
+<form action="table.php" method="get" >
+	<input type="search" name="keyword" value="<?=$keyword;?>" >
+	<input type="submit" >
+</form>
+
 <table border=1 >
 	<tr>
 		<th>id</th>
