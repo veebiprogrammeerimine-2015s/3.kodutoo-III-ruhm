@@ -1,6 +1,6 @@
 <?php
 
-	require_once("hidden/config.php");
+	require_once("../config.php");
 	require_once("hidden/functions.php");
 	$database = "if15_hendval";
 

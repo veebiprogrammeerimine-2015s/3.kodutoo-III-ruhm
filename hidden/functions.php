@@ -1,5 +1,5 @@
 <?php
-	require_once("config.php");
+	require_once("../config.php");
 	$database = "if15_hendval";
 	
 	session_start();
