@@ -61,17 +61,29 @@ div.mainblock {
 div.headerblock {
 	width: 780px;
 	height: 45px;
-	margin: 5px auto;
+	margin-left: 10px;
 }
 
-div.loginblock {
-	width: 780px;
-	height: 45px;
-	margin: 5px auto;
-}
-
-.loginblock .login {
+div.loginblockright {
+	width: 380px;
+	height: 25px;
 	float: right;
+}
+
+div.loginblockleft {
+	width: 380px;
+	height: 25px;
+	float: left;
+}
+
+.loginblockright .login {
+	float: right;
+	padding: 10px;
+}
+
+.loginblockleft {
+	float: left;
+	padding: 10px;
 }
 
 .clearfix:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}

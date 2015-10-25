@@ -81,10 +81,17 @@
 <div class="headerblock">
 <?php require_once("header.php"); ?>
 </div>
-<div class="loginblock">
-<?php if(isset($_SESSION["logged_in_user_id"])){echo "<span class='login'>Teretulemast ".$_SESSION["logged_in_user_name"]."! <a href='?logout=1'>Logi välja</a></span>"; 
+<div class="loginblockleft">
+<form action="table.php" method="get">
+	<input type="search" name="keyword" value="<?=$keyword;?>" placeholder="Otsing">
+	<input type="submit" value="Otsi">
+</form>
+</div>
+<div class="loginblockright">
+<div class="loginblockright">
+<?php if(isset($_SESSION["logged_in_user_id"])){echo "<span class='login'>Teretulemast ".$_SESSION["logged_in_user_name"]."! <a href='?logout=1'>Logi välja</a><br>Krediit: ".$_SESSION["logged_in_user_credits"]."</span>"; 
 } else { echo "<span class='login'><a href='login.php'>Logi sisse</a> / <a href='register.php'>Registreeri</a></span>"; } ?><br>
-<?php if(isset($_SESSION["logged_in_user_id"])){echo "<span class='login'>Krediit: ".$_SESSION["logged_in_user_credits"]."</span>";} ?>
+</div>
 </div>
 </div>
 <div id="content" class="clearfix">
