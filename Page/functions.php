@@ -51,7 +51,7 @@
    
    function createPost($post){
     $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-        $stmt = $mysqli->prepare("INSERT INTO post (user_id, post) VALUES (?,?)");
+        $stmt = $mysqli->prepare("INSERT INTO posts (user_id, post) VALUES (?,?)");
         
         $stmt->bind_param("is", $_SESSION['logged_in_user_id'], $post);
         

@@ -2,9 +2,13 @@
 
 
 	// Loon andmebaasi ühenduse
-	require_once("../../config.php");
-	$database= "if15_mats_3";
-	$mysqli = new mysqli($servername, $username, $password, $database);
+	require_once("functions.php");
+
+	if(isset($_SESSION["logged_in_user_id"])){
+		header("Location:data.php");
+		
+	}
+
 
 		// LOGIN.PHP
 		//echo $_POST["email"];
@@ -58,35 +62,22 @@
 					
 				}
 			
-			if($email_error== "" && $password_error == "") {
+				if($email_error== "" && $password_error == "") {
 				
-				
+				echo "Võib sisse logida! Kasutajanimi on ".$email."ja parool on ".$password. ".";
 				
 				$hash= hash("sha512", $password);
-				$stmt = $mysqli->prepare ("SELECT id, email FROM creatednames WHERE email=? AND password=?");
-				$stmt->bind_param("ss", $email, $hash);
+				loginUser($email, $hash);
 				
-				$stmt->bind_result($id_from_db, $email_from_db);
-				$stmt->execute ();
-				if($stmt->fetch()){
-					
-					//andmebaasis oli midagi
-					echo "Email ja parool õiged, kasutaja id=".$id_from_db;
-				}else{
-					//ei leidnud
-					echo  "Wrong credentials";
 				}
-				
-				$stmt->close();
-				
+			
 			}
 			
 			
 			
 			
-			
 			// keegi vajutas create nuppu	
-			}elseif(isset($_POST["create"])){
+			if(isset($_POST["create"])){
 			
 				echo "vajutas create nuppu";
 				
@@ -132,13 +123,8 @@
 						
 						echo "Võib kasutajat luua! Kasutajanimi on ".$username." email on ".$create_email. "ja parool on ".$create_password." ja räsi on ".$hash;
 						
-						$stmt = $mysqli->prepare("INSERT INTO creatednames (user,email,password) VALUES (?,?,?)");
-						echo $mysqli->error;
-						echo $stmt->error;
-						$stmt->bind_param("sss", $username, $create_email, $hash);
-						$stmt->execute();
-						$stmt->close();
-					
+						createUser($username, $hash);
+						
 					
 				}
 				
