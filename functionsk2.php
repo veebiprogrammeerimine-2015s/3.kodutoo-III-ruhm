@@ -23,6 +23,7 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("SELECT id, user_id, raviminimi, hinnang, kommentaar FROM ravimid WHERE deleted IS NULL");
+		//echo $mysqli->error; //Unknown column 'deleted' in 'where clause' ??? - lahendatud
 		$stmt->bind_result($id, $user_id, $raviminimi, $hinnang, $kommentaar);
 		$stmt->execute();
 		
