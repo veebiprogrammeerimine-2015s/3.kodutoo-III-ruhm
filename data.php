@@ -61,7 +61,7 @@
 				}
 	}
 	
-
+	$array_of_teams = getTeamData();
 	
 	
 ?>
@@ -70,6 +70,36 @@
 	<a href="?logout=1">logi välja<a>	
 </p>
 
+<p>
+<h1>Tiimid</h1>
+<table border=1>
+	<tr>
+		<th>id</th>
+		<th>teamname</th>
+		<th>player1</th>
+		<th>player2</th>
+		<th>player3</th>
+		<th>player4</th>
+		<th>player5</th>
+	</tr>
+</p>
+
+	<?php
+		for($i = 0;$i < count($array_of_teams);$i++){
+			echo "<tr>";
+			echo "<td>".$array_of_teams[$i]->id."</td>";
+			echo "<td>".$array_of_teams[$i]->teamname."</td>";
+			echo "<td>".$array_of_teams[$i]->player1."</td>";
+			echo "<td>".$array_of_teams[$i]->player2."</td>";
+			echo "<td>".$array_of_teams[$i]->player3."</td>";
+			echo "<td>".$array_of_teams[$i]->player4."</td>";
+			echo "<td>".$array_of_teams[$i]->player5."</td>";
+			echo "</tr>";
+		}
+	
+	?>
+</table>
+	
   <h2>Place your bets</h2>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
   	<label for="teamname">Tiiminimi</label><br>

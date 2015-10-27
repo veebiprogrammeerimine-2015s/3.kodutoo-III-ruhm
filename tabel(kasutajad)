@@ -1,0 +1,8 @@
+CREATE TABLE MVP (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	email VARCHAR(255) NOT NULL,
+	password VARCHAR(128),
+	teamname VARCHAR(128),
+	summa INT,
+	UNIQUE(email)
+);

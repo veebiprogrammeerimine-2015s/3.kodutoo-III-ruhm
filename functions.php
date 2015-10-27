@@ -79,5 +79,44 @@
 		$mysqli->close();
 	}
 	
+	function getTeamData(){
+		
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		
+		$stmt = $mysqli->prepare("SELECT id, teamname, player1, player2, player3, player4, player5 FROM tiimid");
+		$stmt->bind_result($id, $teamname, $player1, $player2, $player3, $player4, $player5);
+		$stmt->execute();
+		
+		// tekitan tühja massiivi, kus edaspidi hoian objekte
+		$team_array= array();
+		
+		// tee midagi seni, kuni saame ab'st ühe rea andmeid
+		while($stmt->fetch()){
+			// seda siin sees tehakse nii mitu korda kuni on ridu
+			
+			//tekitan objekti, kus hakkan hoidma väärtusi
+			$team = new StdClass();
+			$team->id = $id;
+			$team->teamname = $teamname;
+			$team->player1 = $player1;
+			$team->player2 = $player2;
+			$team->player3 = $player3;
+			$team->player4 = $player4;
+			$team->player5 = $player5;
+			
+			// lisan massiivi ühe rea juurde
+			array_push($team_array, $team);
+			// var_dump ütleb muutuja nime ja stuffi
+			//echo "<pre>";
+			//var_dump($car_array);
+			//echo "</pre><br>";
+		}
+		
+		// tagastan massiivi, kus kõik read sees
+		return $team_array;
+		
+		$stmt->close();
+		$mysqli->close();
+	}
 
 ?>

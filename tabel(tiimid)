@@ -1,0 +1,12 @@
+CREATE TABLE tiimid (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	teamname VARCHAR(128),
+	player1 VARCHAR(128),
+	player2 VARCHAR(128),
+	player3 VARCHAR(128),
+	player4 VARCHAR(128),
+	player5 VARCHAR(128)
+);
+
+INSERT INTO tiimid (teamname, player1, player2, player3, player4, player5) VALUES ('tsm', 'bla1', 'bla2', 'bla3', 'bla4', 'bla5');
+INSERT INTO tiimid (teamname, player1, player2, player3, player4, player5) VALUES ('clg', 'blaa1', 'blaa2', 'blaa3', 'blaa4', 'blaa5');
