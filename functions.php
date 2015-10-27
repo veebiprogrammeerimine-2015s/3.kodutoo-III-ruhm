@@ -42,8 +42,12 @@
 			$_SESSION["logged_in_user_id"] = $id_from_db;
 			$_SESSION["logged_in_user_email"] = $email_from_db;
 			
-			// suunan data.php lehele
-			header("Location: data.php");
+			// suunan erinevatele lehtedele vastavalt kasutaja meiliaadressile(ainult teatud kasutaja saab edit'ida tabelit)
+			if($email_from_db == 'toomas@toomas.ee'){
+				header("Location: editdata.php");
+			}else{
+				header("Location: data.php");
+			}
 			
 		}else{
 			// ei leidnud
@@ -78,8 +82,7 @@
 		$stmt->close();
 		$mysqli->close();
 	}
-?>
-<?php	
+	
 	function getTeamData($keyword=""){
 		
 		$search = "%%";
@@ -99,7 +102,7 @@
 		}
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT id, teamname, player1, player2, player3, player4, player5 FROM tiimid WHERE (teamname LIKE ? or player1 LIKE ? or player2 LIKE ? or player3 LIKE? or player4 LIKE ? or player5 LIKE?)");
+		$stmt = $mysqli->prepare("SELECT id, teamname, player1, player2, player3, player4, player5 FROM tiimid WHERE deleted IS NULL AND (teamname LIKE ? or player1 LIKE ? or player2 LIKE ? or player3 LIKE? or player4 LIKE ? or player5 LIKE?)");
 		$stmt->bind_param("ssssss", $search, $search, $search, $search, $search, $search);
 		$stmt->bind_result($id, $teamname, $player1, $player2, $player3, $player4, $player5);
 		$stmt->execute();
@@ -135,5 +138,39 @@
 		$stmt->close();
 		$mysqli->close();
 	}
+	
+	function deleteTeam($id){
+		
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		
+		$stmt = $mysqli->prepare("UPDATE tiimid SET deleted=NOW() WHERE id=?");
+		$stmt->bind_param("i", $id);
+		if($stmt->execute()){
+			// sai kustutatud
+			// kustutame aadressirea tühjaks
+			header("Location: editdata.php");
+			
+		}
+		
+		$stmt->close();
+		$mysqli->close();
+	}
 
+	function updateTeam($id, $teamname, $player1, $player2, $player3, $player4, $player5){
+		
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		
+		$stmt = $mysqli->prepare("UPDATE tiimid SET teamname=?, player1=?, player2=?, player3=?, player4=?, player5=? WHERE id=?");
+		$stmt->bind_param("ssssssi", $teamname, $player1, $player2, $player3, $player4, $player5, $id);
+		if($stmt->execute()){
+			// sai uuendatud
+			// kustutame aadressirea tühjaks
+			header("Location: editdata.php");
+			
+		}
+		
+		$stmt->close();
+		$mysqli->close();
+		
+	}
 ?>
