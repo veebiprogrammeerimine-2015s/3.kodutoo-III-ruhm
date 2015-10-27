@@ -30,7 +30,7 @@
 	
 ?>
 
-<h2>Tabel</h2>
+<h2>Ravimite loetelu</h2>
 
 <form action="tablek.php" method="get"> 
 	<input type="search" name="keyword" value="<?=$keyword;?>">
@@ -78,7 +78,7 @@
 				echo "<td>".$review_array[$i]->kommentaar."</td>";
 				echo "<td><a href='?delete=".$review_array[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$review_array[$i]->id."'>edit</a></td>";
-				echo "<td><a href='edit.php?edit_id=".$review_array[$i]->id."'>edit.php</a></td>";
+				echo "<td><a href='editk.php?edit_id=".$review_array[$i]->id."'>editk.php</a></td>";
 				echo "</tr>";
 			}
 			

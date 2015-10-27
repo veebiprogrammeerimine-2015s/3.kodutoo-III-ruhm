@@ -38,6 +38,6 @@
 		<label for ="hinnang">Hinnang</label><br>
 		<input id="hinnang" name="hinnang" type="text" value="<?=$review->hinnang;?>"> <br><br>
 		<label for ="kommentaar">Kommentaar</label><br>
-		<input id="kommentaar" name="kommentaar" type="text" value="<?=$review->kommentaar;?>"> <br><br>
+		<input id="kommentaar" name="kommentaar" type="text" col=80 rows=7 value="<?=$review->kommentaar;?>"> <br><br>
 		<input type="submit" name="update_review" value="Salvesta"><br>
 		</form>	

@@ -76,6 +76,6 @@
 		<label for ="hinnang">Määra hinnang</label><br>
 		<input id="hinnang" name="hinnang" type="text" value="<?php echo $hinnang; ?>"> <?php echo $hinnang_error; ?> <br><br>
 		<label for ="kommentaar">Kirjuta kommentaar</label><br>
-		<input id="kommentaar" name="kommentaar" type="text" value="<?php echo $kommentaar; ?>"> <?php echo $kommentaar_error; ?> <br><br>
+		<textarea id="kommentaar" name="kommentaar" col=80 rows=7 value="<?php echo $kommentaar; ?>" placeholder="Kirjuta siia oma kommentaar"> <?php echo $kommentaar_error; ?> </textarea><br><br>
 		<input type="submit" name="add_review" value="Sisesta"><br>
 		</form>	
