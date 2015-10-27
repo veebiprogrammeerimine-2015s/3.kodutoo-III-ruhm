@@ -63,12 +63,31 @@
 	
 	$array_of_teams = getTeamData();
 	
+	$keyword = "";
+	
+	if(isset($_GET["keyword"])){
+		
+		//otsin
+		$keyword = $_GET["keyword"];
+		$array_of_teams = getTeamData($keyword);
+		
+	}else{
+		
+		//küsin kõik andmed
+		$array_of_teams = getTeamData();
+	}
+	
 	
 ?>
 <p>
 	Tere, <?=$_SESSION["logged_in_user_email"];?>
 	<a href="?logout=1">logi välja<a>	
 </p>
+
+<form action="data.php" method="get">
+	<input type="search" name="keyword" value="<?=$keyword?>">
+	<input type="submit">
+</form>
 
 <p>
 <h1>Tiimid</h1>

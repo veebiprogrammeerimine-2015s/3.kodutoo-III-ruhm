@@ -78,12 +78,29 @@
 		$stmt->close();
 		$mysqli->close();
 	}
-	
-	function getTeamData(){
+?>
+<?php	
+	function getTeamData($keyword=""){
 		
+		$search = "%%";
+		
+		//kas otsisõna on tühi
+		if($keyword == ""){
+			
+			//ei otsi midagi
+			echo "Ei otsi";
+			
+		}else{
+			
+			//otsin
+			echo "Otsin ".$keyword;
+			$search = "%".$keyword."%";
+			
+		}
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT id, teamname, player1, player2, player3, player4, player5 FROM tiimid");
+		$stmt = $mysqli->prepare("SELECT id, teamname, player1, player2, player3, player4, player5 FROM tiimid WHERE (teamname LIKE ? or player1 LIKE ? or player2 LIKE ? or player3 LIKE? or player4 LIKE ? or player5 LIKE?)");
+		$stmt->bind_param("ssssss", $search, $search, $search, $search, $search, $search);
 		$stmt->bind_result($id, $teamname, $player1, $player2, $player3, $player4, $player5);
 		$stmt->execute();
 		
