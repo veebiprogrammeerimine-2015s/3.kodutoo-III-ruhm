@@ -12,7 +12,7 @@
 	
 	function register($create_email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?,?)");
+		$stmt = $mysqli->prepare("INSERT INTO MVP (email, password) VALUES (?,?)");
 		$stmt->bind_param("ss", $create_email, $hash);
 		$stmt->execute();
 		$stmt->close();
@@ -29,7 +29,7 @@
 	
 	function login($email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");
+		$stmt = $mysqli->prepare("SELECT id, email FROM MVP WHERE email=? AND password=?");
 		$stmt->bind_param("ss", $email, $hash);
 		$stmt->bind_result($id_from_db, $email_from_db);
 		$stmt->execute();
@@ -54,6 +54,29 @@
 		
 		$mysqli->close();
 		
+	}
+	
+	function addBet($teamname, $summa){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("UPDATE MVP SET teamname=?, summa=? WHERE id=? ");
+		$stmt->bind_param("ssi", $teamname, $summa, $_SESSION["logged_in_user_id"]);
+		
+		// sõnum
+		$message = "";
+		
+		if($stmt->execute()){
+			// kui on tõene, siis INSERT õnnestus
+			$message = "Sai edukalt lisatud";
+		
+		}else{
+			// kui on väär, siis kuvame errori
+			echo $stmt->error;
+		}
+		
+		return $message;
+		
+		$stmt->close();
+		$mysqli->close();
 	}
 	
 

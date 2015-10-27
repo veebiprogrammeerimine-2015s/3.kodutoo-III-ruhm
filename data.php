@@ -20,35 +20,35 @@
 		header("Location: login.php");
 	}
 	
-	$number_plate = $color = "";
-	$number_plate_error = $color_error = "";
+	$teamname = $summa = "";
+	$teamname_error = $summa_error = "";
 	
 	//keegi vajutas nuppu numbrimärgi lisamiseks
-	if(isset($_POST["add_plate"])){
+	if(isset($_POST["add_bet"])){
 		// echo $_SESSION["logged_in_user_id"];
 		
 		// valideerite väljad
 		// mõlemad on kohustuslikud
 		// salvestatakse AB'i fn kaudu addCarPlate
-		if ( empty($_POST["number_plate"]) ) {
-				$number_plate_error = "See väli on kohustuslik";
+		if ( empty($_POST["teamname"]) ) {
+				$teamname_error = "See väli on kohustuslik";
 			}else{
 			// puhastame muutuja võimalikest üleliigsetest sümbolitest
-				$number_plate = cleanInput($_POST["number_plate"]);
+				$teamname = cleanInput($_POST["teamname"]);
 			}
-		if ( empty($_POST["color"]) ) {
-				$color_error = "See väli on kohustuslik";
+		if ( empty($_POST["summa"]) ) {
+				$summa_error = "See väli on kohustuslik";
 			}else{
 			// puhastame muutuja võimalikest üleliigsetest sümbolitest
-				$color = cleanInput($_POST["color"]);
+				$summa = cleanInput($_POST["summa"]);
 			}
-		if(	$number_plate_error == "" && $color_error == ""){
+		if(	$teamname_error == "" && $summa_error == ""){
 					
 					
 					
 					// kasutaja loomise funktsioon, failist functions.php
 					// saadame kaasa muutujad
-					$message = addCarPlate($number_plate, $color);
+					$message = addBet($teamname, $summa);
 					
 					if($message != ""){
 						// õnnestus, teeme inputi väljad tühjaks
@@ -70,12 +70,11 @@
 	<a href="?logout=1">logi välja<a>	
 </p>
 
-<h2>Lisa autonumbrimärk</h2>
-  <h2>Log in</h2>
+  <h2>Place your bets</h2>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
-  	<label for="number_plate">Auto numbrimärk</label><br>
-	<input id="number_plate" name="number_plate" type="text" value="<?php echo $number_plate; ?>"> <?php echo $number_plate_error; ?><br><br>
-	<label for="color">Värv</label><br>
-  	<input id="color" name="color" type="text" value="<?php echo $color; ?>"> <?php echo $color_error; ?><br><br>
-  	<input type="submit" name="add_plate" value="Salvesta">
+  	<label for="teamname">Tiiminimi</label><br>
+	<input id="teamname" name="teamname" type="text" value="<?php echo $teamname; ?>"> <?php echo $teamname_error; ?><br><br>
+	<label for="summa">Summa</label><br>
+  	<input id="summa" name="summa" type="float" value="<?php echo $summa; ?>"> <?php echo $summa_error; ?><br><br>
+  	<input type="submit" name="add_bet" value="Salvesta">
   </form>
