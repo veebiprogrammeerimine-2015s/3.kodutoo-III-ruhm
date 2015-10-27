@@ -1,0 +1,92 @@
+body {
+	background: #444444;
+	background-image: url("../images/bg.png");
+	font-family: verdana, arial, sans-serif;
+	color: #000000;
+	font-size: 12px;
+	margin: 0px;
+}
+
+div#container {
+	width: 800px;
+	margin: 0px auto;
+	background: #DDDDDD;
+	padding: 0px;
+}
+
+div#content {
+	width: 800px;
+	padding-top: 100px;
+	background: #DDDDDD;
+	height: 350px;
+}
+
+div#header {
+	width: 800px;
+	height: 100px;
+	background: #888888;
+	position: absolute;
+	top: 0px;
+}
+
+div#menu {
+	width: 200px;
+	float: left;
+	background: white;
+	height: 350px;
+	position: absolute;
+}
+
+div#main {
+	width: 600px;
+	float: right;
+	background: #DDDDDD;
+}
+
+div.menublockupper {
+	width: 190px;
+	margin: 5px auto;
+}
+
+div.menublocklower {
+	width: 190px;
+	margin: 5px auto;
+}
+
+div.mainblock {
+	width: 590px;
+	margin: 5px auto;
+}
+
+div.headerblock {
+	width: 780px;
+	height: 45px;
+	margin-left: 10px;
+}
+
+div.loginblockright {
+	width: 380px;
+	height: 25px;
+	float: right;
+}
+
+div.loginblockleft {
+	width: 380px;
+	height: 25px;
+	float: left;
+}
+
+.loginblockright .login {
+	float: right;
+	padding: 10px;
+}
+
+.loginblockleft {
+	float: left;
+	padding: 10px;
+}
+
+.clearfix:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.clearfix {display:inline-block;}
+/* Hide from IE Mac \*/
+.clearfix {display:block;}
