@@ -8,14 +8,14 @@
 		
 		echo "Kustutame id ".$_GET["delete"];
 		//käivitan funktsiooni, saadan kaasa id!
-		deleteCar($_GET["delete"]);
+		deleteContent($_GET["delete"]);
 		
 	}
 	
 	//salvestan andmebaasi uuendused
 	if(isset($_POST["save"])){
 		
-		updateCar($_POST["id"], $_POST["plate_number"], $_POST["color"]);
+		updateContent($_POST["id"], $_POST["title"], $_POST["media"]);
 	}
 	
 	
@@ -24,18 +24,17 @@
 	if(isset($_GET["keyword"])){
 		
 		$keyword = $_GET["keyword"];
-		$array_of_cars = getCarData($keyword);
+		$array_of_content = getPosts($keyword);
 		
 	}else{
 		
 		//käivitan funktsiooni
-	$array_of_cars = getCarData();
+	$array_of_content = getPosts();
 	}
 	
 	
 	
-	//trükin välja esimese auto
-	//echo $array_of_cars[0]->id." ".$array_of_cars[0]->plate;
+
 	
 ?>
 
@@ -50,8 +49,8 @@
 	<tr>
 		<th>id</th>
 		<th>kasutaja id</th>
-		<th>numbrimärk</th>
-		<th>värv</th>
+		<th>tiitel</th>
+		<th>meedia</th>
 		<th>X</th>
 		<th>edit</th>
 		<th></th>
@@ -60,19 +59,19 @@
 	<?php
 		// trükime välja read
 		// massiivi pikkus count()
-		for($i = 0; $i < count($array_of_cars); $i++){
-			//echo $array_of_cars[$i]->id;
+		for($i = 0; $i < count($array_of_content); $i++){
+			//echo $array_of_content[$i]->id;
 			
 			//kasutaja tahab muuta seda rida
-			if(isset($_GET["edit"]) && $array_of_cars[$i]->id == $_GET["edit"]){
+			if(isset($_GET["edit"]) && $array_of_content[$i]->id == $_GET["edit"]){
 				
 				echo "<tr>";
 				echo "<form action='table.php' method='post'>";
-				echo "<input type='hidden' name='id' value='".$array_of_cars[$i]->id."'>";
-				echo "<td>".$array_of_cars[$i]->id."</td>";
-				echo "<td>".$array_of_cars[$i]->user_id."</td>";
-				echo "<td><input name='plate_number' value='".$array_of_cars[$i]->plate."'></td>";
-				echo "<td><input name='color' value='".$array_of_cars[$i]->color."'></td>";
+				echo "<input type='hidden' name='id' value='".$array_of_content[$i]->id."'>";
+				echo "<td>".$array_of_content[$i]->id."</td>";
+				echo "<td>".$array_of_content[$i]->user_id."</td>";
+				echo "<td><input name='plate_number' value='".$array_of_content[$i]->plate."'></td>";
+				echo "<td><input name='color' value='".$array_of_content[$i]->color."'></td>";
 				echo "<td><a href='table.php'>cancel</a></td>";
 				echo "<td><input type='submit' name='save'></td>";
 				echo "</form>";
@@ -81,13 +80,13 @@
 			}else{
 				
 				echo "<tr>";
-				echo "<td>".$array_of_cars[$i]->id."</td>";
-				echo "<td>".$array_of_cars[$i]->user_id."</td>";
-				echo "<td>".$array_of_cars[$i]->plate."</td>";
-				echo "<td>".$array_of_cars[$i]->color."</td>";
-				echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
-				echo "<td><a href='?edit=".$array_of_cars[$i]->id."'>edit</a></td>";
-				echo "<td><a href='edit.php?edit_id=".$array_of_cars[$i]->id."'>edit.php</a></td>";
+				echo "<td>".$array_of_content[$i]->id."</td>";
+				echo "<td>".$array_of_content[$i]->user_id."</td>";
+				echo "<td>".$array_of_content[$i]->plate."</td>";
+				echo "<td>".$array_of_content[$i]->color."</td>";
+				echo "<td><a href='?delete=".$array_of_content[$i]->id."'>X</a></td>";
+				echo "<td><a href='?edit=".$array_of_content[$i]->id."'>edit</a></td>";
+				echo "<td><a href='edit.php?edit_id=".$array_of_content[$i]->id."'>edit.php</a></td>";
 				echo "</tr>";
 				
 			}

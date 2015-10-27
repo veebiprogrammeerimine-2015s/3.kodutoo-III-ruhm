@@ -5,7 +5,7 @@
 	
 	if(isset($_POST["update_plate"])){
 		
-		updateCar($_POST["id"], $_POST["number_plate"], $_POST["color"]);
+		updateContent($_POST["id"], $_POST["title"], $_POST["media"]);
 		
 	}
 	
@@ -17,7 +17,7 @@
 		// id oli aadressireal
 		// tahaks ühte rida kõige uuemaid andmeid kus id on $_GET["edit_id"]
 		
-		$car = getEditData($_GET["edit_id"]);
+		$content = getEditData($_GET["edit_id"]);
 		var_dump($car);
 		
 		
@@ -36,12 +36,12 @@
 	
 ?>
 
-<h2>Muuda autonumbrimärkki</h2>
+<h2>Muuda postitust</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
 	<input type="hidden" name="id" value="<?=$_GET["edit_id"];?>">
-	<label for="number_plate" >Auto numbrimärk</label><br>
-	<input id="number_plate" name="number_plate" type="text" value="<?=$car->number_plate;?>"><br><br>
-	<label for="color">Värv</label><br>
-	<input id="color" name="color" type="text" value="<?=$car->color;?>"><br><br>
+	<label for="title" >Tiitel</label><br>
+	<input id="title" name="title" type="text" value="<?=$car->title;?>"><br><br>
+	<label for="media">Meedia</label><br>
+	<input id="media" name="media" type="text" value="<?=$car->media;?>"><br><br>
 	<input type="submit" name="update_plate" value="Salvesta">
 </form>

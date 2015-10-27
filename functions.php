@@ -1,10 +1,71 @@
 <?php 
 	
-	require_once("../config_global.php");
+	require_once("../config.php");
 	$database = "if15_hendrik7";
 	
+	session_start();
 	
-	function getCarData($keyword=""){
+	
+	function createUser($create_email, $hash){
+	
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("INSERT INTO users (email, password, username, fullname) VALUES (?, ?, ?, ?)");
+				
+		$stmt->bind_param("ssss", $create_email, $hash, $username, $fullname);
+		$stmt->execute();
+		$stmt->close();
+		
+		
+	}
+	
+	
+	function loginUser($email, $hash){
+		
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("SELECT id, email FROM users WHERE email=? AND password=?");
+		$stmt->bind_param("ss", $email, $hash);
+				
+		//muutujad tulemustele
+		$stmt->bind_result($id_from_db, $email_from_db);
+		$stmt->execute();
+				
+			//kontrollin kas tulemusi leiti
+			if($stmt->fetch()){
+			//ab'i oli midagi
+			echo "Email ja parool õiged, kasutaja id=".$id_from_db;
+					
+					//tekitan sessiooni muutujad
+					$_SESSION["logged_in_user_id"] = $id_from_db;
+					$_SESSION["logged_in_user_email"] = $email_from_db;
+					
+					//suunan data.php lehele
+					header("Location: data.php");
+					
+			}else{
+			//ei leidnud
+				echo "wrong credentails!";
+					
+			}
+				
+		$stmt->close();
+		$mysqli->close();
+	}
+	
+	function postMedia($title, $media){
+		
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("INSERT INTO user_content (user_id, title, media, comment) VALUES (?, ?, ?, ?)");
+		echo $mysqli->error;
+		$stmt->bind_param("iss",$_SESSION["logged_in_user_id"], $title, $media);
+		$stmt->execute();
+		echo $stmt->error;
+		
+		$stmt->close();
+		$mysqli->close();
+		
+	}
+	
+	function getPosts($keyword=""){
 		
 		$search = "%%";
 		
@@ -20,29 +81,29 @@
 		
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, number_plate, color from car_plates WHERE deleted IS NULL AND
-		(number_plate LIKE ? OR color LIKE ?)");
+		$stmt = $mysqli->prepare("SELECT id, user_id, title, comment from user_content WHERE deleted IS NULL AND
+		(title LIKE ? OR comment LIKE ?)");
 		echo $mysqli->error;
 		$stmt->bind_param("ss", $search, $search);
-		$stmt->bind_result($id, $user_id_from_database, $number_plate, $color);
+		$stmt->bind_result($id, $user_id_from_database, $title, $comment);
 		$stmt->execute();
 		
 		// tekitan tühja massiivi, kus edaspidi hoian objekte
-		$car_array = array();
+		$post_array = array();
 		
 		//tee midagi seni, kuni saame ab'ist ühe rea andmeid
 		while($stmt->fetch()){
 			// seda siin sees tehakse 
 			// nii mitu korda kui on ridu
 			// tekitan objekti, kus hakkan hoidma väärtusi
-			$car = new StdClass();
-			$car->id = $id;
-			$car->plate = $number_plate;
-			$car->user_id = $user_id_from_database;
-			$car->color = $color;
+			$content = new StdClass();
+			$content->id = $id;
+			$content->title = $title;
+			$content->user_id = $user_id_from_database;
+			$content->comment = $media;
 			
 			//lisan massiivi ühe rea juurde
-			array_push($car_array, $car);
+			array_push($content_array, $content);
 			//var dump ütleb muutuja tüübi ja sisu
 			//echo "<pre>";
 			//var_dump($car_array);
@@ -50,7 +111,7 @@
 		}
 		
 		//tagastan massiivi, kus kõik read sees
-		return $car_array;
+		return $content_array;
 		
 		
 		$stmt->close();
@@ -58,10 +119,10 @@
 	}
 	
 	
-	function deleteCar($id){
+	function deleteContent($id){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE car_plates SET deleted=NOW() WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE user_content SET deleted=NOW() WHERE id=?");
 		$stmt->bind_param("i", $id);
 		if($stmt->execute()){
 			// sai kustutatud
@@ -77,11 +138,11 @@
 		
 	}
 	
-	function updateCar($id, $number_plate, $color){
+	function updateContent($id, $title, $media){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE car_plates SET number_plate=?, color=? WHERE id=?");
-		$stmt->bind_param("ssi", $number_plate, $color, $id);
+		$stmt = $mysqli->prepare("UPDATE user_content SET title=?, media=? WHERE id=?");
+		$stmt->bind_param("ssi", $title, $media, $id);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tühjaks

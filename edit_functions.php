@@ -1,23 +1,23 @@
 <?php
 
-	require_once("../config_global.php");
+	require_once("../config.php");
 	$database = "if15_hendrik7";
 	function getEditData($edit_id){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT number_plate, color FROM car_plates WHERE id=? AND deleted IS NULL");
-		$stmt->bind_param("i", $edit_id, $color);
-		$stmt->bind_result($number_plate, $color);
+		$stmt = $mysqli->prepare("SELECT title, media FROM user_content WHERE id=? AND deleted IS NULL");
+		$stmt->bind_param("i", $edit_id, $media);
+		$stmt->bind_result($title, $media);
 		$stmt->execute();
 		
-		$car = new StdClass();
+		$content = new StdClass();
 		
 		//kas sain ühe rea andmeid kätte
 		//$stmt->fetch() annab ühe rea andmeid
 		if($stmt->fetch()){
-			$car->number_plate = $number_plate;
-			$car->color = $color;
+			$content->title = $title;
+			$content->media = $media;
 			
 		}else{
 			header("Location: table.php");
@@ -29,11 +29,11 @@
 		$mysqli->close();
 	}
 	
-	function updateCar($id, $number_plate, $color){
+	function updateContent($id, $title, $media){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE car_plates SET number_plate=?, color=? WHERE id=?");
-		$stmt->bind_param("ssi", $number_plate, $color, $id);
+		$stmt = $mysqli->prepare("UPDATE user_content SET title=?, media=? WHERE id=?");
+		$stmt->bind_param("ssi", $title, $media, $id);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tühjaks
@@ -45,7 +45,7 @@
 		$mysqli->close();
 	}
 	
-	return $car;
+	return $content;
 	
 	$stmt->close();
 	
