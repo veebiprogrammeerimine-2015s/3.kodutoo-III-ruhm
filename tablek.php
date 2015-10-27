@@ -29,7 +29,9 @@
 	}
 	
 ?>
-
+<html>
+<link rel="stylesheet" type="text/css" href="minukujundus.css">
+<body>
 <h2>Ravimite loetelu</h2>
 
 <form action="tablek.php" method="get"> 
@@ -47,6 +49,8 @@
 		<th>Edit</th>
 		<th></th>
 	</tr>
+</body>
+</html>
 	<?php
 		//trükime välja read
 		//massiivi pikkus count()

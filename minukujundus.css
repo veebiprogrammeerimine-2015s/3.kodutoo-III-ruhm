@@ -1,0 +1,13 @@
+body {
+	
+	background-color: rgba(188, 198, 204, 0.2);
+
+}
+body, table, h2, form
+{
+	margin:30px;
+	padding:10px;
+}
+
+table {background-color: rgba(188, 198, 204, 0.2)}
+

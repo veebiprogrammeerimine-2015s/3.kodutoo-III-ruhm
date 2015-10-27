@@ -130,7 +130,8 @@
 	}
 	function updateReview($id, $raviminimi, $hinnang, $kommentaar){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE ravimid SET raviminimi=?, hinnang=?, kommentaar0? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE ravimid SET raviminimi=?, hinnang=?, kommentaar=? WHERE id=?");
+		echo $mysqli->error;
 		$stmt->bind_param("sssi", $raviminimi, $hinnang, $kommentaar, $id);
 		if($stmt->execute()){
 			//sai kustutatud, kustutame aadressirea tühjaks

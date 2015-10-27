@@ -68,7 +68,7 @@
 <p>Tere, <?=$_SESSION["logged_in_user_email"];?>
 	<a href="?logout=1"> Logi välja <a>
 </p>
-	
+<link rel="stylesheet" type="text/css" href="minukujundus.css">	
 <h2>Lisa arvustus</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 		<label for ="raviminimi">Kirjuta ravimi nimi</label><br>
@@ -76,6 +76,6 @@
 		<label for ="hinnang">Määra hinnang</label><br>
 		<input id="hinnang" name="hinnang" type="text" value="<?php echo $hinnang; ?>"> <?php echo $hinnang_error; ?> <br><br>
 		<label for ="kommentaar">Kirjuta kommentaar</label><br>
-		<textarea id="kommentaar" name="kommentaar" col=80 rows=7 value="<?php echo $kommentaar; ?>" placeholder="Kirjuta siia oma kommentaar"> <?php echo $kommentaar_error; ?> </textarea><br><br>
+		<textarea id="kommentaar" name="kommentaar" col=40 rows=8 placeholder="Kirjuta siia oma kommentaar" value="<?php echo $kommentaar; ?>"> <?php echo $kommentaar_error; ?> </textarea><br><br>
 		<input type="submit" name="add_review" value="Sisesta"><br>
 		</form>	
