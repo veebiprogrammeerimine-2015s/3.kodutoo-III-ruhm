@@ -59,6 +59,7 @@
  ?>
  <html>
  <p>Tere, <?php echo $_SESSION["logged_in_user_email"];?> <a href="?logout=1">Logi välja<a>.</p>
+ <p>Vaata mis armoreid on teised soovitanud! <a href="table.php">!TABEL!<a></p>
  
  <h2>Soovita uus armor.</h2>
  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
