@@ -1,0 +1,8 @@
+CREATE TABLE review (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_id VARCHAR(255) NOT NULL,
+	location VARCHAR(128),
+	date VARCHAR(128),
+	feedback VARCHAR(255),
+	grade INT NOT NULL,
+);

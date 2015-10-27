@@ -18,37 +18,51 @@
 		header("Location: login.php");
 	}
 	
-	$number_plate = $color = "";
-	$number_plate_error = $color_error = "";
+	$location = $date = $feedback = $grade = "";
+	$location_error = $date_error =  $feedback_error = $grade_error = "";
 	
 	// keegi vajutas nuppu numbrimärgi lisamiseks
-	if(isset($_POST["add_plate"])){
+	if(isset($_POST["add_review"])){
 		
 		//echo $_SESSION["logged_in_user_id"];
 		
 		// valideerite väljad
-		if ( empty($_POST["number_plate"]) ) {
-			$number_plate_error = "See väli on kohustuslik";
+		if ( empty($_POST["location"]) ) {
+			$location_error = "See väli on kohustuslik";
 		}else{
-			$number_plate = cleanInput($_POST["number_plate"]);
+			$location = cleanInput($_POST["location"]);
 		}
 		
-		if ( empty($_POST["color"]) ) {
-			$color_error = "See väli on kohustuslik";
+		if ( empty($_POST["date"]) ) {
+			$date_error = "See väli on kohustuslik";
 		}else{
-			$color = cleanInput($_POST["color"]);
+			$date = cleanInput($_POST["date"]);
+		}
+		
+			if ( empty($_POST["feedback"]) ) {
+			$feedback_error = "See väli on kohustuslik";
+		}else{
+			$feedback = cleanInput($_POST["feedback"]);
+		}
+		
+			if ( empty($_POST["grade"]) ) {
+			$grade_error = "See väli on kohustuslik";
+		}else{
+			$grade = cleanInput($_POST["grade"]);
 		}
 		
 		// mõlemad on kohustuslikud
-		if($color_error == "" && $number_plate_error == ""){
+		if($location_error == "" && $date_error == "" && $feedback_error = "" &&  $grade_error = ""){
 			//salvestate ab'i fn kaudu addCarPlate
 			// message funktsioonist
-			$msg = addCarPlate($number_plate, $color);
+			$msg = addReview($location, $date, $feedback, $grade);
 			
 			if($msg != ""){
 				//õnnestus, teeme inputi väljad tühjaks
-				$number_plate = "";
-				$color = "";
+				$location = "";
+				$date = "";
+				$feedback = "";
+				$grade = "";
 				
 				echo $msg;
 				
@@ -72,11 +86,25 @@
 </p>
 
 
-<h2>Lisa autonumbrimärk</h2>
+<h2>Lisa arvustus</h2>
+
+
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
-	<label for="number_plate" >Auto numbrimärk</label><br>
-	<input id="number_plate" name="number_plate" type="text" value="<?php echo $number_plate; ?>"> <?php echo $number_plate_error; ?><br><br>
-	<label for="color">Värv</label><br>
-	<input id="color" name="color" type="text" value="<?php echo $color; ?>"> <?php echo $color_error; ?><br><br>
-	<input type="submit" name="add_plate" value="Salvesta">
+	
+	<label for="location" >Koha või teenusenimi</label><br>
+	<input id="location" name="location" type="text" value="<?php echo $location; ?>"> <?php echo $location_error; ?><br><br>
+	
+	<label for="date">Kuupäev, ei pea olema täpne</label><br>
+	<input id="date" name="date" type="text" value="<?php echo $date; ?>"> <?php echo $date_error; ?><br><br>
+	
+	<label for="feedback">Teie tagasiside/kogemus</label><br>
+	<input id="feedback" name="feedback" type="text" value="<?php echo $feedback; ?>"> <?php echo $feedback_error; ?><br><br>
+	
+	<label for="grade">Hinne 1-9</label><br>
+	<input id="grade" name="grade" type="number" value="<?php echo $grade; ?>"> <?php echo $grade_error; ?><br><br>
+	<input type="submit" name="add_plate" value="Lisa">
 </form>
+<a href="table.php"><h2 style=text-align:center>Loe teisi arvustusi</h2></a>
+
+
+
