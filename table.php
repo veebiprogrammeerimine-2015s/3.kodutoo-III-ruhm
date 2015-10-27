@@ -15,7 +15,7 @@
 	//salvestan andmebaasi uuendused
 	if(isset($_POST["save"])){
 		var_dump($_POST);
-		updateNote($_POST["id"], $_POST["pealkiri"], $_POST["märkus"]);
+		updateNote($_POST["id"], $_POST["title"], $_POST["note"]);
 	}
 	
 		$keywod = "";
@@ -33,6 +33,8 @@
 	
 	//käivitan funktsiooni
 	$array_of_notes = getNoteData();
+	
+	}
 	
 ?>
 
@@ -54,7 +56,7 @@
 		<th></th>
 	</tr>
 	
-	<?php
+<?php
 		// trükime välja read
 		// massiivi pikkus count()
 		for($i = 0; $i < count($array_of_notes); $i++){
@@ -68,8 +70,8 @@
 				echo "<input type='hidden' name='id' value='".$array_of_notes[$i]->id."'>";
 				echo "<td>".$array_of_notes[$i]->id."</td>";
 				echo "<td>".$array_of_notes[$i]->user_id."</td>";
-				echo "<td><input name='pealkiri' value='".$array_of_notes[$i]->pealkiri."'></td>";
-				echo "<td><input name='märkus' value='".$array_of_notes[$i]->märkus."'></td>";
+				echo "<td><input name='title' value='".$array_of_notes[$i]->title."'></td>";
+				echo "<td><input name='note' value='".$array_of_notes[$i]->note."'></td>";
 				echo "<td><a href='table.php'>cancel</a></td>";
 				echo "<td><input type='submit' name='save'></td>";
 				echo "</form>";
@@ -80,8 +82,8 @@
 				echo "<tr>";
 				echo "<td>".$array_of_notes[$i]->id."</td>";
 				echo "<td>".$array_of_notes[$i]->user_id."</td>";
-				echo "<td>".$array_of_notes[$i]->pealkiri."</td>";
-				echo "<td>".$array_of_notes[$i]->märkus."</td>";
+				echo "<td>".$array_of_notes[$i]->title."</td>";
+				echo "<td>".$array_of_notes[$i]->note."</td>";
 				echo "<td><a href='?delete=".$array_of_notes[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$array_of_notes[$i]->id."'>edit</a></td>";
 				echo "<td><a href='edit.php?edit_id=".$array_of_notes[$i]->id."'>edit.php</a></td>";
@@ -92,5 +94,5 @@
 		}
 	
 	
-	?>
+?>
 </table>

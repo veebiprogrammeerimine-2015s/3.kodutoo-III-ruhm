@@ -21,9 +21,9 @@
 		}
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, pealkiri, märkus from p2evik WHERE deleted IS NULL AND (pealkiri LIKE ? OR märkus LIKE ?) ");
+		$stmt = $mysqli->prepare("SELECT id, user_id, title, note from note_table WHERE deleted IS NULL AND (title LIKE ? OR note LIKE ?) ");
 		$stmt->bind_param("ss", $search, $search);
-		$stmt->bind_result($id, $user_id_from_database, $pealkiri, $märkus);
+		$stmt->bind_result($id, $user_id_from_database, $title, $note);
 		$stmt->execute();
 		
 		// tekitan tuhja massiivi, kus edaspidi hoian objekte
@@ -34,11 +34,11 @@
 			// seda siin sees tehakse 
 			// nii mitu korda kui on ridu
 			// tekitan objekti, kus hakkan hoidma vaartusi
-			$note = new StdClass();
-			$note->id = $id;
-			$note->pealkiri = $pealkiri;
-			$note->user_id = $user_id_from_database;
-			$note->märkus = $märkus;
+			$Note1 = new StdClass();
+			$Note1->id = $id;
+			$Note1->title = $title;
+			$Note1->user_id = $user_id_from_database;
+			$Note1->note = $note;
 			
 			//lisan massiivi uhe rea juurde
 			array_push($note_array, $note);
@@ -60,7 +60,7 @@
 	function deleteNote($id){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE pealkiri SET deleted=NOW() WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE title SET deleted=NOW() WHERE id=?");
 		$stmt->bind_param("i", $id);
 		if($stmt->execute()){
 			// sai kustutatud
@@ -76,11 +76,11 @@
 		
 	}
 	
-	function updateNote($id, $pealkiri, $märkus){
+	function updateNote($id, $title, $note){
 	
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE p2evik SET pealkiri=?, märkus=? WHERE id=?");
-		$stmt->bind_param("ssi", $pealkiri, $märkus, $id);
+		$stmt = $mysqli->prepare("UPDATE note_table SET title=?, note=? WHERE id=?");
+		$stmt->bind_param("ssi", $title, $note, $id);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tuhjaks

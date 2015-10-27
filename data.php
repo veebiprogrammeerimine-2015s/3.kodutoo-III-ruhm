@@ -18,37 +18,37 @@
 		header("Location: newfile.php");
 	}
 	
-	$pealkiri = $märkus = "";
-	$pealkiri_error = $märkus_error = "";
+	$title = $note = "";
+	$title_error = $note_error = "";
 	
 	// keegi vajutas nuppu numbrimärgi lisamiseks
-	if(isset($_POST["add_pealkiri"])){
+	if(isset($_POST["add_title"])){
 		
 		//echo $_SESSION["logged_in_user_id"];
 		
 		// valideerite väljad
-		if ( empty($_POST["pealkiri"]) ) {
-			$pealkiri_error = "See väli on kohustuslik";
+		if ( empty($_POST["title"]) ) {
+			$title_error = "See väli on kohustuslik";
 		}else{
-			$pealkiri = cleanInput($_POST["pealkiri"]);
+			$title = cleanInput($_POST["title"]);
 		}
 		
-		if ( empty($_POST["märkus"]) ) {
-			$märkus_error = "See väli on kohustuslik";
+		if ( empty($_POST["note"]) ) {
+			$note_error = "See väli on kohustuslik";
 		}else{
-			$märkus = cleanInput($_POST["märkus"]);
+			$note = cleanInput($_POST["note"]);
 		}
 		
 		// mõlemad on kohustuslikud
-		if($märkus_error == "" && $pealkiri_error == ""){
+		if($note_error == "" && $title_error == ""){
 			//salvestate ab'i fn kaudu addNote
 			//message funktioonist
-			$message = addNote($pealkiri, $märkus);
+			$message = addNote($title, $note);
 			
 			if($msg != ""){
 				//õnnestus, teeme inputi väljad tühjaks
-				$pealkiri = "";
-				$märkus = "";
+				$title = "";
+				$note = "";
 				
 				echo $msg;
 			}
@@ -73,9 +73,9 @@
 
 <h2>Lisa märkuse</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
-	<label for="pealkiri" >Pealkiri</label><br>
-	<input id="pealkiri" name="pealkiri" type="text" value="<?php echo $pealkiri; ?>"> <?php echo $pealkiri_error; ?><br><br>
-	<label for="märkus">Märkus</label><br>
-	<input id="märkus" name="märkus" type="text" value="<?php echo $märkus; ?>"> <?php echo $märkus_error; ?><br><br>
+	<label for="title" >Pealkiri</label><br>
+	<input id="title" name="title" type="text" value="<?php echo $title; ?>"> <?php echo $title_error; ?><br><br>
+	<label for="note">Märkus</label><br>
+	<input id="note" name="note" type="text" value="<?php echo $note; ?>"> <?php echo $note_error; ?><br><br>
 	<input type="submit" name="add_note" value="Salvesta">
 </form>

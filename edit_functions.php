@@ -7,9 +7,9 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT pealkiri, märkus FROM p2evik WHERE id=? AND deleted IS NULL");
+		$stmt = $mysqli->prepare("SELECT title, note FROM note_table WHERE id=? AND deleted IS NULL");
 		$stmt->bind_param("i",$edit_id);
-		$stmt->bind_result($pealkiri, $märkus);
+		$stmt->bind_result($title, $note);
 		$stmt->execute();
 		
 		//object
@@ -19,8 +19,8 @@
 		//$stmt->fetch() annab uhe rea andmeid
 		if($stmt->fetch()){
 			//sain
-			$note->pealkiri = $pealkiri;
-			$note->märkus = $märkus;
+			$Note1->title = $title;
+			$Note1->note = $note;
 			
 		}else{
 			// ei saanud
@@ -29,7 +29,7 @@
 			header("Location: table.php");
 		}
 		
-		return $note;
+		return $Note1;
 		
 		
 		$stmt->close();
@@ -37,11 +37,11 @@
 		
 	}
 	
-		function updateNote($id, $pealkiri, $märkus){
+		function updateNote($id, $title, $note){
 	
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE p2evik SET pealkiri=?, märkus=? WHERE id=?");
-		$stmt->bind_param("ssi", $pealkiri, $märkus, $id);
+		$stmt = $mysqli->prepare("UPDATE note_table SET title=?, note=? WHERE id=?");
+		$stmt->bind_param("ssi", $title, $note, $id);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tuhjaks

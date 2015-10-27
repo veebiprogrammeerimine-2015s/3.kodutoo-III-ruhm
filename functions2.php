@@ -43,14 +43,14 @@
 		$mysqli->close();
 	}
 	
-	function addNote($note_pealkiri, $note_märkus){
+	function addNote($note_title, $note_note){
 		
 		
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("INSERT INTO p2evik (user_id, pealkiri, märkus) VALUES (?,?,?)");
-		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"], $note_pealkiri, $note_märkus);
+		$stmt = $mysqli->prepare("INSERT INTO note_table (user_id, title, note) VALUES (?,?,?)");
+		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"], $note_title, $note_note);
 		
 		//sonum
 		$message = "";

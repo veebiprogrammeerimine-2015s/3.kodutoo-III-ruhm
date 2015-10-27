@@ -10,8 +10,8 @@
 		
 		//id oli adressireal
 		//tahaks uhte rida koige uuemaid andmeid kus id on $_GET["edit.php"]
-		$note = getEditData($_GET["edit_id"]);
-		var_dump($note);
+		$Note1 = getEditData($_GET["edit_id"]);
+		var_dump($Note1);
 		
 	}else{
 		//ei olnud adressireal
@@ -29,7 +29,7 @@
 		//number_plate ja color tulevad vormist
 		//aga id aadresirealt
 		
-		updateNote($_POST["id"], $_POST["pealkiri"], $_POST["märkus"]);
+		updateNote($_POST["id"], $_POST["title"], $_POST["note"]);
 		
 		
 	}
@@ -39,9 +39,9 @@
 <h2>Muuda märkuse</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
 	<input type="hidden" name="id" value="<?$_GET["edit_id"];?>">
-	<label for="pealkiri" >Pealkiri</label><br>
-	<input id="pealkiri" name="pealkiri" type="text" value="<?=$note->pealkiri;?>"><br><br>
-	<label for="märkus">Märkus</label><br>
-	<input id="märkus" name="märkus" type="text" value="<?=$note->märkus;?>"><br><br>
+	<label for="title" >Pealkiri</label><br>
+	<input id="title" name="title" type="text" value="<?=$Note1->title;?>"><br><br>
+	<label for="note">Märkus</label><br>
+	<input id="note" name="note" type="text" value="<?=$Note1->note;?>"><br><br>
 	<input type="submit" name="update_note" value="Salvesta">
 </form>
