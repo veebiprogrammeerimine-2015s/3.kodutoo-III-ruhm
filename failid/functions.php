@@ -105,4 +105,25 @@
 		$mysqli->close();
 	}
 	
+	function getEditData($edit_id){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("SELECT type, race, color FROM armorid WHERE id=? AND deleted IS NULL");
+		$stmt->bind_param("i", $edit_id);
+		$stmt->bind_result($armor_type, $armor_race, $armor_color);
+		$stmt->execute();
+		$armor = new StdClass();
+		if($stmt->fetch()){
+			
+			$armor->type = $armor_type;
+			$armor->race = $armor_race;
+			$armor->color = $armor_color;
+			
+		}else{
+			header("Location: table.php");
+		}
+		return $armor;
+		$stmt->close();
+		$mysqli->close();
+		
+	}
  ?>
