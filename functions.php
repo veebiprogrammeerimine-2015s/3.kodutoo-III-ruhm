@@ -44,9 +44,9 @@
 			
 			// suunan erinevatele lehtedele vastavalt kasutaja meiliaadressile(ainult teatud kasutaja saab edit'ida tabelit)
 			if($email_from_db == 'toomas@toomas.ee'){
-				header("Location: editdata.php");
+				header("Location: editdata.php"); // lehekülje admin läheb editdata lehele
 			}else{
-				header("Location: data.php");
+				header("Location: data.php"); // tavakasutaja läheb data lehele, kus ta ei saa tabelit muuta
 			}
 			
 		}else{
@@ -126,10 +126,7 @@
 			
 			// lisan massiivi ühe rea juurde
 			array_push($team_array, $team);
-			// var_dump ütleb muutuja nime ja stuffi
-			//echo "<pre>";
-			//var_dump($car_array);
-			//echo "</pre><br>";
+
 		}
 		
 		// tagastan massiivi, kus kõik read sees

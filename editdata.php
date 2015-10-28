@@ -125,6 +125,7 @@
 		for($i = 0;$i < count($array_of_teams);$i++){
 			// kasutaja tahab muuta seda rida
 			if(isset($_GET["edit"]) && $array_of_teams[$i]->id == $_GET["edit"]){
+				// admin saab tabelit muuta
 				
 				echo "<tr>";
 				echo "<form action='editdata.php' method='post'>";

@@ -11,3 +11,4 @@ CREATE TABLE tiimid (
 
 INSERT INTO tiimid (teamname, player1, player2, player3, player4, player5) VALUES ('tsm', 'bla1', 'bla2', 'bla3', 'bla4', 'bla5');
 INSERT INTO tiimid (teamname, player1, player2, player3, player4, player5) VALUES ('clg', 'blaa1', 'blaa2', 'blaa3', 'blaa4', 'blaa5');
+INSERT INTO tiimid (teamname, player1, player2, player3, player4, player5) VALUES ('dig', 'name1', 'name2', 'name3', 'name4', 'name5');

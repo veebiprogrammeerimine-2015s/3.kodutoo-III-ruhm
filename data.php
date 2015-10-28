@@ -105,6 +105,7 @@
 
 	<?php
 		for($i = 0;$i < count($array_of_teams);$i++){
+			// tavakasutaja ainult näeb tabelit, ise muuta ei saa
 			echo "<tr>";
 			echo "<td>".$array_of_teams[$i]->id."</td>";
 			echo "<td>".$array_of_teams[$i]->teamname."</td>";
