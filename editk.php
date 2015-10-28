@@ -1,6 +1,9 @@
 <?php
 
 	require_once("edit_functionsk.php");
+	$hinnang = "";
+	$kommentaar = "";
+	$kommentaar_error = "";
 	
 	if(isset($_POST["update_review"])){
 		//vajuta Salvesta nuppu
@@ -35,9 +38,40 @@
 		<input type="hidden" name="id" value="<?=$_GET["edit_id"];?>">
 		<label for ="raviminimi">Ravimi nimi</label><br>
 		<input id="raviminimi" name="raviminimi" type="text" value="<?=$review->raviminimi;?>"><br><br>
-		<label for ="hinnang">Hinnang</label><br>
-		<input id="hinnang" name="hinnang" type="text" value="<?=$review->hinnang;?>"> <br><br>
-		<label for ="kommentaar">Kommentaar</label><br>
-		<input id="kommentaar" name="kommentaar" type="text" col=80 rows=7 value="<?=$review->kommentaar;?>"> <br><br>
-		<input type="submit" name="update_review" value="Salvesta"><br>
+		<label for ="hinnang"> Määra hinnang</label><br>
+		<?php if($hinnang == 1) { ?>
+			<input id="hinnang" type="radio" value="1" name="hinnang" checked >1
+		<?php }else { ?>
+			<input id="hinnang" type="radio" value="1"  name="hinnang" >1
+		<?php } ?>
+		
+		<?php if($hinnang == 2) { ?>
+			<input id="hinnang" type="radio" value="2" name="hinnang" checked >2
+		<?php }else { ?>
+			<input id="hinnang" type="radio" value="2"  name="hinnang" >2
+		<?php } ?>
+		
+		<?php if($hinnang == 1) { ?>
+			<input id="hinnang" type="radio" value="3" name="hinnang" checked >3
+		<?php }else { ?>
+			<input id="hinnang" type="radio" value="3"  name="hinnang" >3
+		<?php } ?>
+		
+		<?php if($hinnang == 2) { ?>
+			<input id="hinnang" type="radio" value="4" name="hinnang" checked >4
+		<?php }else { ?>
+			<input id="hinnang" type="radio" value="4"  name="hinnang" >4
+		<?php } ?>
+		
+		<?php if($hinnang == 1) { ?>
+			<input id="hinnang" type="radio" value="5" name="hinnang" checked >5
+		<?php }else { ?>
+			<input id="hinnang" type="radio" value="5"  name="hinnang" >5
+		<?php } ?>
+		
+
+		<br><br>
+		<label for ="kommentaar">Kirjuta kommentaar</label><br>
+		<textarea id="kommentaar" name="kommentaar" col=40 rows=8 placeholder="Kirjuta siia oma kommentaar" value="<?php echo $kommentaar; ?>"> <?php echo $kommentaar_error; ?> </textarea><br><br>
+		<input type="submit" name="add_review" value="Sisesta"><br>
 		</form>	

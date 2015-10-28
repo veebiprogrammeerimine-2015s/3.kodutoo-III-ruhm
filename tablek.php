@@ -1,5 +1,6 @@
 <?php
 	require_once("functionsk2.php");
+	$hinnang = "";
 	
 	//kas kustutame, ?delete = vastav id mida kustutada on aadressireal
 	if(isset($_GET["delete"])){
@@ -47,7 +48,7 @@
 		<th>Kommentaar</th>
 		<th>X</th>
 		<th>Edit</th>
-		<th></th>
+		
 	</tr>
 </body>
 </html>
@@ -82,7 +83,6 @@
 				echo "<td>".$review_array[$i]->kommentaar."</td>";
 				echo "<td><a href='?delete=".$review_array[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$review_array[$i]->id."'>edit</a></td>";
-				echo "<td><a href='editk.php?edit_id=".$review_array[$i]->id."'>editk.php</a></td>";
 				echo "</tr>";
 			}
 			

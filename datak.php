@@ -10,6 +10,7 @@
 		$raviminimi_error = "";
 		$hinnang_error = "";
 		$kommentaar_error = "";
+
 		
 	if(isset($_POST["add_review"])){
 		if ( empty($_POST["raviminimi"]) ) {
@@ -74,7 +75,14 @@
 		<label for ="raviminimi">Kirjuta ravimi nimi</label><br>
 		<input id="raviminimi" name="raviminimi" type="text" value="<?php echo $raviminimi; ?>" > <?php echo $raviminimi_error; ?><br><br>
 		<label for ="hinnang">Määra hinnang</label><br>
-		<input id="hinnang" name="hinnang" type="text" value="<?php echo $hinnang; ?>"> <?php echo $hinnang_error; ?> <br><br>
+		
+		<input id="hinnang" type="radio" value="1" name="hinnang"  > 1
+		<input id="hinnang" type="radio" value="2" name="hinnang"  > 2
+		<input id="hinnang" type="radio" value="3" name="hinnang"  > 3
+		<input id="hinnang" type="radio" value="4" name="hinnang"  > 4
+		<input id="hinnang" type="radio" value="5" name="hinnang"  > 5
+
+		<br><br>
 		<label for ="kommentaar">Kirjuta kommentaar</label><br>
 		<textarea id="kommentaar" name="kommentaar" col=40 rows=8 placeholder="Kirjuta siia oma kommentaar" value="<?php echo $kommentaar; ?>"> <?php echo $kommentaar_error; ?> </textarea><br><br>
 		<input type="submit" name="add_review" value="Sisesta"><br>
