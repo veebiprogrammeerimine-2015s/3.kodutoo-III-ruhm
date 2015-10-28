@@ -1,6 +1,6 @@
 <?php
 
-require_once("../configglobal.php");
+require_once("../../configglobal.php");
 $database = "if15_siim_3";
 
 function getEditData($edit_id){
@@ -32,7 +32,7 @@ function updateCar($id,$number_plate,$color){
 		$stmt=$mysqli->prepare("UPDATE car_plates SET number_plate=?,color=? WHERE id=?");
 		$stmt->bind_param("ssi",$number_plate,$color,$id);
 		if($stmt->execute()){
-					echo"siin";
+				
 
 			//sai kustutatud
 			//kustutame aadressirea tühjaks

@@ -1,8 +1,10 @@
 <?php
 require_once("functions.php");
-$location = $condition = "";
+$location = $condition = $description = "" $date = "";
 $location_error = "";
 $condition_error = "";
+$description_error = "";
+$date_error = "";
 if(!isset($_SESSION["logged_in_user_id"])){
 		header("Location: login.php");
 	}
@@ -17,25 +19,37 @@ if(!isset($_SESSION["logged_in_user_id"])){
 	}
 	
 	
-if(isset($_POST["add_plate"])){
+if(isset($_POST["add_place"])){
 			
 		if (empty($_POST["location"])){
 			$location_error = "see väli on kohustulik";	
 		} else {
 			$location=test_input($_POST["location"]);
 		}
-		if (empty($_POST["color"])){
+		if (empty($_POST["condition"])){
 			$condition_error = "see väli on kohustulik";
 		} else {
-			$condition=test_input($_POST["color"]);
+			$condition=test_input($_POST["condition"]);
 		}
-		if ($location_error = "" && $color_error = "" );
+		if (empty($_POST["description"])){
+			$description_error = "see väli on kohustulik";	
+		} else {
+			$description=test_input($_POST["description"]);
+		}
+		if (empty($_POST["date"])){
+			$date_error = "see väli on kohustulik";	
+		} else {
+			$date=test_input($_POST["date"]);
+		}
+		if ($location_error = "" && $color_error = "" && $description_error = "" && $date_error = "");
 		
-		$message=addCarPlate($location,$condition);
+		$message=addPlace($location,$condition,$description,$date);
 		
 			if($message!=""){
 				$location="";
 				$condition="";
+				$description="";
+				$date="";
 				echo $message;
 		}
 		
@@ -58,13 +72,15 @@ function test_input($data) {
 	Tere,<?php echo $_SESSION["logged_in_user_email"];?>
 	<a href="?logout=1"> Logi välja <a>
 </p>
-<h2>Lisa huvitav asukoht mida külastada</h2>
+<h2>Lisa huvitav koht mida külastada</h2>
 <form action="data.php" method="post">
-			<label for="Location">Asukoht</label><br>
-			<input id="Location" name="Location" type="text"  value="<?php echo $location; ?>"> <?php echo $location_error; ?><br><br>
+			<label for="location">Asukoht</label><br>
+			<input id="location" name="location" type="text"  value="<?php echo $location; ?>"> <?php echo $location_error; ?><br><br>
 			<label for="condition">Olukord</label><br>
 			<input id="condition" name="condition" type="text" value="<?php echo $condition;?>"> <?php echo $condition_error; ?> <br><br>
-			<label for="color">Värv</label><br>
-			<input id="color" name="color" type="text" value="<?php echo $color;?>"> <?php echo $color_error; ?> <br><br>
-			<input name="add_plate" type="submit" value="Salvesta"> 
-		</form>
+			<label for="descrption">Kirjeldus</label><br>
+			<input id="description" name="description" type="text" value="<?php echo $description;?>"> <?php echo $description_error; ?> <br><br>
+			<label for="date">Kuupäev</label><br>
+			<input id="date" name="date" type="date" value="<?php echo $date;?>"> <?php echo $date_error; ?> <br><br>
+			<input name="add_place" type="submit" value="Salvesta"> 
+</form>
