@@ -68,7 +68,7 @@
 <h2>Unenägude blogi</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
 	<label for="blog_post" >Kirjuta siia oma unenäost!</label><br>
-	<input id="blog_post" name="blog_post" type="text" value="<?php echo $blog_post; ?>"> <?php echo $blog_post_error; ?><br><br>
+	<textarea rows="20" cols="100" id="blog_post" name="blog_post" ><?php echo $blog_post; ?></textarea> <?php echo $blog_post_error; ?><br><br>
 	
 	<input type="submit" name="add_post" value="Salvesta">
 </form>
