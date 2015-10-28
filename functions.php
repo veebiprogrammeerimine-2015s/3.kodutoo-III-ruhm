@@ -53,6 +53,63 @@
 	}
 	
 	//Kuigi muutujad on erinevad, jõuab väärtus kohale
+	
+		function getThreadData($keyword=""){
+		
+			$search = "%%";
+			
+			//kas otsisõna on tühi
+			if($keyword == ""){
+				// ei otsi midagi
+				
+			}else{
+				// otsin
+				$search = "%".$keyword."%";
+			}
+			
+			//echo "Finding ".$keyword;
+		
+			$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+			
+			$stmt = $mysqli->prepare("SELECT id, user_id, thread, post from martin_threads WHERE deleted IS NULL AND (thread LIKE ? OR post LIKE ?)");
+			$stmt->bind_param("ss", $search, $search);
+			$stmt->bind_result($id, $user_id_from_database, $thread, $post);
+			$stmt->execute();
+			
+			// tekitan (tühja) massiivi, kus edasipidi hoian objekte
+			$car_array = array();
+			
+			
+			// tee midagi seni, kuni saame andmebaasist ühe rea andmeid
+			while($stmt->fetch()){
+				// seda siin sees tehakse 
+				// nii mitu korda kui on ridu
+				
+				// tekitan objekti kus hakkan hoidma väärtusi
+				$forum = new StdClass();
+				$forum->id = $id;
+				$forum->thread = $thread;
+				$forum->user_id = $user_id_from_database;
+				$forum->post = $post;
+				
+				//lisan massiivi ühe rea juurde
+				array_push($thread_array, $thread);
+				// var dump ütleb muutuja tüübi ja sisu
+				//echo "<pre>";
+				//var_dump ($car_array);
+				//echo "</pre><br>";
+				
+				
+			}
+			
+			//tagastan massiivi, kus kõik read sees
+			return $thread_array;
+			
+			$stmt->close();
+			$mysqli->close();
+			
+	}
+	
 	function addThread($in_thread, $in_post){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt =  $mysqli->prepare("INSERT INTO martin_threads (user_id, thread, post) VALUES (?,?,?)");
@@ -85,42 +142,4 @@
 		$mysqli->close();
 
 	}
-
-		function deleteCar($id){
-		
-		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE martin_threads SET deleted=NOW() WHERE id=?");
-		$stmt->bind_param("i", $id);
-		if($stmt->execute()){
-			// sai kustutatud
-			// kustutame aadressirea tühjaks
-			header("Location: table.php");
-			
-		}
-		
-		$stmt->close();
-		$mysqli->close();
-		
-		
-		
-	}
-	
-	function updateThread($id, $number_plate, $color);
-		
-		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		
-		$stmt = $mysqli->prepare("UPDATE martin_threads SET thread=?, post=? WHERE id=?");
-		
-		$stmt->bind_param("ssi", $thread, $post, $id);
-		
-		if($stmt->execute()){
-			// sai uuendatud
-			// kustutame aadressirea tühjaks
-			//header("Location: table.php");
-			
-		}
-		
-		$stmt->close();
-		$mysqli->close();
-	
 ?>

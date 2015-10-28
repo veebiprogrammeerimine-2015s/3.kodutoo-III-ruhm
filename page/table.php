@@ -1,16 +1,8 @@
 <?php	
 
-	require_once("functions.php");
+	require_once("../functions.php");
 	
-	// kas kustutame midagi ??
-	// ?delete=vastav id mida kustutada on aadressireal
-	if(isset($_GET["delete"])){
-		
-		echo "Deletingid".$_GET["delete"];
-		// käivitan funktsiooni, saadan kaasa id !!
-		deleteThread($_GET["delete"]);
-	}
-	
+
 	// salvestan andmebaasi uuendused
 	if(isset($_POST["save"])){
 		
@@ -51,8 +43,6 @@
 		<th>user id</th>
 		<th>Title</th>
 		<th>Post</th>
-		<th>Delete</th>
-		<th>Edit</th>
 	</tr>
 	
 	<?php
@@ -61,8 +51,6 @@
 		for($i = 0; $i < count($array_of_threads); $i++){
 			//echo $array_of_threads[$i]->id;
 			
-			// kasutaja tahab muuta seda rida
-			if(isset($_GET["edit"]) && $array_of_threads[$i]->id == $_GET["edit"]){
 				
 				echo "<tr>";
 				echo "<form action= 'table.php' method='post'>";
@@ -76,20 +64,9 @@
 				echo "</form>";
 				echo "</tr>";
 				
-			}else{
-					
-				echo "<tr>";
-				echo "<td>".$array_of_threads[$i]->id."</td>";
-				echo "<td>".$array_of_threads[$i]->user_id."</td>";
-				echo "<td>".$array_of_threads[$i]->thread."</td>";
-				echo "<td>".$array_of_threads[$i]->post."</td>";
-				echo "<td><a href='?delete=".$array_of_threads[$i]->id."'>X</a></td>";
-				echo "<td><a href='?edit=".$array_of_threads[$i]->id."'>edit</a></td>";
-				echo "<td><a href='edit.php?edit_id=".$array_of_threads[$i]->id."'>edit</a></td>";
-				echo "</tr>";
+
 			}
 			
-		}
 	
 	?>
 
