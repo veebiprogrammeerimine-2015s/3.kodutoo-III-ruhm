@@ -19,7 +19,9 @@ require_once("../../config_global.php");
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt= $mysqli->prepare("SELECT id, user_id, post, from posts WHERE deleted IS NULL");
+		$stmt= $mysqli->prepare("SELECT id, user_id, post from posts WHERE deleted IS NULL AND (post LIKE ?)");
+		$stmt->bind_param("ss",$search, $search);
+		
 		$stmt->bind_result($id, $user_id_from_database, $post);
 		$stmt->execute();
 		
@@ -63,7 +65,7 @@ require_once("../../config_global.php");
 	
 	function updatePosts ($id, $post){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE car_plates SET post=?,  WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE posts SET post=?  WHERE id=?");
         $stmt->bind_param("si", $post, $posts_id);
         if($stmt->execute()){
 			

@@ -43,7 +43,7 @@
 				if (empty($_POST["email"]) ) {
 					$email_error = "See väli on kohustuslik";
 				}else{
-					$email = test_input($_POST["email"]);
+					$email = cleanInput($_POST["email"]);
 					
 				}
 				
@@ -57,7 +57,7 @@
 					$password_error= "Peab olema vähemalt 8 tähemärki pikk"; 
 					}else{
 						
-						$password = test_input($_POST["password"]);
+						$password = cleanInput($_POST["password"]);
 					}
 					
 				}
@@ -86,7 +86,7 @@
 				
 					
 				}else{
-					$username=test_input($_POST["username"]);
+					$username=cleanInput($_POST["username"]);
 				}
 				
 				
@@ -96,7 +96,7 @@
 				if (empty($_POST["create_email"]) ) {
 					$create_email_error = "Kirjuta oma email";
 				}else{
-					$create_email = test_input($_POST["create_email"]);
+					$create_email = cleanInput($_POST["create_email"]);
 					
 				}
 				
@@ -109,7 +109,7 @@
 						$create_password_error= "Peab olema vähemalt 8 tähemärki pikk"; 
 					}else{
 						
-						$create_password = test_input($_POST["create_password"]);
+						$create_password = cleanInput($_POST["create_password"]);
 					}
 					
 				}
@@ -132,16 +132,13 @@
 			
 		}
 		
-	function test_input($data) {
-		// võtab ära tühikud, enterid, tabid
+	function cleanInput($data) {
 	$data = trim($data);
-	   // tagurpidi kaldkriipsud
 	$data = stripslashes($data);
-	 // teeb html tekstiks < läheb &lt;
 	$data = htmlspecialchars($data);
 	return $data;
 	}
-	$mysqli->close();
+	
 ?>
 <?php
 	$page_title = "Sisselogimise leht";

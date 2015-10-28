@@ -2,13 +2,10 @@
 	
 	require_once("edit_functions.php");
 	
-	if(isset($_POST["update_post"])){
-		
-		
-		updatePosts($_POST["id"], $_POST["post"]);
-		
-		
-	}
+	if(isset($_POST["update_post"])){	
+			updatePosts($_POST["id"], $_POST["post"]);
+	}		
+	
 	if(isset($_GET["edit_id"])){
 		echo $_GET ["edit_id"];
 		

@@ -9,7 +9,7 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt=$mysqli->prepare("SELECT post,  FROM posts WHERE id=? AND deleted IS NULL");
+		$stmt=$mysqli->prepare("SELECT post FROM posts WHERE id=? AND deleted IS NULL");
 		$stmt->bind_param("i",$edit_id);
 		$stmt->bind_result($post);
 		$stmt->execute();
@@ -31,21 +31,20 @@
 		$mysqli->close();
 	}
 		
-	function updatePosts ($id, $post){
+	function updatePosts($id, $post){
+		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("UPDATE posts SET post=? WHERE id=?");
-        $stmt->bind_param("si", $post, $id);
-        if($stmt->execute()){
+		$stmt->bind_param("si", $post,  $id);
+		if($stmt->execute()){
+			// sai uuendatud
+			// kustutame aadressirea tühjaks
+			header("Location: poststable.php");
 			
+		}
 		
-        
-        
-        header("Location: poststable.php");
-        }
-        $stmt->close();
-        $mysqli->close();
-		
-		
+		$stmt->close();
+		$mysqli->close();
 	}
 
 
