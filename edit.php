@@ -7,7 +7,7 @@
 		//id oli aadressireal
 		
 		$car = getEditData($_GET["edit_id"]);
-		var_dump($car);
+		var_dump($blog);
 	
 	
 	}else{
@@ -18,21 +18,19 @@
 		//suuname kasutaja table.php öeheöe
 		header("Location: table.php");
 		}
-	if(isset($_POST["update_plate"])){
+	if(isset($_POST["update_post"])){
 		//vajutas salvesta nuppu
 		//number_plate ja color tulevad vormist, aga id aadressirealt
-		updateCar($_POST["id"],$POST["number_plate"], $_POST["color"]);
+		updateCar($_POST["id"],$POST["dream_post"]);
 		
 	}
 
 ?>
 
-<h2>Muuda autonumbrimärkki</h2>
+<h2>Muuda unenägu</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
 	<label type="hidden" name="id" value="<?=$_GET["edit_id"];?>>
-	<label for="number_plate" >Auto numbrimärk</label><br>
-	<input id="number_plate" name="number_plate" type="text" value="<?=$car->number_plate;?>"> <br><br>
-	<label for="color">Värv</label><br>
-	<input id="color" name="color" type="text" value=""> <br><br>
+	<label for="blog_post" >Unenäo kirjeldus</label><br>
+	<input id="blog_post" name="blog_post" type="text" value="<?=$car->blog_post;?>"> <br><br>
 	<input type="submit" name="update_plate" value="Salvesta">
 </form>
