@@ -52,11 +52,11 @@
 		$mysqli->close();
 	}	
 		
-	function addPlace ($location,$condition,$description,$date){
+	function addPlace ($location,$condition,$description,$date_visited){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-			$stmt = $mysqli->prepare("INSERT INTO interesting_places(user_id,location,condition,description,date) VALUES (?,?,?,?,?)");
+			$stmt = $mysqli->prepare("INSERT INTO interesting_places(user_id,location,condition,description,date_visited) VALUES (?,?,?,?,?)");
 			//asendame ? märgid, ss - s on string email, s on string password,i on integer
-			$stmt->bind_param("issss",$_SESSION["logged_in_user_id"],$location,$condition,$description,$date);
+			$stmt->bind_param("issss",$_SESSION["logged_in_user_id"],$location,$condition,$description,$date_visited);
 			
 			//sõnum
 			$message="";
@@ -117,7 +117,7 @@
 	
 	function deleteCar($id){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("UPDATE car_plates SET Deleted=NOW() WHERE id=?");
+		$stmt=$mysqli->prepare("UPDATE car_plates SET deleted=NOW() WHERE id=?");
 		$stmt->bind_param("i",$id);
 		if($stmt->execute()){
 			//sai kustutatud

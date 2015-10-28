@@ -5,15 +5,17 @@ $database = "if15_siim_3";
 
 function getEditData($edit_id){
 	$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-	$stmt=$mysqli->prepare("SELECT number_plate,color FROM car_plates WHERE id=? AND deleted IS NULL");
+	$stmt=$mysqli->prepare("SELECT location,condition,description,date_visited FROM interesting places WHERE id=? AND deleted IS NULL");
 	$stmt->bind_param("i",$edit_id);
-	$stmt->bind_result($number_plate,$color);
+	$stmt->bind_result($location,$condition,$description,$date_visited);
 	$stmt->execute();
-	$car=new StdClass();
+	$place=new StdClass();
 	//kas sain ühre rea namdeid kätte
 	if($stmt->fetch()){
-		$car->number_plate=$number_plate;
-		$car->color=$color;
+		$place->location=$location;
+		$place->condition=$condition;
+		$place->description=$description;
+		$place->date_visited=$date_visited;
 	}else{
 		//ei saanud
 		//id ei olnud olemas,id=12223546364
@@ -27,10 +29,10 @@ function getEditData($edit_id){
 	
 	
 }
-function updateCar($id,$number_plate,$color){
+function updatePlace($id,$location,$condition,$description,$date_visited){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("UPDATE car_plates SET number_plate=?,color=? WHERE id=?");
-		$stmt->bind_param("ssi",$number_plate,$color,$id);
+		$stmt=$mysqli->prepare("UPDATE interesting_places SET location=?,condition=?,description=?,date_visited=? WHERE id=?");
+		$stmt->bind_param("ssssi",$location,$condition,$description,$date_visited,$id);
 		if($stmt->execute()){
 				
 

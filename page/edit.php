@@ -3,11 +3,11 @@
 
 require_once("edit_functions.php");
 
-if(isset($_POST["update_plate"])){
+if(isset($_POST["update_place"])){
 	//vajutas salvesta nuppu
 	//number plate ja color tulevad vormist aga id aadressirealt
 	
-	updateCar($_POST["id"],$_POST["number_plate"],$_POST["color"]);
+	updatePlace($_POST["id"],$_POST["location"],$_POST["condition"],$_POST["description"],$_POST["date_visited"]);
 	}
 	//aadressrireal on ?edit_id siis tr¸kin v‰lja selle v‰‰rtuse
 	if(isset($_GET["edit_id"])){
@@ -28,12 +28,15 @@ if(isset($_POST["update_plate"])){
 
 ?>
 
-<h2>Muuda autonumbrim√§rkki</h2>
+<h2>Muuda kirjeid</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-	<input type="hidden" name="id" value="<?=$_GET["$edit_id"];?>">
-	<label for="number_plate">Auto numbrim√§rk</label><br>
-	<input id="number_plate" name="number_plate" type="text"  value="<?=$car->number_plate;?>"><br><br>
-	<label for="color">V√§rv</label><br>
-	<input id="color" name="color" type="text" value="<?=$car->color;?>"><br><br>
-	<input name="update_plate" type="submit" value="Salvesta"> 
+	<label for="location">Asukoht</label><br>
+	<input id="location" name="location" type="text"  value="<?php echo $location; ?>"><br><br>
+	<label for="condition">Olukord</label><br>
+	<input id="condition" name="condition" type="text" value="<?php echo $condition;?>"><br><br>
+	<label for="descrption">Kirjeldus</label><br>
+	<input id="description" name="description" type="text" value="<?php echo $description;?>"><br><br>
+	<label for="date_visited">K√ºlastuse kuup√§ev</label><br>
+	<input id="date_visited" name="date_visited" type="date" value="<?php echo $date;?>"><br><br>
+	<input name="update_place" type="submit" value="Salvesta">
 </form>

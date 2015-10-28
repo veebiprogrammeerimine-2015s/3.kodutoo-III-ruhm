@@ -13,5 +13,6 @@ CREATE TABLE interesting_places (
 	location VARCHAR(255);
 	condition VARCHAR(255);
 	description VARCHAR(255);
-	date VARCHAR(50);
+	date_visited VARCHAR(50);
+	deleted DEFAULT NULL
 )

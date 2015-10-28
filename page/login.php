@@ -36,18 +36,18 @@
 		if(isset($_POST["login"])){
 		//kontrollin et e-post ei ole tühi
 			if (empty($_POST["email"])){
-			$email_error = "see väli on kohustulik";	
+			$email_error = "see vÃ¤li on kohustulik";	
 			} else {
 				$email=test_input($_POST["email"]);
 			}
 			//kontrollin et parool ei ole tühi
 			if (empty($_POST["password"])){
-			$password_error = "see väli on kohustulik";
+			$password_error = "see vÃ¤li on kohustulik";
 			} else {
 			
 				//kui oleme siia jõudnud, siis parool pole tühi
 				if(strlen($_POST["password"]) < 8){
-				$password_error="peab olema vähemalt 8 tähemärki";
+				$password_error="peab olema vÃ¤hemalt 8 tÃ¤hemÃ¤rki";
 				} else {
 					$password=test_input($_POST["password"]);
 				}
@@ -66,25 +66,25 @@
 		if(isset($_POST["submit"])){
 		//kontrollin et eesnimi ei ole tühi
 			if (empty($_POST["first_name"])){
-				$fname_error = "see väli on kohustulik";
+				$fname_error = "see vÃ¤li on kohustulik";
 			}else{
 				$fname=test_input($_POST["first_name"]);
 			}
 			if (empty($_POST["last_name"])){
-				$lname_error = "see väli on kohustulik";
+				$lname_error = "see vÃ¤li on kohustulik";
 			}else{
 				$lname=test_input($_POST["last_name"]);
 			}
 			if (empty($_POST["create_email"])){
-				$create_email_error = " see väli on kohustulik";			
+				$create_email_error = " see vÃ¤li on kohustulik";			
 			} else {
 				$create_email=test_input($_POST["create_email"]);
 			}
 			if (empty($_POST["create_password"])){
-				$create_password_error = "see väli on kohustulik";	
+				$create_password_error = "see vÃ¤li on kohustulik";	
 			} else {			
 				if(strlen($_POST["create_password"]) < 8){
-					$create_password_error="peab olema vähemalt 8 tähemärki";
+					$create_password_error="peab olema vÃ¤hemalt 8 tÃ¤hemÃ¤rki";
 				
 				} else{
 					$create_password = test_input($_POST["create_password"]);
@@ -93,17 +93,17 @@
 				}
 			}	
 			if (empty($_POST["age"])){
-				$age_error = " see väli on kohustulik";			
+				$age_error = " see vÃ¤li on kohustulik";			
 			} else {
 					$age = intval($age);
 				if($age > 5 && $age <100  ){
-					$age_error = "Pane sait kohe kinni, oled interneti kasutamiseks liiga noor või liiga vana";
+					$age_error = "Pane sait kohe kinni, oled interneti kasutamiseks liiga noor vÃµi liiga vana";
 				}else{
 					$age=test_input($_POST["age"]);
 					}
 			}		
 			if (empty($_POST["city"])){
-				$city_error = " see väli on kohustulik";			
+				$city_error = " see vÃ¤li on kohustulik";			
 			} else {
 				$city=test_input($_POST["city"]);	
 				}
@@ -113,7 +113,7 @@
 				//räsi paroolist, mille salvestame andmebaasi
 			$hash = hash("sha512",$create_password);
 				
-				echo "Võib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password." ja räsi on ".$hash.$fname.$lname;
+				echo "VÃµib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password." ja rÃ¤si on ".$hash.$fname.$lname;
 				
 				createUser($create_email,$hash,$fname,$lname,$age,$city);
 				
