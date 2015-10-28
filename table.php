@@ -4,6 +4,10 @@
 	
 	// kas kustutame
 	// ?delete=vastav id mida kustutada on aadressireal
+	if(!isset($_SESSION["logged_in_user_id"])){
+		header("Location: login.php");
+	}
+	
 	if(isset($_GET["delete"])){
 		
 		echo "Kustutame id ".$_GET["delete"];
@@ -45,7 +49,7 @@
 	<input type="submit" value="Otsi">
 </form>
 
-<table border=1 >
+<table >
 	<tr>
 		<th>id</th>
 		<th>kasutaja id</th>
@@ -83,10 +87,9 @@
 				echo "<td>".$array_of_content[$i]->id."</td>";
 				echo "<td>".$array_of_content[$i]->user_id."</td>";
 				echo "<td>".$array_of_content[$i]->title."</td>";
-				echo "<td>".$array_of_content[$i]->media."</td>";
+				echo "<td><img src='".$array_of_content[$i]->media."' width='200px'></td>";
 				echo "<td><a href='?delete=".$array_of_content[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$array_of_content[$i]->id."'>edit</a></td>";
-				echo "<td><a href='edit.php?edit_id=".$array_of_content[$i]->id."'>edit.php</a></td>";
 				echo "</tr>";
 				
 			}

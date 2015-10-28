@@ -56,10 +56,21 @@
 	
 	
 ?>
+
+
+
+		
+			
+	
+
+	
+
+	
 <p>
 	Tere, <?=$_SESSION["logged_in_user_id"];?>
 	<a href="?logout=1">Logi välja<a>
 </p>
+
 
 <h2>Lisa postitus</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
@@ -69,3 +80,5 @@
   	<input name="media" type="text"  value="<?php echo $media; ?>"> <?php echo $media_error; ?><br><br>
   	<input type="submit" name="postMedia" value="Salvesta">
   </form>
+  
+  <a href="table.php">Vaata/Muuda postitusi</a>

@@ -81,11 +81,11 @@
 		
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, title from user_content WHERE deleted IS NULL AND
+		$stmt = $mysqli->prepare("SELECT id, user_id, title, media from user_content WHERE deleted IS NULL AND
 		(title LIKE ?)");
 		echo $mysqli->error;
 		$stmt->bind_param("s", $search);
-		$stmt->bind_result($id, $user_id_from_database, $title);
+		$stmt->bind_result($id, $user_id_from_database, $title, $media);
 		$stmt->execute();
 		
 		// tekitan tühja massiivi, kus edaspidi hoian objekte
@@ -99,6 +99,7 @@
 			$content = new StdClass();
 			$content->id = $id;
 			$content->title = $title;
+			$content->media = $media;
 			$content->user_id = $user_id_from_database;
 			
 			
@@ -122,8 +123,8 @@
 	function deleteContent($id){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE user_content SET deleted=NOW() WHERE id=?");
-		$stmt->bind_param("i", $id);
+		$stmt = $mysqli->prepare("UPDATE user_content SET deleted=NOW() WHERE id=? AND user_id=?");
+		$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			// sai kustutatud
 			// kustutame aadressirea tühjaks
@@ -141,8 +142,8 @@
 	function updateContent($id, $title, $media){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE user_content SET title=?, media=? WHERE id=?");
-		$stmt->bind_param("ssi", $title, $media, $id);
+		$stmt = $mysqli->prepare("UPDATE user_content SET title=?, media=? WHERE id=? AND user_id=?");
+		$stmt->bind_param("ssii", $title, $media, $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tühjaks
