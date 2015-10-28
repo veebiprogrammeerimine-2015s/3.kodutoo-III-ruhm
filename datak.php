@@ -1,15 +1,16 @@
 <?php
-	require_once("functionsk.php");
+	require_once("functionsk2.php");
 
 	if(!isset($_SESSION["logged_in_user_id"])){
 		header("Location: login.php");
-		}
-		$raviminimi ="";
-		$hinnang = "";
-		$kommentaar = "";
-		$raviminimi_error = "";
-		$hinnang_error = "";
-		$kommentaar_error = "";
+	}
+	
+	$raviminimi ="";
+	$hinnang = "";
+	$kommentaar = "";
+	$raviminimi_error = "";
+	$hinnang_error = "";
+	$kommentaar_error = "";
 
 		
 	if(isset($_POST["add_review"])){

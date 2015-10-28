@@ -1,5 +1,10 @@
 <?php
 	require_once("functionsk2.php");
+	
+	if(!isset($_SESSION["logged_in_user_id"])){
+		header("Location: login.php");
+	}
+	
 	$hinnang = "";
 	
 	//kas kustutame, ?delete = vastav id mida kustutada on aadressireal
@@ -81,8 +86,11 @@
 				echo "<td>".$review_array[$i]->raviminimi."</td>";
 				echo "<td>".$review_array[$i]->hinnang."</td>";
 				echo "<td>".$review_array[$i]->kommentaar."</td>";
-				echo "<td><a href='?delete=".$review_array[$i]->id."'>X</a></td>";
-				echo "<td><a href='?edit=".$review_array[$i]->id."'>edit</a></td>";
+				
+				if($_SESSION["logged_in_user_id"] == $review_array[$i]->user_id){
+					echo "<td><a href='?delete=".$review_array[$i]->id."'>X</a></td>";
+					echo "<td><a href='?edit=".$review_array[$i]->id."'>edit</a></td>";
+				}
 				echo "</tr>";
 			}
 			

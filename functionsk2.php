@@ -120,8 +120,8 @@
 	}
 	function deleteReview($id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE ravimid SET deleted=NOW() WHERE id=?");
-		$stmt->bind_param("i", $id);
+		$stmt = $mysqli->prepare("UPDATE ravimid SET deleted=NOW() WHERE id=? AND user_id=?");
+		$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			//sai kustutatud, kustutame aadressirea tühjaks
 			header("Location: tablek.php");
@@ -133,9 +133,9 @@
 	}
 	function updateReview($id, $raviminimi, $hinnang, $kommentaar){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE ravimid SET raviminimi=?, hinnang=?, kommentaar=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE ravimid SET raviminimi=?, hinnang=?, kommentaar=? WHERE id=? AND user_id =?");
 		echo $mysqli->error;
-		$stmt->bind_param("sssi", $raviminimi, $hinnang, $kommentaar, $id);
+		$stmt->bind_param("sssii", $raviminimi, $hinnang, $kommentaar, $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			//sai kustutatud, kustutame aadressirea tühjaks
 			//header("Location: table.php");

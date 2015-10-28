@@ -1,6 +1,6 @@
 <?php
 	//Loome ühenduse andmebaasiga
-	require_once("functionsk.php");
+	require_once("functionsk2.php");
 	
 	//kui kasutaja on sisseloginud, suunan data.php lehele
 	if(isset($_SESSION["logged_in_user_id"])){
