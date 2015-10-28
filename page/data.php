@@ -52,8 +52,8 @@
 		}
 		
 		// mõlemad on kohustuslikud
-		if($location_error == "" && $date_error == "" && $feedback_error = "" &&  $grade_error = ""){
-			//salvestate ab'i fn kaudu addCarPlate
+		if($location_error == "" && $date_error == "" && $feedback_error == "" &&  $grade_error == ""){
+			//salvestan ab
 			// message funktsioonist
 			$msg = addReview($location, $date, $feedback, $grade);
 			
