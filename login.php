@@ -82,6 +82,7 @@
       <input name="password" type="password" placeholder="Password"><?php echo $password_error; ?><br><br>
       <input name="login" type="submit" value="Log in">
     </form>
+	<hr>
     <h3>Register</h3>
     <form action="login.php" method="post">
       <input name="email_reg" type="email" placeholder="Email"><?php echo $email_error_reg; ?><br><br>

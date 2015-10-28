@@ -53,7 +53,6 @@
 			<input type="submit" value="Search">
 		</form>
 		<h1>Chat window</h1>
-		<h2>Tabel</h2>
 		<table border="1">
 		<tr>
 			<!--<th>id</th>-->
