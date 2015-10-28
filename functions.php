@@ -71,13 +71,15 @@
 		
 			$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 			
-			$stmt = $mysqli->prepare("SELECT id, user_id, thread, post from martin_threads WHERE deleted IS NULL AND (thread LIKE ? OR post LIKE ?)");
+			$stmt = $mysqli->prepare("SELECT id, user_id, thread, post from martin_threads");
+			echo $mysqli->error;
 			$stmt->bind_param("ss", $search, $search);
+			
 			$stmt->bind_result($id, $user_id_from_database, $thread, $post);
 			$stmt->execute();
 			
 			// tekitan (tühja) massiivi, kus edasipidi hoian objekte
-			$car_array = array();
+			$thread_array = array();
 			
 			
 			// tee midagi seni, kuni saame andmebaasist ühe rea andmeid
