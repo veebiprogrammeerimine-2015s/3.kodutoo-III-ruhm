@@ -42,6 +42,33 @@
 		
 		$mysqli->close();
 	}
+	
+	function addNote($note_title, $note_note){
+		
+		echo $note_title;
+		
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		
+		$stmt = $mysqli->prepare("INSERT INTO note_table (user_id, title, note) VALUES (?,?,?)");
+		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"], $note_title, $note_note);
+		
+		//sonum
+		$message = "";
+		
+		if($stmt->execute()){
+			//kui on tõene, siis INSERT õnnestus
+			$message = "Sai edukalt lisatud";
+		}else{
+			//kui on väär, siis kuvame error
+			echo $stmt->error;
+		}
+		
+		return $message;
+		
+		$stmt->close();
+		
+		$mysqli->close();
+	}
 		
 		
 	function getNoteData($keyword=""){
@@ -85,7 +112,7 @@
 			$Note1->note = $note;
 			
 			//lisan massiivi uhe rea juurde
-			array_push($note_array, $note);
+			array_push($note_array, $Note1);
 			//var dump utleb muutuja tuubi ja sisu
 			//echo "<pre>";
 			//var_dump($car_array);

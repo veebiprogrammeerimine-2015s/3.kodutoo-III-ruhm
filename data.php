@@ -1,5 +1,5 @@
 <?php
-	require_once("functions2.php");
+	require_once("functions.php");
 	//data.php
 	// siia pääseb ligi sisseloginud kasutaja
 	//kui kasutaja ei ole sisseloginud,
@@ -22,7 +22,7 @@
 	$title_error = $note_error = "";
 	
 	// keegi vajutas nuppu numbrimärgi lisamiseks
-	if(isset($_POST["add_title"])){
+	if(isset($_POST["add_note"])){
 		
 		//echo $_SESSION["logged_in_user_id"];
 		
@@ -43,7 +43,7 @@
 		if($note_error == "" && $title_error == ""){
 			//salvestate ab'i fn kaudu addNote
 			//message funktioonist
-			$message = addNote($title, $note);
+			$msg = addNote($title, $note);
 			
 			if($msg != ""){
 				//õnnestus, teeme inputi väljad tühjaks

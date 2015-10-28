@@ -1,6 +1,10 @@
 <?php
 	require_once("functions.php");
 	
+	if(!isset($_SESSION["logged_in_user_id"])){
+	header("Location: newfile.php");
+	}
+	
 	
 	// kas kustutame
 	// ?delete=vastav id mida kustutada on aadressireal
@@ -84,9 +88,14 @@
 				echo "<td>".$array_of_notes[$i]->user_id."</td>";
 				echo "<td>".$array_of_notes[$i]->title."</td>";
 				echo "<td>".$array_of_notes[$i]->note."</td>";
+				
+				
+				
 				echo "<td><a href='?delete=".$array_of_notes[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$array_of_notes[$i]->id."'>edit</a></td>";
 				echo "<td><a href='edit.php?edit_id=".$array_of_notes[$i]->id."'>edit.php</a></td>";
+				
+				
 				echo "</tr>";
 				
 			}

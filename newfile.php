@@ -58,6 +58,8 @@
 				
 				$hash = hash("sha512", $login_password);
 				
+				echo $hash;
+				
 				loginUser($login_email, $hash);
 			}
 		}
@@ -89,6 +91,8 @@
 			
 			if ( empty($_POST["create_email_confirm"]) ) {
 				$create_email_confirm_error = "See väli on kojustuslik";
+			}else{
+				$create_email_confirm = test_input($_POST["create_email_confirm"]);
 			}
 			
 			if ( empty($_POST["create_password"]) ) {
@@ -99,6 +103,8 @@
 				
 					$create_password_error = "Peab olema vähemalt 8 tähemärki pikk!";
 					
+				}else{
+					$create_password = test_input($_POST["create_password"]);
 				}
 			}
 				
@@ -110,6 +116,8 @@
 				
 					$create_password_confirm_error = "Peab olema vähemalt 8 tähemärki pikk!";
 					
+				}else{
+					$create_password_confirm = test_input($_POST["create_password_confirm"]);
 				}
 			}
 				if(	$create_email_error == "" && $create_password_error == ""){
