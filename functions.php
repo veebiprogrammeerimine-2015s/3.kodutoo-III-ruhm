@@ -36,56 +36,62 @@
     $stmt->execute();
     $stmt->close();
   }
-  function getMessageData(){
+  function getMessageData($keyword=""){
+	$search= "%%";
+	if($keyword == ""){
+	}
+	else{
+		$search= "%".$keyword."%";
+	}
+	  $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+	  //$stmt = $mysqli->prepare("SELECT id, nickname, message, timestamp from chat WHERE deleted IS NULL ");
+	  $stmt= $mysqli->prepare("SELECT id, nickname, message, timestamp FROM chat WHERE deleted is NULL AND (nickname LIKE ? OR message LIKE ?)");
+	  $stmt->bind_param("ss", $search, $search);
+	  $stmt->bind_result($id, $nickname, $message, $timestamp);
+	  $stmt->execute();
 
-  $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-  $stmt = $mysqli->prepare("SELECT id, nickname, message, timestamp from chat WHERE deleted IS NULL ");
-  $stmt->bind_result($id, $nickname, $message, $timestamp);
-  $stmt->execute();
+	  // tekitan tühja massiivi, kus edaspidi hoian objekte
+	  $chat_array = array();
 
-  // tekitan tühja massiivi, kus edaspidi hoian objekte
-  $chat_array = array();
+	  //tee midagi seni, kuni saame ab'ist ühe rea andmeid
+		while($stmt->fetch()){
+		// seda siin sees tehakse
+		// nii mitu korda kui on ridu
+		// tekitan objekti, kus hakkan hoidma väärtusi
+		$chat = new StdClass();
+		$chat->id = $id;
+		$chat->nickname = $nickname;
+		$chat->message = $message;
+		$chat->timestamp = $timestamp;
 
-  //tee midagi seni, kuni saame ab'ist ühe rea andmeid
-  while($stmt->fetch()){
-    // seda siin sees tehakse
-    // nii mitu korda kui on ridu
-    // tekitan objekti, kus hakkan hoidma väärtusi
-    $chat = new StdClass();
-    $chat->id = $id;
-    $chat->nickname = $nickname;
-    $chat->message = $message;
-    $chat->timestamp = $timestamp;
+		//lisan massiivi ühe rea juurde
+		array_push($chat_array, $chat);
+		//var dump ütleb muutuja tüübi ja sisu
+		//echo "<pre>";
+		//var_dump($car_array);
+		//echo "</pre><br>";
+	  }
 
-    //lisan massiivi ühe rea juurde
-    array_push($chat_array, $chat);
-    //var dump ütleb muutuja tüübi ja sisu
-    //echo "<pre>";
-    //var_dump($car_array);
-    //echo "</pre><br>";
-  }
-
-  //tagastan massiivi, kus kõik read sees
-  return $chat_array;
+	  //tagastan massiivi, kus kõik read sees
+	  return $chat_array;
 
 
-  $stmt->close();
-  $mysqli->close();
-}
-function updateChat($id, $message){
+	  $stmt->close();
+	  $mysqli->close();
+	}
+function updateChat($message, $id){
+	echo "updateChat launched";
+	$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+	$stmt = $mysqli->prepare("UPDATE chat SET message=? WHERE id=?");
+	$stmt->bind_param("si", $message, $id);
+	if($stmt->execute()){
+		echo "Executed";
+		header("Location: home.php");
 
-  $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-  $stmt = $mysqli->prepare("UPDATE chat SET message=? WHERE id=?");
-  $stmt->bind_param("is", $id, $message);
-  if($stmt->execute()){
-    // sai uuendatud
-    // kustutame aadressirea tühjaks
-    header("Location: home.php");
+	}
 
-  }
-
-  $stmt->close();
-  $mysqli->close();
+	$stmt->close();
+	$mysqli->close();
 }
 
 
