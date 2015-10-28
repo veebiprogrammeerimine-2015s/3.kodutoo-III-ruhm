@@ -42,7 +42,7 @@
 
 <form action="table.php" method="get">
 	<input type="search" name="keyword" value="<?=$keyword;?>">
-	<input type="submit">
+	<input type="submit" value="Otsi">
 </form>
 
 <table border=1 >
@@ -70,8 +70,8 @@
 				echo "<input type='hidden' name='id' value='".$array_of_content[$i]->id."'>";
 				echo "<td>".$array_of_content[$i]->id."</td>";
 				echo "<td>".$array_of_content[$i]->user_id."</td>";
-				echo "<td><input name='plate_number' value='".$array_of_content[$i]->plate."'></td>";
-				echo "<td><input name='color' value='".$array_of_content[$i]->color."'></td>";
+				echo "<td><input name='title' value='".$array_of_content[$i]->title."'></td>";
+				echo "<td><input name='media' value='".$array_of_content[$i]->media."'></td>";
 				echo "<td><a href='table.php'>cancel</a></td>";
 				echo "<td><input type='submit' name='save'></td>";
 				echo "</form>";
@@ -82,8 +82,8 @@
 				echo "<tr>";
 				echo "<td>".$array_of_content[$i]->id."</td>";
 				echo "<td>".$array_of_content[$i]->user_id."</td>";
-				echo "<td>".$array_of_content[$i]->plate."</td>";
-				echo "<td>".$array_of_content[$i]->color."</td>";
+				echo "<td>".$array_of_content[$i]->title."</td>";
+				echo "<td>".$array_of_content[$i]->media."</td>";
 				echo "<td><a href='?delete=".$array_of_content[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$array_of_content[$i]->id."'>edit</a></td>";
 				echo "<td><a href='edit.php?edit_id=".$array_of_content[$i]->id."'>edit.php</a></td>";

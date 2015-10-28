@@ -54,7 +54,7 @@
 	function postMedia($title, $media){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO user_content (user_id, title, media, comment) VALUES (?, ?, ?, ?)");
+		$stmt = $mysqli->prepare("INSERT INTO user_content (user_id, title, media) VALUES (?, ?, ?)");
 		echo $mysqli->error;
 		$stmt->bind_param("iss",$_SESSION["logged_in_user_id"], $title, $media);
 		$stmt->execute();
@@ -81,15 +81,15 @@
 		
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, title, comment from user_content WHERE deleted IS NULL AND
-		(title LIKE ? OR comment LIKE ?)");
+		$stmt = $mysqli->prepare("SELECT id, user_id, title from user_content WHERE deleted IS NULL AND
+		(title LIKE ?)");
 		echo $mysqli->error;
-		$stmt->bind_param("ss", $search, $search);
-		$stmt->bind_result($id, $user_id_from_database, $title, $comment);
+		$stmt->bind_param("s", $search);
+		$stmt->bind_result($id, $user_id_from_database, $title);
 		$stmt->execute();
 		
 		// tekitan tühja massiivi, kus edaspidi hoian objekte
-		$post_array = array();
+		$content_array = array();
 		
 		//tee midagi seni, kuni saame ab'ist ühe rea andmeid
 		while($stmt->fetch()){
@@ -100,7 +100,7 @@
 			$content->id = $id;
 			$content->title = $title;
 			$content->user_id = $user_id_from_database;
-			$content->comment = $media;
+			
 			
 			//lisan massiivi ühe rea juurde
 			array_push($content_array, $content);

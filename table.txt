@@ -1,0 +1,9 @@
+CREATE TABLE user_content (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  title VARCHAR(200),   
+  media TEXT,
+  comment VARCHAR(200),
+  deleted DATE,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+)

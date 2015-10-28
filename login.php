@@ -144,7 +144,7 @@
 	$page_file_name = "login.php"
 ?>	
 
-
+<?php require_once("header.php"); ?>
 <html>
 <head>
 	<title>Kasutaja leht</title>
@@ -175,3 +175,4 @@
 </body>
 
 </html>
+<?php require_once("footer.php"); ?>

@@ -18,8 +18,8 @@
 		header("Location: login.php");
 	}
 	
-	$title = $media = $comment = "";
-	$title_error = $media_error = $comment_error = "";
+	$title = $media = "";
+	$title_error = $media_error = "";
 	
 	
 	if(isset($_POST["postMedia"])){
@@ -39,10 +39,10 @@
 			}
 		if(	$title_error == "" && $media_error == ""){
 			
-			echo "Sisestatud! Numbrimärk on ".$title." ja värv on ".$media;
+			echo "Sisestatud!";
 				
-				//kasutaja loomise funktsioon, failist functions.php
-				addCarPlate($title, $media);
+				
+				postMedia($title, $media);
 			
 		}
 	}
@@ -61,11 +61,11 @@
 	<a href="?logout=1">Logi välja<a>
 </p>
 
-<h2>Lisa autonumbrimärk</h2>
+<h2>Lisa postitus</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
-	<label for="title" >Auto numbrimärk</label><br>
+	<label for="title" >Tiitel</label><br>
   	<input name="title" id="title" type="text"  value="<?php echo $title; ?>"> <?php echo $title_error; ?><br><br>
-	<label for="media" >Värv</label><br>
+	<label for="media" >Meedia</label><br>
   	<input name="media" type="text"  value="<?php echo $media; ?>"> <?php echo $media_error; ?><br><br>
-  	<input type="submit" name="add_plate" value="Salvesta">
+  	<input type="submit" name="postMedia" value="Salvesta">
   </form>
