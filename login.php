@@ -24,6 +24,7 @@
 	$password = "";
 	$create_email = "";
 	$create_password = "";
+	$create_name = "";
 
 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -79,8 +80,14 @@
 						$create_password = cleanInput($_POST["create_password"]);
 					}
 				}
+				if ( empty($_POST["create_name"])){
+					$create_name_error = "See väli on kohustuslik";
+					
+				}else{
+					$create_name = cleanInput($_POST["create_name"]);
+				}
 
-				if(	$create_email_error == "" && $create_password_error == ""){
+				if(	$create_email_error == "" && $create_password_error == "" && $create_name_error == ""){
 					
 					// räsi paroolist, mille salvestame ab'i
 					$hash = hash("sha512", $create_password);
@@ -89,7 +96,7 @@
 					
 					// kasutaja loomise funktsioon, failist functions.php
 					// saadame kaasa muutujad
-					register($create_email, $hash);
+					register($create_email, $hash, $create_name);
 					
 				}
 		} // create if end
@@ -115,6 +122,7 @@
 
   <h2>Create user</h2>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
+	<input name="create_name" type="text" placeholder="Nimi" value="<?php echo $create_name; ?>"> <?php echo $create_name_error; ?> <br><br>
   	<input name="create_email" type="email" placeholder="E-post" value="<?php echo $create_email; ?>"> <?php echo $create_email_error; ?><br><br>
   	<input name="create_password" type="password" placeholder="Parool"> <?php echo $create_password_error; ?> <br><br>
   	<input type="submit" name="create" value="Create user">

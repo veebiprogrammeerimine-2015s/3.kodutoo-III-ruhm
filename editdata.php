@@ -81,17 +81,18 @@
 	// ?delete=vastav id mida kustutame on aadressireal
 	if(isset($_GET["delete"])){
 		
-		echo "kustutame id ".$_GET["delete"];
-		//käivitan funktsiooni, saadan kaasa id
-		deleteTeam($_GET["delete"]);
-		
+		if($email_from_db == 'toomas@toomas.ee'){
+			echo "kustutame id ".$_GET["delete"];
+			//käivitan funktsiooni, saadan kaasa id
+			deleteTeam($_GET["delete"]);
+		}
 	}
 	
 	// salvestan muudatuse andmebaasi
 	if(isset($_POST["save"])){
-		
-		updateTeam($_POST["id"], $_POST["teamname"], $_POST["player1"], $_POST["player2"], $_POST["player3"], $_POST["player4"], $_POST["player5"]);
-		
+		if($email_from_db == 'toomas@toomas.ee'){
+			updateTeam($_POST["id"], $_POST["teamname"], $_POST["player1"], $_POST["player2"], $_POST["player3"], $_POST["player4"], $_POST["player5"]);
+		}
 	}
 	
 ?>

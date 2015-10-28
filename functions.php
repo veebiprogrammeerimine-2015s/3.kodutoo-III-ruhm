@@ -10,10 +10,10 @@
 	// kõik session muutujad on kättesaadavad kuni viimase brauseriakna sulgemiseni
 	session_start();
 	
-	function register($create_email, $hash){
+	function register($create_email, $hash, $create_name){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO MVP (email, password) VALUES (?,?)");
-		$stmt->bind_param("ss", $create_email, $hash);
+		$stmt = $mysqli->prepare("INSERT INTO MVP (email, password, name) VALUES (?,?,?)");
+		$stmt->bind_param("sss", $create_email, $hash, $create_name);
 		$stmt->execute();
 		$stmt->close();
 		$mysqli->close();
@@ -91,7 +91,7 @@
 		if($keyword == ""){
 			
 			//ei otsi midagi
-			echo "Ei otsi";
+			//echo "Ei otsi";
 			
 		}else{
 			
