@@ -80,6 +80,9 @@
 	}
 	
 ?>
+
+<html>
+<body style="background-color:#0074D9; text-align:center">
 <p>
 	Tere, <?=$_SESSION["logged_in_user_email"];?> 
 	<a href="?logout=1"> Logi välja <a> 
@@ -104,7 +107,8 @@
 	<input id="grade" name="grade" type="number" value="<?php echo $grade; ?>"> <?php echo $grade_error; ?><br><br>
 	<input type="submit" name="add_review" value="Lisa">
 </form>
-<a href="../table.php"><h2 style=text-align:center>Loe teisi arvustusi</h2></a>
-
+<a href="../table.php"><h2 style="text-align:center;color:#F8F8FF">Loe teisi arvustusi</h2></a>
+</body>
+</html>
 
 

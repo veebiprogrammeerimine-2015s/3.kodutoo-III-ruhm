@@ -35,8 +35,8 @@
 
 ?>
 
-
-<h2>Muuda arvustust</h2>
+<body style="background-color:#0074D9; text-align:center">
+<h2 style=color:#F8F8FF>Muuda arvustust</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
 	
 	<input type="hidden" name="id" value="<?=$_GET["edit_id"];?>
@@ -61,3 +61,5 @@
 	
 	
 </form>
+
+</body>

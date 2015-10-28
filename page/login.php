@@ -97,7 +97,7 @@
 <head>
   <title>Login</title>
 </head>
-<body>
+<body style="background-color:#0074D9; text-align:center">
 
   <h2>Log in</h2>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >

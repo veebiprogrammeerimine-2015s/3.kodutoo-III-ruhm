@@ -40,9 +40,9 @@
 	
 	
 ?>
-
-<h2>Arvustused</h2>
-<a href="page/data.php"><h2 style=text-align:right>Loo ise arvustus</h2></a>
+<body style="background-color:#0074D9">
+<h2 style=color:#F8F8FF>Arvustused</h2>
+<a href="page/data.php"><h2 style="text-align:right;color:#F8F8FF">Loo ise arvustus</h2></a>
 
 <style>
 
@@ -207,3 +207,5 @@
 	
 ?>
 </div>
+
+<body>
