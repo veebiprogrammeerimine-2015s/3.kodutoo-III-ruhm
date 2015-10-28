@@ -151,7 +151,7 @@
 <html>
 <head>
 	<title><?php echo $page_title; ?></title>
-	
+	<h1> Lehekülg <h1>
 </head>
 <body>
 	

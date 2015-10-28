@@ -2,8 +2,8 @@
 	require_once("function.php");
 	//data.php
 	//siia pääseb ligi sisseloginud kasutaja
-	//kui kasutaja ei ole sisseloginud, siis suunan data.php lehele
-	//kui kasutaja on issse loginud; siisi suunan data.php lehele
+	//kui kasutaja ei ole sisseloginud, siis suunan login.php lehele
+	//kui kasutaja on sisseloginud; siis suunan data.php lehele
 	if(!isset($_SESSION["logged_in_user_id"])){
 		header("Location: login.php");
 	}
@@ -65,7 +65,7 @@
 	</p> 
 	
 	
-<h2>Lisa autonumbrimärk</h2>
+<h2>Lisa pilt</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 	<label for="number_plate">Auto numbrimärk</label><br>
 	<input name="number_plate" id="number_plate" type="text"  value="<?php echo $number_plate; ?>">* <?php echo $number_plate_error; ?> <br><br>
@@ -73,3 +73,18 @@
 	<input name="color" type="text"  value="<?php echo $color; ?>">* <?php echo $color_error; ?> <br><br>
 	<input name="add_plate" type="submit" value="Salvesta"> 
 </form>
+<?php
+	// vaja väärtusi juurde lisada ning panna muudatused toimima
+	// vaja salvestada muudatused andmebaasi
+?>
+<h2> Muuda andmeid</h2>
+<form>
+	<input name="user_email" type="email" placeholder="E-post"> <br><br>
+	<input name="user_password" type="password" placeholder="Parool"> <br><br>
+	<input name="lastname" type="text" placeholder="Perekonnanimi"> <br><br>
+	<input name="firstname" type="text" placeholder="Eesnimi"> <br><br>
+	<input name="update_user" type="submit" value="Salvesta"> <br><br>
+ </form>
+
+
+
