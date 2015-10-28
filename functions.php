@@ -1,14 +1,14 @@
 <?php 
 
-	// Loon andmebaasi ühenduse
+	// Loon andmebaasi Ã¼henduse
 	require_once("../../config_global.php");
 	$database = "if15_martin";
-	
+
 	// tekitakse sessioon, mida hoitakse serveris 
-	// kõik session muutujad on kättesaadavad kuni viimase brauseriakna sulgemiseni
+	// kÃµik session muutujad on kÃ¤ttesaadavad kuni viimase brauseriakna sulgemiseni
 	session_start();
 
-	// võtab andmed ja sisestab andmebaasi
+	// vÃµtab andmed ja sisestab andmebaasi
 	function createUser($reg_username, $reg_email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
@@ -31,7 +31,7 @@
 		
 		if($stmt->fetch()){
 			//andmebaasis oli midagi
-			echo "Email, username ja parool õiged, kasutaja id=".$id_from_db;
+			echo "Email, username ja parool Ãµiged, kasutaja id=".$id_from_db;
 			
 			// tekitan sessiooni muutujad
 			$_SESSION["logged_in_user_id"] = $id_from_db;
@@ -52,13 +52,13 @@
 		
 	}
 	
-	//Kuigi muutujad on erinevad, jõuab väärtus kohale
+	//Kuigi muutujad on erinevad, jÃµuab vÃ¤Ã¤rtus kohale
 	
 		function getThreadData($keyword=""){
 		
 			$search = "%%";
 			
-			//kas otsisõna on tühi
+			//kas otsisÃµna on tÃ¼hi
 			if($keyword == ""){
 				// ei otsi midagi
 				
@@ -72,31 +72,30 @@
 			$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 			
 			$stmt = $mysqli->prepare("SELECT id, user_id, thread, post from martin_threads");
-			echo $mysqli->error;
 			$stmt->bind_param("ss", $search, $search);
 			
 			$stmt->bind_result($id, $user_id_from_database, $thread, $post);
 			$stmt->execute();
 			
-			// tekitan (tühja) massiivi, kus edasipidi hoian objekte
+			// tekitan (tÃ¼hja) massiivi, kus edasipidi hoian objekte
 			$thread_array = array();
 			
 			
-			// tee midagi seni, kuni saame andmebaasist ühe rea andmeid
+			// tee midagi seni, kuni saame andmebaasist Ã¼he rea andmeid
 			while($stmt->fetch()){
 				// seda siin sees tehakse 
 				// nii mitu korda kui on ridu
 				
-				// tekitan objekti kus hakkan hoidma väärtusi
+				// tekitan objekti kus hakkan hoidma vÃ¤Ã¤rtusi
 				$forum = new StdClass();
 				$forum->id = $id;
 				$forum->thread = $thread;
 				$forum->user_id = $user_id_from_database;
 				$forum->post = $post;
 				
-				//lisan massiivi ühe rea juurde
-				array_push($thread_array, $thread);
-				// var dump ütleb muutuja tüübi ja sisu
+				//lisan massiivi Ã¼he rea juurde
+				array_push($thread_array, $forum);
+				// var dump Ã¼tleb muutuja tÃ¼Ã¼bi ja sisu
 				//echo "<pre>";
 				//var_dump ($car_array);
 				//echo "</pre><br>";
@@ -104,7 +103,7 @@
 				
 			}
 			
-			//tagastan massiivi, kus kõik read sees
+			//tagastan massiivi, kus kÃµik read sees
 			return $thread_array;
 			
 			$stmt->close();
@@ -119,17 +118,17 @@
 
 		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"],$in_thread, $in_post);
 		
-		//sõnum
+		//sÃµnum
 		$message = "";
 		
 		if($stmt->execute()){
-			// kui on tõene
-			// siis INSERT õnnestus
+			// kui on tÃµene
+			// siis INSERT Ãµnnestus
 			$message = "Successfully added";
 			
 				
 		}else{
-			// Kui on väärtus FALSE
+			// Kui on vÃ¤Ã¤rtus FALSE
 			// siis kuvame errori
 			echo $stmt->error;
 			

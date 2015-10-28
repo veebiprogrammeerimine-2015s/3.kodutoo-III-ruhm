@@ -1,4 +1,4 @@
-<?php	
+ï»¿<?php	
 
 	require_once("../functions.php");
 	$page_title = "Threads";
@@ -22,9 +22,9 @@
 		
 	}else{
 		
-		//küsin kõik andmed
+		//kÃ¼sin kÃµik andmed
 		
-		//käivitan funktsiooni
+		//kÃ¤ivitan funktsiooni
 		$array_of_threads = getThreadData();
 	}
 	
@@ -48,33 +48,17 @@
 	</tr>
 	
 	<?php
-		// Trükime välja read
+		// TrÃ¼kime vÃ¤lja read
 		// massiivi pikkus count()
 		for($i = 0; $i < count($array_of_threads); $i++){
-			//echo $array_of_threads[$i]->id;
-			if(isset($_GET["edit"]) && $array_of_threads[$i]->id == $_GET["edit"]){
-				
-				echo "<tr>";
-				echo "<form action= 'table.php' method='post'>";
-				echo "<input type='hidden' name='id' value='".$array_of_threads[$i]->id."'>";
-				echo "<td>".$array_of_threads[$i]->id."</td>";
-				echo "<td>".$array_of_threads[$i]->user_id."</td>";
-				echo "<td><input name='thread' value='".$array_of_threads[$i]->thread."'></td>";
-				echo "<td><input name='post'value='".$array_of_threads[$i]->post."'></td>";
-				echo "<td><a href='table.php'>cancel</a></td>";
-				echo "<td><input type='submit' name='save'></td>";
-				echo "</form>";
-				echo "</tr>";
-				
-				}else{
-					
+								
 				echo "<tr>";
 				echo "<td>".$array_of_threads[$i]->id."</td>";
 				echo "<td>".$array_of_threads[$i]->user_id."</td>";
 				echo "<td>".$array_of_threads[$i]->thread."</td>";
 				echo "<td>".$array_of_threads[$i]->post."</td>";
 				echo "</tr>";
-			}
+			
 
 			}
 			
@@ -82,3 +66,5 @@
 	?>
 
 </table>
+
+<?php require_once("../footer.php"); ?>
