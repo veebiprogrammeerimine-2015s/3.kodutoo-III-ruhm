@@ -4,9 +4,9 @@
 	
 	function getEditData($edit_id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT raviminimi, hinnang, kommentaar FROM ravimid WHERE id=? AND deleted IS NULL");
+		$stmt = $mysqli->prepare("SELECT medicine, rating, comment FROM ravimid WHERE id=? AND deleted IS NULL");
 		$stmt->bind_param("i", $edit_id);	//bind_param asendab küsimärgid
-		$stmt->bind_result($raviminimi, $hinnang, $kommentaar);
+		$stmt->bind_result($medicine, $rating, $comment);
 		$stmt->execute();
 		
 		$review = new StdClass();
@@ -14,9 +14,9 @@
 		if($stmt->fetch()){
 			//sain
 			
-			$review->raviminimi =$raviminimi;
-			$review->hinnang=$hinnang;
-			$review->kommentaar=$kommentaar;
+			$review->medicine =$medicine;
+			$review->rating=$rating;
+			$review->comment=$comment;
 			
 			
 		}else{
@@ -27,10 +27,10 @@
 		$mysqli->close();
 		
 	}
-	function updateReview($id, $raviminimi, $hinnang, $kommentaar){
+	function updateReview($id, $medicine, $rating, $comment){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE ravimid SET raviminimi=?, hinnang=?, kommentaar=? WHERE id=?");
-		$stmt->bind_param("sssi", $raviminimi, $hinnang, $kommentaar, $id);
+		$stmt = $mysqli->prepare("UPDATE ravimid SET medicine=?, rating=?, comment=? WHERE id=?");
+		$stmt->bind_param("sssi", $medicine, $rating, $comment, $id);
 		if($stmt->execute()){
 
 			

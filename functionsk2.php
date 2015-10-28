@@ -5,7 +5,7 @@
 	$database = "if15_earis_3";
 	session_start();
 	
-	//hakkame andmeid andmebaasi sisestama (raviminimi, hinnang, kommentaar)
+	//hakkame andmeid andmebaasi sisestama (medicine, rating, comment)
 	function createUser($firstname, $lastname, $email2, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("INSERT INTO users2 (email, password, firstname, lastname) VALUES (?, ?, ?, ?)");
@@ -38,10 +38,10 @@
 		$mysqli->close();
 		
 	} 
-	function addReview($raviminimi, $hinnang, $kommentaar){
+	function addReview($medicine, $rating, $comment){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO ravimid (user_id, raviminimi, hinnang, kommentaar) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param("isss", $_SESSION["logged_in_user_id"], $raviminimi, $hinnang, $kommentaar);
+		$stmt = $mysqli->prepare("INSERT INTO ravimid (user_id, medicine, rating, comment) VALUES (?, ?, ?, ?)");
+		$stmt->bind_param("isss", $_SESSION["logged_in_user_id"], $medicine, $rating, $comment);
 		
 		//sõnum
 		$message= "";
@@ -82,10 +82,10 @@
 		}
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, raviminimi, hinnang, kommentaar FROM ravimid WHERE deleted IS NULL AND (raviminimi LIKE ?)");
+		$stmt = $mysqli->prepare("SELECT id, user_id, medicine, rating, comment FROM ravimid WHERE deleted IS NULL AND (medicine LIKE ?)");
 		//echo $mysqli->error; //Unknown column 'deleted' in 'where clause' ??? - lahendatud
 		$stmt->bind_param("s", $search);
-		$stmt->bind_result($id, $user_id, $raviminimi, $hinnang, $kommentaar);
+		$stmt->bind_result($id, $user_id, $medicine, $rating, $comment);
 		$stmt->execute();
 		
 		//tekitan tühja massiivi, kus edaspidi hoian objekte
@@ -98,10 +98,10 @@
 			//tekitan objekti, kus hakkan hoidma väärtusi
 			$review = new StdClass();
 			$review->id = $id;
-			$review->raviminimi =$raviminimi;
+			$review->medicine =$medicine;
 			$review->user_id=$user_id;
-			$review->hinnang=$hinnang;
-			$review->kommentaar=$kommentaar;
+			$review->rating=$rating;
+			$review->comment=$comment;
 			//lisan massiivi ühe rea juurde
 			
 			array_push($review_array, $review);
@@ -131,11 +131,11 @@
 		$mysqli->close();
 		
 	}
-	function updateReview($id, $raviminimi, $hinnang, $kommentaar){
+	function updateReview($id, $medicine, $rating, $comment){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE ravimid SET raviminimi=?, hinnang=?, kommentaar=? WHERE id=? AND user_id =?");
+		$stmt = $mysqli->prepare("UPDATE ravimid SET medicine=?, rating=?, comment=? WHERE id=? AND user_id =?");
 		echo $mysqli->error;
-		$stmt->bind_param("sssii", $raviminimi, $hinnang, $kommentaar, $id, $_SESSION["logged_in_user_id"]);
+		$stmt->bind_param("sssii", $medicine, $rating, $comment, $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			//sai kustutatud, kustutame aadressirea tühjaks
 			//header("Location: table.php");

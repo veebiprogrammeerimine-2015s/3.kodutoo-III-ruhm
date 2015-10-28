@@ -5,7 +5,7 @@
 		header("Location: login.php");
 	}
 	
-	$hinnang = "";
+	$rating = "";
 	
 	//kas kustutame, ?delete = vastav id mida kustutada on aadressireal
 	if(isset($_GET["delete"])){
@@ -16,7 +16,7 @@
 	}
 	//salvestan andmebaasi
 	if(isset($_POST["save"])){
-		updateReview($_POST["id"], $_POST["raviminimi"], $_POST["hinnang"], $_POST["kommentaar"]);
+		updateReview($_POST["id"], $_POST["medicine"], $_POST["rating"], $_POST["comment"]);
 	}
 	
 	$keyword="";
@@ -48,9 +48,9 @@
 	<tr>
 		<th>Id</th>
 		<th>User id</th>
-		<th>Raviminimi</th>
-		<th>Hinnang</th>
-		<th>Kommentaar</th>
+		<th>medicine</th>
+		<th>rating</th>
+		<th>comment</th>
 		<th>X</th>
 		<th>Edit</th>
 		
@@ -71,9 +71,9 @@
 				echo "<input type='hidden' name='id' value='".$review_array[$i]->id."'>";
 				echo "<td>".$review_array[$i]->id."</td>";
 				echo "<td>".$review_array[$i]->user_id."</td>";
-				echo "<td><input name='raviminimi' value ='".$review_array[$i]->raviminimi."'></td>";
-				echo "<td><input name='hinnang' value ='".$review_array[$i]->hinnang."'></td>";
-				echo "<td><input name='kommentaar' value ='".$review_array[$i]->kommentaar."'></td>";
+				echo "<td><input name='medicine' value ='".$review_array[$i]->medicine."'></td>";
+				echo "<td><input name='rating' value ='".$review_array[$i]->rating."'></td>";
+				echo "<td><input name='comment' value ='".$review_array[$i]->comment."'></td>";
 				echo "<td><a href='tablek.php'>Cancel</a></td>";
 				echo "<td><input type='submit' name='save'></td>";
 				echo "</tr>";
@@ -83,9 +83,9 @@
 				echo "<tr>";
 				echo "<td>".$review_array[$i]->id."</td>";
 				echo "<td>".$review_array[$i]->user_id."</td>";
-				echo "<td>".$review_array[$i]->raviminimi."</td>";
-				echo "<td>".$review_array[$i]->hinnang."</td>";
-				echo "<td>".$review_array[$i]->kommentaar."</td>";
+				echo "<td>".$review_array[$i]->medicine."</td>";
+				echo "<td>".$review_array[$i]->rating."</td>";
+				echo "<td>".$review_array[$i]->comment."</td>";
 				
 				if($_SESSION["logged_in_user_id"] == $review_array[$i]->user_id){
 					echo "<td><a href='?delete=".$review_array[$i]->id."'>X</a></td>";
