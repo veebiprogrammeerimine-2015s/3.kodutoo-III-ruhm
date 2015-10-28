@@ -28,16 +28,14 @@
 		$array_of_messages = getMessageData();
 	}
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
-		if(isset($_POST["send"])){
-			//echo ($_POST["message"]);
-			$message= ($_POST["message"]);
-			$nickname= ($_SESSION["logged_in_user_nickname"]);
-			updateChat($message, $nickname);
-		  }
-	}
-	if(isset($_POST["send_message"])){
-		$send_message=($_POST["send_message"]);
-		sendMessage($send_message, $nickname);
+    if(isset($_POST["send"])){
+		//echo ($_POST["message"]);
+		$message= ($_POST["message"]);
+		$id= ($_POST["id"]);
+		echo $id;
+		echo $message;
+		updateChat($message, $id);
+      }
 	}
 ?>
 <html>
@@ -46,7 +44,7 @@
 	</head>
 	<body>
 		<p>Tere, <?= $nickname;?></p>
-		<a href="?logout=1"> Logi v√§lja? <a>
+		<a href="?logout=1"> Logi v‰lja? <a>
 		<form action="home.php" method="get" >
 			<input type="search" name="keyword" value="<?=$keyword;?>" >
 			<input type="submit" value="Search">
@@ -83,20 +81,15 @@
 					echo "<td>".$array_of_messages[$i]->nickname."</td>";
 					echo "<td>".$array_of_messages[$i]->message."</td>";
 					echo "<td>".$array_of_messages[$i]->timestamp."</td>";
-					if($array_of_messages[$i]->nickname == $nickname){
-						echo "<td><a href='?edit=".$array_of_messages[$i]->id."'>edit</a></td>";
-					}
-					else{
-						echo "<td>X</td>";
-					}
+					echo "<td><a href='?edit=".$array_of_messages[$i]->id."'>edit</a></td>";
 					echo "</tr>";
 				}
 			}
 		?>
 		</table>
 				<form action="home.php" method="post">
-					<input name="send_message" type="text" placeholder="Message here...">
-					<input name="send_submit" type="submit" value="Send">
+					<input name="message" type="text" placeholder="Message here...">
+					<input name="send" type="submit" value="Send">
 				</form>
 	</body>
 </html>
