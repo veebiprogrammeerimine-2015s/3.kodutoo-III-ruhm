@@ -2,10 +2,8 @@
 
 	// LOGIN.PHP
 	
-	require_once("../../config.php");
-	$database = "if15_ruzjaa_3";
-	$mysqli = new mysqli($servername, $username, $password, $database);
-	
+	require_once("functions.php");
+
 	$email_error = "";
 	$password_error = "";
 	$firstname_error = "";
@@ -20,7 +18,8 @@
 	$create_password_confirm_error = "";
 	$firstname = "";
 	$lastname = "";
-	$email = "";
+	$login_email = "";
+	$login_password = "";
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
@@ -28,45 +27,38 @@
 			
 			echo "vajutas login nuppu!";
 
-			if ( empty($_POST["email"]) ) {
+			if ( empty($_POST["email1"]) ) {
 				$email_error = "See väli on kohustuslik";
+			}else{
+				$login_email = test_input($_POST["email1"]);
 			}
 			
-			if ( empty($_POST["password"]) ) {
+			if ( empty($_POST["password1"]) ) {
 				$password_error = "See väli on kohustuslik";
 			}else{
 				
-				if(strlen($_POST["password"]) < 8) { 
+				if(strlen($_POST["password1"]) < 8) { 
 				
 					$password_error = "Peab olema vähemalt 8 tähemärki pikk!";
 					
+				}else{
+					$login_password = test_input($_POST["password1"]);
 				}
 				
 			}
 			
 			if($email_error == "" && $password_error ==""){
 				
-				echo "kontrollin sisselogimist ".$email." ja parool ";
+				echo "kontrollin sisselogimist ".$login_email." ja parool ";
 			}
 		
 		
 			if($password_error == "" && $email_error == ""){
-				echo "Võib sisse logida! Kasutajanimi on ".$email." ja parool on ".$password;
+				echo "Võib sisse logida! Kasutajanimi on ".$login_email." ja parool on ".$login_password;
 				
-				$hash = hash("sha512", $password);
+				$hash = hash("sha512", $login_password);
 				
-				$stmt = $mysqli->prepare("SELECT id, email FROM newfile WHERE email=? AND password=?");
-				echo $mysqli->error;
-				$stmt->bind_param("ss", $email, $hash);
-				$stmt->bind_result($id_from_db, $email_from_db);
-				$stmt->execute();
-				if($stmt->fetch()){
-					echo "Email ja parool oiged, kasutaja id=".$id_from_db;
-				}else{
-					echo "Wrong redentials";
-				}
-				
-				$stmt->close();
+				loginUser($login_email, $hash);
 			}
 		}
 		
@@ -126,12 +118,7 @@
 				
 				echo "Võib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password. " ja räsi on".$hash;
 				
-				$stmt = $mysqli->prepare("INSERT INTO newfile (email, password, firstname, lastname) VALUES (?,?,?,?)");
-				echo $mysqli->error;
-				echo $stmt->error;
-				$stmt->bind_param("ssss", $create_email, $hash, $firstname, $lastname);
-				$stmt->execute();
-				$stmt->close();
+				createUser($create_email, $hash, $firstname, $lastname);
 		  }
 		}
 		
@@ -145,7 +132,7 @@
 		 $data = htmlspecialchars($data);
 		 return $data;
 	}
-	$mysqli->close();
+	
 ?>
 <html>
 <head>
@@ -155,8 +142,8 @@
 	<h2>Log in</h2>
 	
 		<form action="newfile.php" method="post" >
-			<input name="email" type="email" placeholder="Email"> <?php echo $email_error; ?><br><br>
-			<input name="password" type="password" placeholder="Password"> <?php echo $password_error; ?><br><br>
+			<input name="email1" type="email" placeholder="Email"> <?php echo $email_error; ?><br><br>
+			<input name="password1" type="password" placeholder="Password"> <?php echo $password_error; ?><br><br>
 			<input name="login" type="submit" value="Log in">
 		</form>
 		
