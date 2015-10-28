@@ -20,7 +20,7 @@ require_once("../../config_global.php");
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
 		$stmt= $mysqli->prepare("SELECT id, user_id, post from posts WHERE deleted IS NULL AND (post LIKE ?)");
-		$stmt->bind_param("ss",$search, $search);
+		$stmt->bind_param("s",$search);
 		
 		$stmt->bind_result($id, $user_id_from_database, $post);
 		$stmt->execute();
