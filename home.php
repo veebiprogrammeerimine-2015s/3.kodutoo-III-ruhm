@@ -27,14 +27,15 @@
 	}else{
 		$array_of_messages = getMessageData();
 	}
-	if($_SERVER["REQUEST_METHOD"] == "POST"){
-		if(isset($_POST["send"])){
-			//echo ($_POST["message"]);
-			$message= ($_POST["message"]);
-			$nickname= ($_SESSION["logged_in_user_nickname"]);
-			updateChat($message, $nickname);
-		  }
+	if(isset($_POST["send"])){
+		//echo ($_POST["message"]);
+		$id_edit= ($_POST["id"]);
+		$message= ($_POST["message"]);
+		echo $message;
+		echo $id;
+		updateChat($message, $id_edit);
 	}
+	
 	if(isset($_POST["send_message"])){
 		$send_message=($_POST["send_message"]);
 		sendMessage($send_message, $nickname);

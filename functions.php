@@ -85,7 +85,6 @@ function updateChat($message, $id){
 	$stmt = $mysqli->prepare("UPDATE chat SET message=? WHERE id=?");
 	$stmt->bind_param("si", $message, $id);
 	if($stmt->execute()){
-		echo "Executed";
 		header("Location: home.php");
 
 	}
