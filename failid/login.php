@@ -1,23 +1,30 @@
 <?php
-		//loon andmebaasi ühenduse
+
 	require_once("functions.php");
 	
 	if(isset($_SESSION["logged_in_user_id"])){
 		header("Location: data.php");
 	}
 
-  // muuutujad errorite jaoks
 	$email_error = "";
 	$password_error = "";
 	$create_email_error = "";
 	$create_password_error = "";
+	$create_nickname_error = "";
+	$create_name_error = "";
+	$create_surname_error = "";
+	$create_date_error = "";
 
-  // muutujad väärtuste jaoks
+  
 	$email = "";
 	$password = "";
 	$create_email = "";
 	$create_password = "";
-
+	$create_nickname = "";
+	$create_name = "";
+	$create_surname = "";
+	$create_date = "";
+	
 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -29,7 +36,7 @@
 			if ( empty($_POST["email"]) ) {
 				$email_error = "See väli on kohustuslik";
 			}else{
-        // puhastame muutuja võimalikest üleliigsetest sümbolitest
+        
 				$email = cleanInput($_POST["email"]);
 			}
 
@@ -39,7 +46,7 @@
 				$password = cleanInput($_POST["password"]);
 			}
 
-      // Kui oleme siia jõudnud, võime kasutaja sisse logida
+      
 			if($password_error == "" && $email_error == ""){
 				echo "Võib sisse logida! Kasutajanimi on ".$email." ja parool on ".$password.". ";
 				
@@ -49,7 +56,7 @@
 				
 			}
 
-		} // login if end
+		} 
 
     // *********************
     // ** LOO KASUTAJA *****
@@ -71,21 +78,45 @@
 					$create_password = cleanInput($_POST["create_password"]);
 				}
 			}
+			
+			if ( empty($_POST["create_nickname"]) ) {
+				$create_nickname_error = "See väli on kohustuslik";
+			}else{
+				$create_nickname = cleanInput($_POST["create_nickname"]);
+			}
+			
+			if ( empty($_POST["create_name"]) ) {
+				$create_name_error = "See väli on kohustuslik";
+			}else{
+				$create_name = cleanInput($_POST["create_name"]);
+			}
+			
+			if ( empty($_POST["create_surname"]) ) {
+				$create_surname_error = "See väli on kohustuslik";
+			}else{
+				$create_surname = cleanInput($_POST["create_surname"]);
+			}
+			
+			if ( empty($_POST["create_date"]) ) {
+				$create_date_error = "See väli on kohustuslik";
+			}else{
+				$create_date = cleanInput($_POST["create_date"]);
+			}
 
-			if(	$create_email_error == "" && $create_password_error == ""){
+			if(	$create_email_error == "" && $create_password_error == "" && $create_nickname_error == "" && $create_name_error == "" && $create_surname_error == "" && $create_date_error == ""){
 				
 				$hash = hash("sha512", $create_password);
 				
-				echo "Võib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password." ja räsi (hash) on".$hash;
+				echo "Võib kasutajat luua!"; //Kasutajanimi on ".$create_email." ja parool on ".$create_password." ja räsi (hash) on".$hash;
 				
-				createUser($create_email, $hash);
+				createUser($create_email, $hash, $create_nickname, $create_name, $create_surname, $create_date);
 			}
 
-    } // create if end
+    } 
 
 	}
 
-  // funktsioon, mis eemaldab kõikvõimaliku üleliigse tekstist
+  
   function cleanInput($data) {
   	$data = trim($data);
   	$data = stripslashes($data);
@@ -112,6 +143,10 @@
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
   	<input name="create_email" type="email" placeholder="E-post" value="<?php echo $create_email; ?>"> <?php echo $create_email_error; ?><br><br>
   	<input name="create_password" type="password" placeholder="Parool"> <?php echo $create_password_error; ?> <br><br>
+	<input name="create_nickname" type="text" placeholder="Nickname" value="<?php echo $create_nickname; ?>"> <?php echo $create_nickname_error; ?> <br><br>
+	<input name="create_name" type="text" placeholder="Nimi" value="<?php echo $create_name; ?>"> <?php echo $create_name_error; ?> <br><br>
+	<input name="create_surname" type="text" placeholder="Perekonnanimi" value="<?php echo $create_surname; ?>"> <?php echo $create_surname_error; ?> <br><br>
+	<input name="create_date" type="text" placeholder="Sünniaasta" value="<?php echo $create_date; ?>"> <?php echo $create_date_error; ?> <br><br>
   	<input type="submit" name="create" value="Create user">
   </form>
 <body>

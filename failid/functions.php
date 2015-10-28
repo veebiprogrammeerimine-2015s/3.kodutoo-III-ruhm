@@ -4,10 +4,10 @@
 	
 	session_start();
 	
-	function createUser($create_email, $hash){
+	function createUser($create_email, $hash, $create_nickname, $create_name, $create_surname, $create_date){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO users (email, password) VALUES (?,?)");
-		$stmt->bind_param("ss", $create_email, $hash);
+		$stmt = $mysqli->prepare("INSERT INTO users (email, password, nickname, name, surname, date) VALUES (?,?,?,?,?,?)");
+		$stmt->bind_param("sssssi", $create_email, $hash, $create_nickname, $create_name, $create_surname, $create_date);
 		$stmt->execute();
 		$stmt->close();
 		$mysqli->close();
@@ -85,8 +85,8 @@
 	
 	function deleteArmor($id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE armorid SET deleted=NOW() WHERE id=?");
-		$stmt->bind_param("i", $id);
+		$stmt = $mysqli->prepare("UPDATE armorid SET deleted=NOW() WHERE id=? AND deleted IS NULL AND user_id=?");
+		$stmt->bind_param("ii", $id);
 		if ($stmt->execute()){
 			header("Location: table.php");
 		}
@@ -96,8 +96,8 @@
 	
 	function updateArmor($id, $armor_type, $armor_race, $armor_color){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE armorid SET type=?, race=?, color=? WHERE id=?");
-		$stmt->bind_param("sssi", $armor_type, $armor_race, $armor_color, $id);
+		$stmt = $mysqli->prepare("UPDATE armorid SET type=?, race=?, color=? WHERE id=? AND deleted IS NULL AND user_id=?");
+		$stmt->bind_param("sssii", $armor_type, $armor_race, $armor_color, $id);
 		if ($stmt->execute()){
 			header("Location: table.php");
 		}
@@ -107,8 +107,8 @@
 	
 	function getEditData($edit_id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT type, race, color FROM armorid WHERE id=? AND deleted IS NULL");
-		$stmt->bind_param("i", $edit_id);
+		$stmt = $mysqli->prepare("SELECT type, race, color FROM armorid WHERE id=? AND deleted IS NULL AND user_id=?");
+		$stmt->bind_param("ii", $edit_id, $_SESSION["logged_in_user_id"]);
 		$stmt->bind_result($armor_type, $armor_race, $armor_color);
 		$stmt->execute();
 		$armor = new StdClass();

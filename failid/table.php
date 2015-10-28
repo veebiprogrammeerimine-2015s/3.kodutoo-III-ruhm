@@ -8,10 +8,13 @@
 	
 	if(isset($_GET["delete"])){
 		echo "kustutame id ".$_GET["delete"];
+		
+		
 		deleteArmor($_GET["delete"]);
 	}
 	
 	if(isset($_POST["save"])){
+		
 		updateArmor($_POST["id"], $_POST["armor_type"], $_POST["armor_race"], $_POST["armor_color"]);
 	}
 	
@@ -72,8 +75,11 @@
 				echo "<td>".$armor_array[$i]->type."</td>";
 				echo "<td>".$armor_array[$i]->race."</td>";
 				echo "<td>".$armor_array[$i]->color."</td>";
-				echo "<td><a href='?delete=".$armor_array[$i]->id."'>X</a></td>";
-				echo "<td><a href='edit.php?edit_id=".$armor_array[$i]->id."'>edit</a></td>";
+				
+				if($armor_array[$i]->user == $_SESSION["logged_in_user_id"]){
+					echo "<td><a href='?delete=".$armor_array[$i]->id."'>X</a></td>";
+					echo "<td><a href='edit.php?edit_id=".$armor_array[$i]->id."'>edit</a></td>";
+				}
 				echo "</tr>";
 				
 			}
