@@ -1,0 +1,8 @@
+CREATE TABLE (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_id INT,
+	raviminimi VARCHAR(100),
+	hinnang INT,  		<a href="failinimi?lisahinne=1>
+	kommentaar VARCHAR(1000)
+
+);
