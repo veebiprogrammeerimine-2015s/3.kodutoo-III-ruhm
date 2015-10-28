@@ -51,8 +51,7 @@
 
 <table >
 	<tr>
-		<th>id</th>
-		<th>kasutaja id</th>
+		
 		<th>tiitel</th>
 		<th>meedia</th>
 		<th>X</th>
@@ -72,8 +71,7 @@
 				echo "<tr>";
 				echo "<form action='table.php' method='post'>";
 				echo "<input type='hidden' name='id' value='".$array_of_content[$i]->id."'>";
-				echo "<td>".$array_of_content[$i]->id."</td>";
-				echo "<td>".$array_of_content[$i]->user_id."</td>";
+				
 				echo "<td><input name='title' value='".$array_of_content[$i]->title."'></td>";
 				echo "<td><input name='media' value='".$array_of_content[$i]->media."'></td>";
 				echo "<td><a href='table.php'>cancel</a></td>";
@@ -84,8 +82,7 @@
 			}else{
 				
 				echo "<tr>";
-				echo "<td>".$array_of_content[$i]->id."</td>";
-				echo "<td>".$array_of_content[$i]->user_id."</td>";
+				
 				echo "<td>".$array_of_content[$i]->title."</td>";
 				echo "<td><img src='".$array_of_content[$i]->media."' width='200px'></td>";
 				echo "<td><a href='?delete=".$array_of_content[$i]->id."'>X</a></td>";
