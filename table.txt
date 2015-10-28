@@ -1,6 +1,5 @@
 CREATE TABLE chat(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	email TEXT,
+	id INT,
 	nickname TEXT,
 	message TEXT,
 	timestamp DATETIME

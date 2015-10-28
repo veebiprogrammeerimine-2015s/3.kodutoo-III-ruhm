@@ -29,14 +29,64 @@
       echo "Valed andmed";
     }
   }
-  function sendMessage($message, $email, $nickname){
+  function sendMessage($message, $nickname){
     $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-    $stmt = $mysqli->prepare("INSERT INTO chat (message, email, nickname) VALUES (?,?,?)");
-    $stmt->bind_param("sss", $message, $email, $nickname);
+    $stmt = $mysqli->prepare("INSERT INTO chat (message, nickname, timestamp) VALUES (?,?, now())");
+    $stmt->bind_param("ss", $message, $nickname);
     $stmt->execute();
     $stmt->close();
   }
+  function getMessageData(){
 
+  $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+  $stmt = $mysqli->prepare("SELECT id, nickname, message, timestamp from chat WHERE deleted IS NULL ");
+  $stmt->bind_result($id, $nickname, $message, $timestamp);
+  $stmt->execute();
+
+  // tekitan tühja massiivi, kus edaspidi hoian objekte
+  $chat_array = array();
+
+  //tee midagi seni, kuni saame ab'ist ühe rea andmeid
+  while($stmt->fetch()){
+    // seda siin sees tehakse
+    // nii mitu korda kui on ridu
+    // tekitan objekti, kus hakkan hoidma väärtusi
+    $chat = new StdClass();
+    $chat->id = $id;
+    $chat->nickname = $nickname;
+    $chat->message = $message;
+    $chat->timestamp = $timestamp;
+
+    //lisan massiivi ühe rea juurde
+    array_push($chat_array, $chat);
+    //var dump ütleb muutuja tüübi ja sisu
+    //echo "<pre>";
+    //var_dump($car_array);
+    //echo "</pre><br>";
+  }
+
+  //tagastan massiivi, kus kõik read sees
+  return $chat_array;
+
+
+  $stmt->close();
+  $mysqli->close();
+}
+function updateChat($id, $message){
+
+  $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+  $stmt = $mysqli->prepare("UPDATE chat SET message=? WHERE id=?");
+  $stmt->bind_param("is", $id, $message);
+  if($stmt->execute()){
+    // sai uuendatud
+    // kustutame aadressirea tühjaks
+    header("Location: home.php");
+
+  }
+
+  $stmt->close();
+  $mysqli->close();
+}
 
 
 ?>
