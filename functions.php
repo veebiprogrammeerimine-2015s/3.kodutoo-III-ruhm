@@ -4,15 +4,15 @@
 	$database = "if15_mikkmae";
 	
 	
-	function getCarData($keyword=""){
+	function getReviewData($keyword=""){
 		
-		echo "Otsin ".$keyword;	
+		//echo "Otsin ".$keyword;	
 		
 		$search = "%%";
 		
 		if($keyword == ""){
 			// ei otsi midagi
-			echo "Ei otsi midagi";
+			//echo "Ei otsi midagi";
 			
 			
 		}else{
@@ -25,35 +25,36 @@
 	
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, number_plate, color from car_plates WHERE deleted IS NULL AND (number_plate LIKE ? OR color LIKE ?)");
-		$stmt->bind_param("ss", $search, $search);
-		$stmt->bind_result($id, $user_id_from_database, $number_plate, $color);
+		$stmt = $mysqli->prepare("SELECT id, user_id, location, date, feedback, grade from review WHERE deleted IS NULL AND (location LIKE ? OR date LIKE ? OR feedback LIKE ? OR grade LIKE ? )");
+		$stmt->bind_param("ssss", $search, $search, $search, $search);
+		$stmt->bind_result($id, $user_id_from_database, $location, $date, $feedback, $grade);
 		$stmt->execute();
 		
 		// tühi massiiv, kus hoian moose ja objekte
-		$car_array = array();
+		$review_array = array();
 		//tee midagi seni, kuni saame ab'ist ühe rea andmeid
 		while($stmt->fetch()){
 			// seda siin sees tehakse 
 			// nii mitu korda kui on ridu
 				
 			// tekitan objekti, kus hakkan hoitma oma moose ja väärtusi
-			$car = new StdClass();
-			$car->id=$id;
-			$car->plate= $number_plate;
-			$car->color=$color;
-			$car->user=$user_id_from_database;
+			$review = new StdClass();
+			$review->id=$id;
+			$review->location= $location;
+			$review->date=$date;
+			$review->user=$user_id_from_database;
+			$review->feedback=$feedback;
+			$review->grade=$grade;
 			
-			//lisan massiivi ühe rea jurde
-			array_push($car_array, $car);
+			//lisan massiivi
+			
+			array_push($review_array, $review);
 			
 			
-			//echo "<pre>";
-			//ütleb muutuja sisu ja tüübi **    var_dump($car_array);
-			//echo "</pre><br>";
+			
 		}
 		//tagastan massiivi, kus kõik asjad sees, read.
-		return $car_array;
+		return $review_array;
 		
 		$stmt->close();
 		$mysqli->close();
@@ -61,11 +62,11 @@
 	
 	
 	//käivitan funktsiooni
-	function deleteCar($id) {
+	function deleteReview($id) {
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("UPDATE car_plates SET deleted=NOW() WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE review SET deleted=NOW() WHERE id=?");
 		$stmt->bind_param("i", $id);
 		if($stmt->execute()) {
 			// sai kustutatud
@@ -79,12 +80,12 @@
 		
 	}
 	
-	function updateCar($id, $number_plate, $color) {
+	function updateReview($id, $location, $date, $feedback, $grade) {
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("UPDATE car_plates SET number_plate=?, color=? WHERE id=?");
-		$stmt->bind_param("ssi", $number_plate, $color, $id);
+		$stmt = $mysqli->prepare("UPDATE review SET location=?, date=?, feedback=?, grade=? WHERE id=?");
+		$stmt->bind_param("ssssi", $location, $date, $feedback, $grade, $id);
 		if($stmt->execute()) {
 			// sai uuendatud
 			// kustutame adressirea tühjaks

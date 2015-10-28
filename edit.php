@@ -11,7 +11,7 @@
 		// id oli aadressireal
 		// tahaks ühte rida kõige uuemaid andmeid kus id on $_GET["edit_id"]
 		
-		$car = getEditData($_GET["edit_id"]);
+		$review = getEditData($_GET["edit_id"]);
 		//var_dump($car);
 		
 		}else{
@@ -25,10 +25,10 @@
 			
 		}
 		
-		if(isSet($_POST["update_plate"])) {
+		if(isSet($_POST["update_review"])) {
 			// vajutas muuda nuppu
 			// plate ja color tulevad vormist, id tuleb adressirealt
-			updateCar($_POST["id"], $_POST["number_plate"], $_POST["color"]);
+			updateReview($_POST["id"], $_POST["location"], $_POST["date"], $_POST["feedback"], $_POST["grade"]);
 			
 		}
 
@@ -36,12 +36,28 @@
 ?>
 
 
-<h2>Lisa autonumbrimärki</h2>
+<h2>Muuda arvustust</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
+	
 	<input type="hidden" name="id" value="<?=$_GET["edit_id"];?>
-	<label for="number_plate" >Auto numbrimärk</label><br>
-	<input id="number_plate" name="number_plate" type="text" value="<?=$car->number_plate;?>"> <br><br>
-	<label for="color">Värv</label><br>
-	<input id="color" name="color" type="text" value="<?=$car->color;?>"> <br><br>
-	<input type="submit" name="update_plate" value="Muuda">
+	
+	<label for="location">Koht/Teenus</label><br>
+	<input id="location" name="location" type="text" value="<?=$review->location;?>"> <br><br>
+	
+	<label for="date">Kuupäev</label><br>
+	<input id="date" name="date" type="text" value="<?=$review->date;?>"> <br><br>
+	
+	<label for="feedback">Tagasiside</label><br>
+	<input id="feedback" name="feedback" type="text" value="<?=$review->feedback;?>"> <br><br>
+	
+	<label for="grade">Hinne 1-9</label><br>
+	<input id="grade" name="grade" type="number" value="<?=$review->grade;?>"> <br><br>
+	
+	<input type="submit" name="update_review" value="Muuda">
+
+	
+	
+	
+	
+	
 </form>

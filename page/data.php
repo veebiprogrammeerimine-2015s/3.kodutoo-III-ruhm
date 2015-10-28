@@ -104,7 +104,7 @@
 	<input id="grade" name="grade" type="number" value="<?php echo $grade; ?>"> <?php echo $grade_error; ?><br><br>
 	<input type="submit" name="add_review" value="Lisa">
 </form>
-<a href="table.php"><h2 style=text-align:center>Loe teisi arvustusi</h2></a>
+<a href="../table.php"><h2 style=text-align:center>Loe teisi arvustusi</h2></a>
 
 
 
