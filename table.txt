@@ -1,0 +1,6 @@
+CREATE TABLE chat(
+	id INT,
+	nickname TEXT,
+	message TEXT,
+	timestamp DATETIME
+);
