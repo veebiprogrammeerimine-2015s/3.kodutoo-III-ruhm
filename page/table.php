@@ -6,12 +6,12 @@
 	if(isset($_GET["delete"])){
 		echo "kustutame id ".$_GET["delete"];
 		//käivitan funktsiooni,saadan kaasa id
-		deleteCar($_GET["delete"]);
+		deletePlace($_GET["delete"]);
 	}
 	
 	//salvestan andmebaasi
 	if(isset($_POST["salvesta"])){
-		updateCar($_POST["id"],$_POST["plate_number"],$_POST["color"]);
+		updatePlace($_POST["id"],$_POST["location"],$_POST["condition"],$_POST["description"],$_POST["date_visited"]);
 		
 	}
 	$keyword="";

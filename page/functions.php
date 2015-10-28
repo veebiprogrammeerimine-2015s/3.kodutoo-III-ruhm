@@ -115,9 +115,9 @@
 		$mysqli->close();
 	}
 	
-	function deleteCar($id){
+	function deletePlace($id){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("UPDATE car_plates SET deleted=NOW() WHERE id=?");
+		$stmt=$mysqli->prepare("UPDATE interesting_places SET deleted=NOW() WHERE id=?");
 		$stmt->bind_param("i",$id);
 		if($stmt->execute()){
 			//sai kustutatud
@@ -130,10 +130,10 @@
 		
 	}
 	
-	function updateCar($id,$number_plate,$color){
+	function updatePlace($id,$location,$condition,$description,$date_visited){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("UPDATE car_plates SET number_plate=?,color=? WHERE id=?");
-		$stmt->bind_param("ssi",$number_plate,$color,$id);
+		$stmt=$mysqli->prepare("UPDATE car_plates SET location=?,condition=?,description=?,date_visited=? WHERE id=?");
+		$stmt->bind_param("ssssi",$location,$condition,$description,$date_visited,$id);
 		if($stmt->execute()){
 			//sai kustutatud
 			//kustutame aadressirea tühjaks
