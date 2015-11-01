@@ -24,7 +24,7 @@
 	function loginUser($username, $email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT id, email, username FROM martin_login WHERE email=? AND username=? AND password=?");
+		$stmt = $mysqli->prepare("SELECT id, email, username FROM martin_login2 WHERE email=? AND username=? AND password=?");
 		$stmt->bind_param("sss",$email, $username, $hash);
 		$stmt->bind_result($id_from_db, $username_from_db, $email_from_db);
 		$stmt->execute();
@@ -43,7 +43,7 @@
 			
 		}else{
 			// ei leidnud
-			echo "Valed andmed!";
+			echo "Wrong credidentials!";
 		}
 			
 		$stmt->close();

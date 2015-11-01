@@ -3,13 +3,13 @@
 	// errori muutujad peavad enne if'i olemas olema :)
 	
 	// Loon andmebaasi ühenduse
-	require_once("../../config.php");
+	require_once("../../config_global.php");
+	require_once("../functions.php");
 	$database = "if15_martin";
-	$mysqli = new mysqli($servername, $username, $password, $database);
 	
 	//kui kasutaja on sisseloginud, suunan table.php lehele
 	if(isset($_SESSION["logged_in_user_id"])){
-		header("Location: table_user.php");
+		header("Location: data.php");
 	}
 	
 	// muutujad errorite jaoks
@@ -57,31 +57,18 @@
 				
 			$hash = hash("sha512", $password);
 			
-			$stmt = $mysqli->prepare("SELECT id, email, username FROM martin_login WHERE (email=? OR username=?) AND password=?");
-			$stmt->bind_param("sss",$username_or_email, $username_or_email, $hash);
-			
-			// Muutujad tulemustele
-			$stmt->bind_result($id_from_db, $username_from_db, $email_from_db);
-			$stmt->execute();
-			
-			//Kontrollin kas tulemusi leiti
-				if($stmt->fetch()){
-					//andmebaasis oli midagi
-						echo "all good";
-					}else{
-						// ei leidnud
-						echo "Wrong credentials!";
-				}
+			// kasutaja loomise fn, failist functions.php
+				loginUser($username, $email, $password);
 				
-				$stmt->close();
 		
 			}
-
+		}
+	}
 		
 		//*************************************************************
 		// Keegi vajutas create nuppu
 		//*************************************************************
-		}elseif(isset($_POST["create"])){
+		elseif(isset($_POST["create"])){
 			
 			if (empty($_POST["reg_username"]) ) {
 				$reg_username_error = "This field is required";
@@ -112,17 +99,11 @@
 			}
 			
 		
-			if(	$reg_email_error == "" && $reg_password_error == "")
+			if(	$reg_email_error == "" && $reg_password_error == "") {
 				
 				// Räsi paroolist mis salvestame andmebaasi
 				$hash = hash("sha512", $reg_password);
 				
-				// Salvestame andmebaasi"
-				$stmt =  $mysqli->prepare("INSERT INTO martin_login (email, username, password) VALUES (?,?,?)");
-				// Asendame küsimärgid õigete andmetega
-				$stmt->bind_param("sss", $reg_email, $reg_username, $hash);
-				$stmt->execute();
-				$stmt->close();
 		}
 	}
 	
@@ -137,22 +118,21 @@
 		return $data;
 }
 	
-	$page_title = "Sisselogimine";
+	$page_title = "Login";
 	$page_file_name = "login.php";
 	require_once("../header.php");
 	
 	// paneme ühenduse kinni
-	$mysqli->close();
 	
 ?>
 
 	<h2>Log in</h2>
 		
-	<form action="login.php" method="post" >
-		<input name="username_or_email" type="text" placeholder="username or email"> <?php echo $username_error; ?><br> <br>
-		<input name="password" type="password" placeholder="Password"> <?php echo $password_error; ?> <br> <br>
-		<input name="login" type="submit" value="Log in"> <br> <br>
-	</form>
+		<form action="login.php" method="post" >
+			<input name="username_or_email" type="text" placeholder="username or email"> <?php echo $username_error; ?><br> <br>
+			<input name="password" type="password" placeholder="Password"> <?php echo $password_error; ?> <br> <br>
+			<input name="login" type="submit" value="Log in"> <br> <br>
+		</form>
 	
 	<h2>Create user</h2>
 	
@@ -164,4 +144,8 @@
 			<input name="create" type="submit" value="Register"> <br> <br>
 		</form>
 	
-	<?php require_once("../footer.php"); ?>
+<?php 
+
+	require_once("../footer.php");
+	
+?>
