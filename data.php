@@ -65,17 +65,17 @@
 	}
 	
 ?>
-<p>
-	Tere, <?=$_SESSION["logged_in_user_email"];?> 
-	<a href="?logout=1"> Logi välja <a> 
-</p>
+
+	<p>Welcome, <?=$_SESSION["logged_in_user_email"];?> </p>
+	<p><a href="?logout=1"> Log out <a> </p>
 
 
-<h2>Lisa putsa</h2>
+
+<h2>Add your boot</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
-	<label for="boot_brand" >Putsa firma</label><br>
+	<label for="boot_brand" >Boot brand</label><br>
 	<input id="boot_brand" name="boot_brand" type="text" value="<?php echo $boot_brand; ?>"> <?php echo $boot_brand_error; ?><br><br>
-	<label for="model">Mudel</label><br>
+	<label for="model">Model</label><br>
 	<input id="model" name="model" type="text" value="<?php echo $model; ?>"> <?php echo $boot_brand_error; ?><br><br>
-	<input type="submit" name="add_boot" value="Salvesta">
+	<input type="submit" name="add_boot" value="Save">
 </form>
