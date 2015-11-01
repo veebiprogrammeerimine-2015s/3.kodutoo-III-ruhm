@@ -7,6 +7,11 @@
 	$database = "if15_martin";
 	$mysqli = new mysqli($servername, $username, $password, $database);
 	
+	//kui kasutaja on sisseloginud, suunan table.php lehele
+	if(isset($_SESSION["logged_in_user_id"])){
+		header("Location: table_user.php");
+	}
+	
 	// muutujad errorite jaoks
 	$email_error = "";
 	$password_error = "";
@@ -69,7 +74,6 @@
 				}
 				
 				$stmt->close();
-				
 		
 			}
 
