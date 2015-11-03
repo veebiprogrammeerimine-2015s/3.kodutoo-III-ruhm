@@ -73,7 +73,7 @@
 			$mysqli->close();	
 	}
 	
-	function getCarData($keyword=""){
+	function getPlaceData($keyword=""){
 		$search="%%";
 		if($keyword==""){
 			echo "ei otsi";
@@ -83,33 +83,35 @@
 		}
 		
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("SELECT id,user_id,number_plate,color FROM car_plates WHERE Deleted IS NULL AND (number_plate LIKE ? OR color LIKE ?)");
-		$stmt->bind_param("ss",$search,$search);
-		$stmt->bind_result($id,$user_id_from_db,$number_plate,$color);
+		$stmt=$mysqli->prepare("SELECT id,user_id,location,condition,description,date_visited FROM interesting_places WHERE deleted IS NULL AND (location LIKE ? OR condition LIKE ? OR description LIKE ? OR date_visited LIKE ?)");
+		$stmt->bind_param("ssss",$search,$search,$search,$search);
+		$stmt->bind_result($id,$user_id_from_db,$location,$condition,$description,$date_visited);
 		$stmt->execute();
 		
 		//tekitan massiivi
-		$car_array=array();
+		$place_array=array();
 		
 		//tee midagi seni kuni saame ab-st ühe rea anmdeid
 		while($stmt->fetch()){
 			//seda siin tehakse nii mitu korda kui on ridu
 			
 			//tekitan objekti,kus hakkan hoidma väärtust
-			$car=new StdClass();
-			$car->id=$id;
-			$car->plate=$number_plate;
-			$car->color=$color;
-			$car->user_id=$user_id_from_db;
+			$place=new StdClass();
+			$place->id=$id;
+			$place->location=$location;
+			$place->condition=$condition;
+			$place->description=$description;
+			$place->date_visited=$date_visited;
+			$place->user_id=$user_id_from_db;
 			//lisan massiivi
-			array_push($car_array,$car);
+			array_push($place_array,$place);
 			//echo "<pre>";
 			//var_dump ($car_array);
 			//echo"</pre><br>";
 		}
 		
 		//tagastan massiivi,kus kõik read sees
-		return $car_array;
+		return $place_array;
 		
 		$stmt->close();
 		$mysqli->close();
@@ -132,7 +134,7 @@
 	
 	function updatePlace($id,$location,$condition,$description,$date_visited){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("UPDATE car_plates SET location=?,condition=?,description=?,date_visited=? WHERE id=?");
+		$stmt=$mysqli->prepare("UPDATE interesting_places SET location=?,condition=?,description=?,date_visited=? WHERE id=?");
 		$stmt->bind_param("ssssi",$location,$condition,$description,$date_visited,$id);
 		if($stmt->execute()){
 			//sai kustutatud
