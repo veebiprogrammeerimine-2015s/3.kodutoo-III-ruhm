@@ -7,6 +7,7 @@
 	require_once("../functions.php");
 	$database = "if15_martin";
 	
+	
 	//kui kasutaja on sisseloginud, suunan table.php lehele
 	if(isset($_SESSION["logged_in_user_id"])){
 		header("Location: data.php");
@@ -58,12 +59,11 @@
 			$hash = hash("sha512", $password);
 			
 			// kasutaja loomise fn, failist functions.php
-				loginUser($username, $email, $password);
+				loginUser($username_or_email, $hash);
 				
 		
 			}
 		}
-	}
 		
 		//*************************************************************
 		// Keegi vajutas create nuppu
@@ -104,9 +104,11 @@
 				// Räsi paroolist mis salvestame andmebaasi
 				$hash = hash("sha512", $reg_password);
 				
+				createUser($reg_username, $reg_email, $hash);
 		}
 	}
-	
+}
+
 	
 	function cleanInput($data) {
 		// võtab ära tühikud, enterid, tabid
