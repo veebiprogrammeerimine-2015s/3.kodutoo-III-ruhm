@@ -1,6 +1,6 @@
 <?php
 require_once("functions.php");
-$location = $condition = $description = "" $date_visited = "";
+$location = $condition = $description = $date_visited = "";
 $location_error = "";
 $condition_error = "";
 $description_error = "";

@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE users(
 	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY;
 	email VARCHAR(50);
 	password VARCHAR(255);
@@ -9,7 +9,7 @@ CREATE TABLE users (
 	created DATETIME();
 )
 
-CREATE TABLE interesting_places (
+CREATE TABLE interesting_places(
 	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY;
 	user_id INT;
 	location VARCHAR(255);
