@@ -132,7 +132,13 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("UPDATE title SET deleted=NOW() WHERE id=?");
+		
+		echo $mysqli->error;
+		
 		$stmt->bind_param("i", $id);
+		
+		echo $stmt->error;
+		
 		if($stmt->execute()){
 			// sai kustutatud
 			// kustutame aadressirea tuhjaks
