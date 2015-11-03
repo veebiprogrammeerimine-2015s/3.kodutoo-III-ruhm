@@ -46,7 +46,9 @@
 				// kasutaja sisselogimise fn, failist functions.php
 				loginUser($email, $hash);
 				
-				
+				function hello($name, $age){
+					echo $name." ".$age;
+				}
 			}
 		} // login if end
 		// *********************

@@ -1,5 +1,6 @@
 <?php
 	require_once("functions.php");
+	require_once("table.php");
 	//data.php
 	// siia pääseb ligi sisseloginud kasutaja
 	//kui kasutaja ei ole sisseloginud,

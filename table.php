@@ -1,7 +1,11 @@
 <?php
 	require_once("functions.php");
+	require_once("edit_functions.php");
 	
 	
+	if(!isset($_SESSION["logged_in_user_id"])){
+	header("Location: login.php");
+	}
 	// kas kustutame
 	// ?delete=vastav id mida kustutada on aadressireal
 	if(isset($_GET["delete"])){
@@ -20,10 +24,10 @@
 	
 	
 	//käivitan funktsiooni
-	$array_of_animals = getAnimalData();
+	$array_of_animals = getEditData($edit_id);
 	
 	//trükin välja esimese looma
-	//echo $array_of_animals[0]->id." ".$array_of_animals[0]->plate;
+	//echo $array_of_animals[0]->id." ".$array_of_animals[0]->animal;
 	
 ?>
 
@@ -73,7 +77,6 @@
 			}
 			
 		}
-	
 	
 	?>
 </table>
