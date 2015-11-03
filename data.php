@@ -9,7 +9,57 @@
 		
 	}
 	
-	// kasutaja tahab välja logima
+	$picture = "";
+	$rating = "";
+	$comment = "";
+	$picture_error = "";
+	$rating_error = "";
+	$comment_error = "";
+	
+	
+	//keegi vajutas nuppu
+	if(isset($_POST["add_review"])){
+		// echo $_SESSION["logged_in_user_id"];
+
+		if ( empty($_POST["picture"]) ) {
+				$picture_error = "See väli on kohustuslik";
+			}else{
+			// puhastame muutuja võimalikest üleliigsetest sümbolitest
+				$picture = cleanInput($_POST["picture"]);
+			}
+		if ( empty($_POST["rating"]) ) {
+				$rating_error = "See väli on kohustuslik";
+			}else{
+			// puhastame muutuja võimalikest üleliigsetest sümbolitest
+				$rating = cleanInput($_POST["rating"]);
+			}
+		if ( empty($_POST["comment"]) ) {
+				$comment_error = "See väli on kohustuslik";
+			}else{
+				
+				$comment = cleanInput($_POST["comment"]);
+				}
+				
+		if($picture_error == "" && $rating_error == "" && $comment_error == ""){
+					
+					
+					
+					// kasutaja loomise funktsioon, failist functions.php
+					// saadame kaasa muutujad
+					$message = addReview($picture, $rating, $comment);
+					
+					if($message != ""){
+						// õnnestus, teeme inputi väljad tühjaks
+						$picture = "";
+						$rating = "";
+						$comment = "";
+						
+						echo $message;
+						
+					}
+				}
+	}
+		// kasutaja tahab välja logida
 	
 	if(isset($_GET["logout"])){
 		// aadressireal on olemas muutuja logout
@@ -20,45 +70,6 @@
 		header("Location: login.php");
 	}
 	
-	$number_plate = $color = "";
-	$number_plate_error = $color_error = "";
-	
-	//keegi vajutas nuppu numbrimärgi lisamiseks
-	if(isset($_POST["add_plate"])){
-		// echo $_SESSION["logged_in_user_id"];
-
-		if ( empty($_POST["number_plate"]) ) {
-				$number_plate_error = "See väli on kohustuslik";
-			}else{
-			// puhastame muutuja võimalikest üleliigsetest sümbolitest
-				$number_plate = cleanInput($_POST["number_plate"]);
-			}
-		if ( empty($_POST["color"]) ) {
-				$color_error = "See väli on kohustuslik";
-			}else{
-			// puhastame muutuja võimalikest üleliigsetest sümbolitest
-				$color = cleanInput($_POST["color"]);
-			}
-		if(	$number_plate_error == "" && $color_error == ""){
-					
-					
-					
-					// kasutaja loomise funktsioon, failist functions.php
-					// saadame kaasa muutujad
-					$message = addCarPlate($number_plate, $color);
-					
-					if($message != ""){
-						// õnnestus, teeme inputi väljad tühjaks
-						$number_plate = "";
-						$color = "";
-						
-						echo $message;
-						
-					}
-				}
-	}
-	
-	
 	
 ?>
 <p>
@@ -66,11 +77,20 @@
 	<a href="?logout=1">logi välja<a>	
 </p>
 
-<h2>Lisa autonumbrimärk</h2>
-  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
-  	<label for="number_plate">Auto numbrimärk</label><br>
-	<input id="number_plate" name="number_plate" type="text" value="<?php echo $number_plate; ?>"> <?php echo $number_plate_error; ?><br><br>
-	<label for="color">Värv</label><br>
-  	<input id="color" name="color" type="text" value="<?php echo $color; ?>"> <?php echo $color_error; ?><br><br>
-  	<input type="submit" name="add_plate" value="Salvesta">
-  </form>
+<h2>Lisa arvustus</h2>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+		<label for ="Picture">Mis on pildi nimi</label><br>
+		<input id="picture" name="picture" type="text" value="<?php echo $picture; ?>" > <?php echo $picture_error; ?><br><br>
+		<label for ="rating">Määra rating</label><br>
+		
+		<input id="rating" type="radio" value="1" name="rating"  > 1
+		<input id="rating" type="radio" value="2" name="rating"  > 2
+		<input id="rating" type="radio" value="3" name="rating"  > 3
+		<input id="rating" type="radio" value="4" name="rating"  > 4
+		<input id="rating" type="radio" value="5" name="rating"  > 5
+
+		<br><br>
+		<label for ="comment">Kirjuta kommentaar</label><br>
+		<textarea id="comment" name="comment" col=40 rows=8 placeholder="Kirjuta siia oma kommentaar" value="<?php echo $comment; ?>"> <?php echo $comment_error; ?> </textarea><br><br>
+		<input type="submit" name="add_review" value="Sisesta"><br>
+		</form>	

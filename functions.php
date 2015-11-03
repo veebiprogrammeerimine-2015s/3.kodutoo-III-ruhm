@@ -1,13 +1,13 @@
 <?php
 	// functions.php
-	// siia tulevd funktsioonid, k�ik mis seotud AB'ga
+	// siia tulevd funktsioonid, kõik mis seotud AB'ga
 	
-	// Loon AB'i �henduse
+	// Loon AB'i ühenduse
 	require_once("../config_global.php");
 	$database = "if15_Jork";
 	
 	// tekitatakse sessioon, mida hoitakse serveris
-	// k�ik session muutujad on k�ttesaadavad kuni viimase brauseriakna sulgemiseni
+	// kõik session muutujad on kättesaadavad kuni viimase brauseriakna sulgemiseni
 	session_start();
 	
 	function register($create_email, $hash){
@@ -36,7 +36,7 @@
 		//Kontrollin kas tulemusi leiti
 		if($stmt->fetch()){
 			// ab'i oli midagi
-			echo "Email ja parool �iged, kasutaja id=".$id_from_db;
+			echo "Email ja parool õiged, kasutaja id=".$id_from_db;
 			
 			// tekitan sessiooni muutujad
 			$_SESSION["logged_in_user_id"] = $id_from_db;
@@ -56,4 +56,107 @@
 		
 	}
 	
-?>
+
+	function addReview($pildinimi, $hinnang, $kommentaar){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("INSERT INTO pildid (user_id, pildinimi, hinnang, kommentaar) VALUES (?, ?, ?, ?)");
+		$stmt->bind_param("isss", $_SESSION["logged_in_user_id"], $pildinimi, $hinnang, $kommentaar);
+		
+		//sõnum
+		$message= "";
+		
+		if($stmt->execute()){
+			//kui on tõene, INSERT õnnestus
+			$message = "Sai edukalt lisatud";
+			
+			
+		}else{
+			//kui on väär, kuvame errori
+			echo $stmt->error;
+		}
+		return $message;
+		
+		$stmt->close();
+		$mysqli->close();
+	}
+
+	function getReviewData($keyword=""){
+		
+		$search="%%";
+		
+		//kas otsisõna on tühi
+		if($keyword==""){
+			//ei otsi midagi
+			//echo "Ei otsi";
+			
+		}else{
+			//otsin
+			echo "Otsin " .$keyword;
+			$search="%".$keyword."%";
+			
+		}
+		
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("SELECT id, user_id, pildinimi, hinnang, kommentaar FROM pildid WHERE deleted IS NULL AND (picture LIKE ?)");
+		echo $mysqli->error; //Unknown column 'deleted' in 'where clause' ??? - lahendatud
+		$stmt->bind_param("s", $search);
+		$stmt->bind_result($id, $user_id, $picture, $rating, $comment);
+		$stmt->execute();
+		
+		//tekitan tühja massiivi, kus edaspidi hoian objekte
+		$review_array = array ();
+		
+		//tee midagi seni, kuni saame andmebaasist ühe rea andmeid
+		while($stmt->fetch()){
+			//seda siin sees tehakse nii mitu korda kui on ridu
+			
+			//tekitan objekti, kus hakkan hoidma väärtusi
+			$review = new StdClass();
+			$review->id = $id;
+			$review->picture =$picture;
+			$review->user_id=$user_id;
+			$review->rating=$rating;
+			$review->comment=$comment;
+			//lisan massiivi ühe rea juurde
+			
+			array_push($review_array, $review);
+			
+			
+		}
+		//tagastan massiivi, kus kõik read sees
+		return $review_array;
+		
+		$stmt->close();
+		$mysqli->close();
+		
+	}
+	function deleteReview($id){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("UPDATE pildid SET deleted=NOW() WHERE id=? AND user_id=?");
+		$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);
+		if($stmt->execute()){
+			//sai kustutatud, kustutame aadressirea tühjaks
+			header("Location: table.php");
+			
+		}
+		$stmt->close();
+		$mysqli->close();
+		
+	}
+	function updateReview($id, $picture, $rating, $comment){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("UPDATE pildid SET picture=?, rating=?, comment=? WHERE id=? AND user_id =?");
+		echo $mysqli->error;
+		$stmt->bind_param("sssii", $picture, $rating, $comment, $id, $_SESSION["logged_in_user_id"]);
+		if($stmt->execute()){
+			//sai kustutatud, kustutame aadressirea tühjaks
+			//header("Location: table.php");
+			
+		}
+		$stmt->close();
+		$mysqli->close();
+		
+	}
+	
+	
+?>	

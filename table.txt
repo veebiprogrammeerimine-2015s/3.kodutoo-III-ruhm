@@ -1,9 +1,7 @@
-CREATE TABLE user_sample (
+CREATE TABLE pildid(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	email VARCHAR(255) NOT NULL,
-	password VARCHAR(128),
-	first_name varchar(128),
-	last_name VARCHAR(128)
-	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	UNIQUE(email)
+	user_id INT,
+	pildinimi VARCHAR(100),
+	hinnang INT,
+	kommentaar VARCHAR(1000)
 );
