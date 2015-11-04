@@ -76,9 +76,9 @@
 				echo "<td>".$array_of_places[$i]->condition."</td>";
 				echo "<td>".$array_of_places[$i]->description."</td>";
 				echo "<td>".$array_of_places[$i]->date_visited."</td>";
-				echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
-				echo "<td><a href='?edit=".$array_of_cars[$i]->id."'>edit</a></td>";
-				echo "<td><a href='edit.php?edit_id=".$array_of_cars[$i]->id."'>edit.php</a></td>";
+				echo "<td><a href='?delete=".$array_of_places[$i]->id."'>X</a></td>";
+				echo "<td><a href='?edit=".$array_of_places[$i]->id."'>edit</a></td>";
+				echo "<td><a href='edit.php?edit_id=".$array_of_places[$i]->id."'>edit.php</a></td>";
 				echo "</tr>";
 			}
 		}

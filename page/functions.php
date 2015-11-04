@@ -54,7 +54,7 @@
 		
 	function addPlace ($location,$condition,$description,$date_visited){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-			$stmt = $mysqli->prepare("INSERT INTO interesting_places(user_id,location,condition,description,date_visited) VALUES (?,?,?,?,?)");
+			$stmt = $mysqli->prepare("INSERT INTO interesting_places(user_id,location,place_condition,description,date_visited) VALUES (?,?,?,?,?)");
 			//asendame ? märgid, ss - s on string email, s on string password,i on integer
 			$stmt->bind_param("issss",$_SESSION["logged_in_user_id"],$location,$condition,$description,$date_visited);
 			
@@ -83,7 +83,7 @@
 		}
 		
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("SELECT id,user_id,location,condition,description,date_visited FROM interesting_places WHERE deleted IS NULL AND (location LIKE ? OR condition LIKE ? OR description LIKE ? OR date_visited LIKE ?)");
+		$stmt=$mysqli->prepare("SELECT id,user_id,location,place_condition,description,date_visited FROM interesting_places WHERE deleted IS NULL AND (location LIKE ? OR place_condition LIKE ? OR description LIKE ? OR date_visited LIKE ?)");
 		$stmt->bind_param("ssss",$search,$search,$search,$search);
 		$stmt->bind_result($id,$user_id_from_db,$location,$condition,$description,$date_visited);
 		$stmt->execute();
@@ -134,7 +134,7 @@
 	
 	function updatePlace($id,$location,$condition,$description,$date_visited){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("UPDATE interesting_places SET location=?,condition=?,description=?,date_visited=? WHERE id=?");
+		$stmt=$mysqli->prepare("UPDATE interesting_places SET location=?,place_condition=?,description=?,date_visited=? WHERE id=?");
 		$stmt->bind_param("ssssi",$location,$condition,$description,$date_visited,$id);
 		if($stmt->execute()){
 			//sai kustutatud
