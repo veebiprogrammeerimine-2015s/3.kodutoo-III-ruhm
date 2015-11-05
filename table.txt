@@ -1,0 +1,8 @@
+CREATE TABLE pildid(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_id INT,
+	pildinimi VARCHAR(100),
+	hinnang INT,
+	kommentaar VARCHAR(1000),
+	deleted TIMESTAMP NULL DEFAULT NULL
+);
