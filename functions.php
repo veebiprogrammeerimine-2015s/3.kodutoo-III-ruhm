@@ -97,8 +97,8 @@
 		}
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, pildinimi, hinnang, kommentaar FROM pildid WHERE deleted IS NULL AND (picture LIKE ?)");
-		echo $mysqli->error; //Unknown column 'deleted' in 'where clause' ??? - lahendatud
+		$stmt = $mysqli->prepare("SELECT id, user_id, pildinimi, hinnang, kommentaar FROM pildid WHERE deleted IS NULL AND (pildinimi LIKE ?)");
+		echo $mysqli->error; 
 		$stmt->bind_param("s", $search);
 		$stmt->bind_result($id, $user_id, $picture, $rating, $comment);
 		$stmt->execute();
@@ -145,7 +145,7 @@
 	}
 	function updateReview($id, $picture, $rating, $comment){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE pildid SET picture=?, rating=?, comment=? WHERE id=? AND user_id =?");
+		$stmt = $mysqli->prepare("UPDATE pildid SET pildinimi=?, hinnang=?, kommentaar=? WHERE id=? AND user_id =?");
 		echo $mysqli->error;
 		$stmt->bind_param("sssii", $picture, $rating, $comment, $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
