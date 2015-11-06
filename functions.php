@@ -74,7 +74,7 @@
                
                         $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
                        
-                        $stmt = $mysqli->prepare("SELECT id, user_id, thread, post from martin_threads");
+                        $stmt = $mysqli->prepare("SELECT id, user_id, thread, post from martin_threads WHERE thread LIKE ? OR POST LIKE ?");
                         $stmt->bind_param("ss", $search, $search);
                        
                         $stmt->bind_result($id, $user_id_from_database, $thread, $post);
