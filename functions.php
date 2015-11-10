@@ -53,12 +53,12 @@
 	}
 	//****************************************************************************
 	
-	function addBootData($boot_brand, $model) {
+	function addBootData($boot_brand, $model){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
 		$stmt = $mysqli->prepare("INSERT INTO football (user_id, boot_brand, model) VALUES (?,?,?)");
-		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"], $car_plate, $car_color);
+		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"], $boot_brand, $model);
 		
 		$message = "";
 		

@@ -9,7 +9,7 @@
 		
 		$stmt = $mysqli->prepare("SELECT boot_brand, model FROM football WHERE id=? AND deleted IS NULL");
 		$stmt->bind_param("i",$edit_id);
-		$stmt->bind_result($number_plate, $color);
+		$stmt->bind_result($boot_brand, $model);
 		$stmt->execute();
 		
 		$boot = new StdClass();
@@ -37,7 +37,7 @@
 		
 	}
 	
-	function updateCar($id, $boot_brand, $model){
+	function updateBootData($id, $boot_brand, $model){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("UPDATE football SET boot_brand=?, model=? WHERE id=?");

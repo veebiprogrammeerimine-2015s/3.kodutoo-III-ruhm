@@ -8,19 +8,19 @@
 		
 		echo "Kustutame id ".$_GET["delete"];
 		//käivitan funktsiooni, saadan kaasa id!
-		deleteCar($_GET["delete"]);
+		deleteBootData($_GET["delete"]);
 		
 	}
 	
 	//salvestan andmebaasi uuendused
 	if(isset($_POST["save"])){
 		
-		updateBoot($_POST["id"], $_POST["boot_brand"], $_POST["model"]);
+		updateBootData($_POST["id"], $_POST["boot_brand"], $_POST["model"]);
 	}
 	
 	
 	//käivitan funktsiooni
-	$array_of_boots = getbootData();
+	$array_of_boots = getBootData();
 
 	
 ?>

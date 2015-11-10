@@ -107,7 +107,7 @@
 	$page_title="Sisselogimine";
 	$page_file_name="login.php";
 ?>
-<?php require_once("../header.php"); ?>
+<?php require_once("header.php"); ?>
 
 
 
