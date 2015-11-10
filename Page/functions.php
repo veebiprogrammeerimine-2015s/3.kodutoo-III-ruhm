@@ -10,12 +10,12 @@
 	
    //võtab andmed ja sisestab ab'i
    //võtame vastu 2 muutujat
-   function createUser($create_email, $hash){
+   function createUser($username, $create_email, $hash){
 	   //Global muutujad, et andmed kätte saada
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 	
-		$stmt = $mysqli->prepare("INSERT INTO creatednames (email,password) VALUES (?,?)");
-		$stmt->bind_param("ss", $create_email, $hash);
+		$stmt = $mysqli->prepare("INSERT INTO creatednames (user,email,password) VALUES (?,?,?)");
+		$stmt->bind_param("sss",$username, $create_email, $hash);
 		$stmt->execute();
 		$stmt->close();
 	   

@@ -79,7 +79,7 @@
 			// keegi vajutas create nuppu	
 			if(isset($_POST["create"])){
 			
-				echo "vajutas create nuppu";
+				
 				
 				if (empty($_POST["username"]) ) {
 					$username_error = "Kirjuta oma kasutajanimi";
@@ -121,9 +121,9 @@
 						
 						$hash= hash("sha512", $create_password);
 						
-						echo "Võib kasutajat luua! Kasutajanimi on ".$username." email on ".$create_email. "ja parool on ".$create_password." ja räsi on ".$hash;
+						echo "Võib kasutajat luua! Kasutajanimi on ".$username." email on ".$create_email;
 						
-						createUser($username, $hash);
+						createUser($username, $create_email, $hash);
 						
 					
 				}
