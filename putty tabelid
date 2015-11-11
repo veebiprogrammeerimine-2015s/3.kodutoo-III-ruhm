@@ -1,0 +1,17 @@
+CREATE TABLE Clients (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+	surename VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+    password VARCHAR(128),
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE Orders (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  product TEXT,   
+  product_material TEXT,
+  FOREIGN KEY (user_id) REFERENCES Clients(id)
+);
