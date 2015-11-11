@@ -6,13 +6,15 @@
 	session_start();
 	
 	
-	function createUser($create_email, $hash){
-	
+	//function createUser($create_email, $hash){
+	function createUser($create_email, $hash, $username, $fullname){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		echo $mysqli->error;
 		$stmt = $mysqli->prepare("INSERT INTO users (email, password, username, fullname) VALUES (?, ?, ?, ?)");
 				
 		$stmt->bind_param("ssss", $create_email, $hash, $username, $fullname);
 		$stmt->execute();
+		echo $stmt->error;
 		$stmt->close();
 		
 		

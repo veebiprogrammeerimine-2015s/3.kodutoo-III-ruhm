@@ -65,30 +65,37 @@
 		for($i = 0; $i < count($array_of_content); $i++){
 			//echo $array_of_content[$i]->id;
 			
-			//kasutaja tahab muuta seda rida
-			if(isset($_GET["edit"]) && $array_of_content[$i]->id == $_GET["edit"]){
+			//näitame aiunult mida tohib muuta
+			if( $array_of_content[$i]->user_id == $_SESSION["logged_in_user_id"] ){
 				
-				echo "<tr>";
-				echo "<form action='table.php' method='post'>";
-				echo "<input type='hidden' name='id' value='".$array_of_content[$i]->id."'>";
 				
-				echo "<td><input name='title' value='".$array_of_content[$i]->title."'></td>";
-				echo "<td><input name='media' value='".$array_of_content[$i]->media."'></td>";
-				echo "<td><a href='table.php'>cancel</a></td>";
-				echo "<td><input type='submit' name='save'></td>";
-				echo "</form>";
-				echo "</tr>";
-				
-			}else{
-				
-				echo "<tr>";
-				
-				echo "<td>".$array_of_content[$i]->title."</td>";
-				echo "<td><img src='".$array_of_content[$i]->media."' width='200px'></td>";
-				echo "<td><a href='?delete=".$array_of_content[$i]->id."'>X</a></td>";
-				echo "<td><a href='?edit=".$array_of_content[$i]->id."'>edit</a></td>";
-				echo "</tr>";
-				
+				//kasutaja tahab muuta seda rida
+				if(isset($_GET["edit"]) && $array_of_content[$i]->id == $_GET["edit"]){
+					
+					echo "<tr>";
+					echo "<form action='table.php' method='post'>";
+					echo "<input type='hidden' name='id' value='".$array_of_content[$i]->id."'>";
+					
+					echo "<td><input name='title' value='".$array_of_content[$i]->title."'></td>";
+					echo "<td><input name='media' value='".$array_of_content[$i]->media."'></td>";
+					echo "<td><a href='table.php'>cancel</a></td>";
+					echo "<td><input type='submit' name='save'></td>";
+					echo "</form>";
+					echo "</tr>";
+					
+				}else{
+					
+					echo "<tr>";
+					
+					echo "<td>".$array_of_content[$i]->title."</td>";
+					echo "<td><img src='".$array_of_content[$i]->media."' width='200px'></td>";
+					
+						echo "<td><a href='?delete=".$array_of_content[$i]->id."'>X</a></td>";
+						echo "<td><a href='?edit=".$array_of_content[$i]->id."'>edit</a></td>";
+					
+					echo "</tr>";
+					
+				}
 			}
 			
 		}
