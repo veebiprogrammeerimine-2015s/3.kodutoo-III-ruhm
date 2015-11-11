@@ -16,7 +16,7 @@
 	function createUser($name, $surename, $mail, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS ["database"]);
 		
-		$stmt = $mysqli -> prepare("INSERT INTO users (name, surename, email, password) VALUES(?, ?, ?, ?)");
+		$stmt = $mysqli -> prepare("INSERT INTO Clients (name, surename, email, password) VALUES(?, ?, ?, ?)");
 		
 				$stmt ->bind_param("ssss", $name, $surename, $mail, $hash);
 				$stmt ->execute();
@@ -28,7 +28,7 @@
 	function loginUser($email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT id, email FROM users WHERE email=? AND password=?");
+		$stmt = $mysqli->prepare("SELECT id, email FROM Clients WHERE email=? AND password=?");
 		$stmt->bind_param("ss", $email, $hash);
 		$stmt->bind_result($id_from_db, $email_from_db);
 		$stmt->execute(); 
@@ -55,11 +55,11 @@
 	}
 	
 	
-	function addClient($product, $product_material) {
+	function addOrders($product, $product_material) {
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("INSERT INTO addClient (user_id, product, product_material) VALUES (?,?,?)");
+		$stmt = $mysqli->prepare("INSERT INTO Orders (user_id, product, product_material) VALUES (?,?,?)");
 		$stmt->bind_param("iss", $_SESSION["logged_in_user_id"], $product, $product_material);
 		
 		//sõnum
@@ -89,3 +89,4 @@
 	}
 	
 ?>
+

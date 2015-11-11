@@ -166,7 +166,8 @@ function test_input($data) {
 <head>
   <title>Login</title>
 </head>
-<body bgcolor="E0FFF0" align="center">
+<body bgcolor="E0FFF0" align="center" >
+
 
 	<h2>Log in</h2>
 
