@@ -11,14 +11,14 @@
 		updateThread($_POST["id"], $_POST["thread"], $_POST["post"]);
 	}
 
-		$keyword = "";
+		$thread = "";
 	
 	//aadressireal on keyword
-	if(isset($_GET["keyword"])){
+	if(isset($_GET["thread"])){
 		
 		//otsin
-		$keyword = $_GET["keyword"];
-		$array_of_threads = getThreadData($keyword);
+		$thread= $_GET["thread"];
+		$array_of_threads = getThreadData($thread);
 		
 	}else{
 		
@@ -35,7 +35,7 @@
 <h2>Threads</h2>
 
 <form action="table.php" method="get" >
-	<input type="search" name="keyword" value="<?=$keyword;?>" >
+	<input type="search" name="thread" placeholder="find post" value="<?=$thread;?>" >
 	<input type="submit" >
 </form>
 
