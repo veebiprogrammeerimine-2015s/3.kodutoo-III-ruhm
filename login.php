@@ -69,6 +69,7 @@
 			
 			echo "Vajutas create nuppu!";
 			
+			// kontrollin, et kasutaja ei ole tühi
 			if(empty($_POST["user_email"]) ){
 				$user_email_error = " See väli on kohustuslik.";
 			}else{
@@ -100,11 +101,7 @@
 				echo "Võib kasutajat luua! Kasutajanimi on ".$user_email." ja parool on ".$user_password. "ja räsi on" .$hash;
 			
 			}
-
-			// create if end
 			
-				
-			//valideerimine create user vormile
 			//kontrollin, et perekonnanimi ei ole tühi
 			if( empty($_POST["lastname"]) ) {
 				$lastname_error = "See väli on kohustuslik";
@@ -113,21 +110,16 @@
 				//test_input eemaldab pahatahtlikud osad
 				$lastname = cleanInput($_POST["lastname"]);
 			
-				
 			}
 			if($lastname_error == ""){
 				echo "salvestan ab'i".$lastname;
 			}
-			
-			//valideerimine create user vormile
 			//kontrollin, et eesnimi ei ole tühi
 			if( empty($_POST["firstname"]) ) {
 				$firstname_error = "See väli on kohustuslik";
 			}else{
-				//kõik korras
-				//test_input eemaldab pahatahtlikud osad
+				
 				$firstname = cleanInput($_POST["firstname"]);
-			
 				
 			}
 			if($firstname_error == ""){
