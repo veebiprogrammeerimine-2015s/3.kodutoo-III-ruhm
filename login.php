@@ -134,12 +134,14 @@
 		$data = htmlspecialchars($data);
 		return $data;
 	}
-?>  
+?> 
+
 <?php
 	$page_title = "Sisselogimise leht";
 	$page_file_name = "login.php";
-?>  
-<!DOCTYPE html>                                               
+?>
+
+<!DOCTYPE html>
 <html>
 <head>
 	<title><?php echo $page_title; ?></title>

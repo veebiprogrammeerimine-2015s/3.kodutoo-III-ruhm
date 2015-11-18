@@ -1,6 +1,6 @@
 <?php
 
-	require_once("functions.php");
+	require_once("function.php");
 	
 	//kas kustutame midagi
 	//?delete=vastav id mida kustutada, on adressireal
@@ -40,6 +40,7 @@
 <form action="table.php" method="get">
 	<input type="search" name="keyword" value="<?=$keyword;?>">
 	<input type="submit">
+	<input name="exit" type="submit" value="Välju" onclick="window.open('data.php')">
 </form>
 <table border="1">
 	<tr>

@@ -1,6 +1,6 @@
 <?php
 
-	require_once("edit_functions.php");
+	require_once("function.php");
 	
 	if(isset($_POST["update_plate"])){
 		//vajutas salvesta nuppu
@@ -40,5 +40,5 @@
 	<input name="number_plate" id="number_plate" type="text" value="<?$car->number_plate;?>"> <br><br>
 	<label for="color">Värv</label><br>
 	<input name="color" type="text" value="<?$car->color;?>"> <br><br>
-	<input name="update_plate" type="submit" value="Salvesta"> 
+	<input name="update_plate" type="submit" value="Salvesta">
 </form>
