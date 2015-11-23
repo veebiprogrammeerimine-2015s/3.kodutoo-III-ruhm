@@ -64,7 +64,7 @@
 				
 				echo $hash;
 				
-				loginUser($login_email, $hash);
+				login($login_email, $hash);
 			}
 		}
 		

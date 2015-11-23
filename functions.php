@@ -1,19 +1,25 @@
 <?php
+	// functions.php
+	// siia tulevd funktsioonid, kõik mis seotud AB'ga
 	
+	// Loon AB'i ühenduse
 	require_once("../configglobal.php");
 	$database = "if15_arkadi_3";
 	
-	
+	// tekitatakse sessioon, mida hoitakse serveris
+	// kõik session muutujad on kättesaadavad kuni viimase brauseriakna sulgemiseni
 	session_start();
 	
-	function createUser($email_add, $hash){
+	function register($email_add, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?,?)");
-		$stmt->bind_param("ss", $email_add, $hash);
+		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password, first_name, last_name) VALUES (?,?,?,?)");
+		$stmt->bind_param("ssss", $email_add, $hash, $first_name, $last_name);
 		$stmt->execute();
 		$stmt->close();
 		$mysqli->close();
+		
 	}
+	
 	function cleanInput($data) {
   	  $data = trim($data);
   	  $data = stripslashes($data);
@@ -21,10 +27,10 @@
   	  return $data;
     }
 	
-	function loginUser($login_email, $hash){
+	function login($email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, email FROM login WHERE email=? AND password=?");
-		$stmt->bind_param("ss", $login_email, $hash);
+		$stmt = $mysqli->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");
+		$stmt->bind_param("ss", $email, $hash);
 		$stmt->bind_result($id_from_db, $email_from_db);
 		$stmt->execute();
 		//Kontrollin kas tulemusi leiti
@@ -49,6 +55,7 @@
 		$mysqli->close();
 		
 	}
+	
 	
 	function addReview($jalgpallurinimi, $hinnang, $kommentaar){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
