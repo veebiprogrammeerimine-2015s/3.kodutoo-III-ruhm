@@ -2,6 +2,11 @@
 	// LOGIN.PHP
 	
 	require_once("functions.php");
+	
+	if(isset($_SESSION["logged_in_user_id"])){
+		header("Location: data.php");
+	}
+	
 	$email_error = "";
 	$password_error = "";
 	$first_name_error = "";
@@ -14,10 +19,12 @@
 	$password_one_error = "";
 	$password_confirm = "";
 	$password_confirm_error = "";
-	$First_name = "";
-	$Last_name = "";
+	$first_name = "";
+	$last_name = "";
 	$login_email = "";
 	$login_password = "";
+	
+	
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
@@ -67,16 +74,16 @@
 			
 			//valideerimine create user vormile
 			//kontrollin et e-post ei ole tühi
-			if ( empty($_POST["First_name"]) ) {
+			if ( empty($_POST["first_name"]) ) {
 				$first_name_error = "See väli on kohustuslik";
 			}else{
-				$First_name= test_input($_POST["First_name"]);
+				$first_name= test_input($_POST["first_name"]);
 			}
 			
-			if ( empty($_POST["Last_name"]) ) {
+			if ( empty($_POST["last_name"]) ) {
 				$last_name_error = "See väli on kohustuslik";
 			}else{
-				$Last_name = test_input($_POST["Last_name"]);
+				$last_name = test_input($_POST["last_name"]);
 			}
 			
 			if ( empty($_POST["email_add"]) ) {
@@ -123,8 +130,9 @@
 				
 				echo "Võib kasutajat luua! Kasutajanimi on ".$email_add." ja parool on ".$password_one. " ja räsi on".$hash;
 				
-				createUser($email_add, $hash, $First_name, $Last_name);
-		  }
+				createUser($email_add, $hash, $first_name, $last_name);
+				
+			}
 		}
 		
 		
@@ -154,10 +162,10 @@
 	
 	<h2>Create user</h2>
 	<form action="login.php" method="POST" >
-		<input name="First_name" type="name" placeholder="First name"> <?php echo $first_name_error; ?> <br><br>
-		<input name="Last_name" type="name" placeholder="Last name"> <?php echo $last_name_error; ?> <br><br>
-		<input name="email_add" type="email" placeholder="Email"> <?php echo $email_add_error; ?> <br><br>
-		<input name="email_confirm" type="email" placeholder="Re-enter Email"> <?php echo $email_confirm_error; ?> <br><br>
+		<input name="first_name" type="name" placeholder="first name"> <?php echo $first_name_error; ?> <br><br>
+		<input name="last_name" type="name" placeholder="last name"> <?php echo $last_name_error; ?> <br><br>
+		<input name="email_add" type="email" placeholder="email"> <?php echo $email_add_error; ?> <br><br>
+		<input name="email_confirm" type="email" placeholder="Re-enter email"> <?php echo $email_confirm_error; ?> <br><br>
 				<?php
 				echo "<select name='sel_date'>";
 				$i = 1;
@@ -199,8 +207,7 @@
 		<input name="create" type="submit" value="Create"><br>
 		 
 		 <form>
-		 Minu idee on teha spordilehekülg jalgpalli meeskonnas Manchester United, kus ma lisan uudiseid meeskonnas, siis võib teha foorumi, kus userid võivad arutleda meeskonna mänge ja jalgpallureid ja teha enda
-		 teemasid.
+		 Minu idee on teha spordilehekülg jalgpallist, kus inimesed saavad arutleda jalgpallureid.
 		 </form>
 
 </body>
