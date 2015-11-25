@@ -31,22 +31,22 @@
 		if(isset($_POST["login"])){ 
 			
 			echo "vajutas login nuppu!";
-			if ( empty($_POST["email1"]) ) {
+			if ( empty($_POST["email"]) ) {
 				$email_error = "See väli on kohustuslik";
 			}else{
-				$login_email = test_input($_POST["email1"]);
+				$login_email = test_input($_POST["email"]);
 			}
 			
-			if ( empty($_POST["password1"]) ) {
+			if ( empty($_POST["password"]) ) {
 				$password_error = "See väli on kohustuslik";
 			}else{
 				
-				if(strlen($_POST["password1"]) < 8) { 
+				if(strlen($_POST["password"]) < 8) { 
 				
 					$password_error = "Peab olema vähemalt 8 tähemärki pikk!";
 					
 				}else{
-					$login_password = test_input($_POST["password1"]);
+					$login_password = test_input($_POST["password"]);
 				}
 				
 			}
@@ -64,7 +64,7 @@
 				
 				echo $hash;
 				
-				login($login_email, $hash);
+				loginUser($login_email, $hash);
 			}
 		}
 		

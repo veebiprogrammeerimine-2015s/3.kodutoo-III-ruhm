@@ -29,7 +29,7 @@
 	}
 	function updateReview($id, $footballer, $rating, $comment){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE ravimid SET footballer=?, rating=?, comment=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE jalgpallurid SET footballer=?, rating=?, comment=? WHERE id=?");
 		$stmt->bind_param("sssi", $footballer, $rating, $comment, $id);
 		if($stmt->execute()){
 			
