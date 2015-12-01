@@ -160,7 +160,6 @@
 			<input name="firstname" type="name" placeholder="First name"> <?php echo $firstname_error; ?>*<br><br>
 			<input name="lastname" type="name" placeholder="Last name"> <?php echo $lastname_error; ?>*<br><br>
 			<?php
-			// Число
 			echo "<select name='sel_date'>";
 			$i = 1;
 			while ($i <= 31) {
@@ -168,7 +167,6 @@
 				$i++;
 			}
 			echo "</select>";
-			// Месяц
 			echo "<select name='sel_month'>";
 			$month = array(
 				"Jan",
@@ -188,7 +186,6 @@
 				echo "<option value='" . $m . "'>$m</option>";
 			}
 			echo "</select>";
-			// Год
 			echo "<select name='sel_year'>";
 			$j = 1920;
 			while ($j <= 2015) {
