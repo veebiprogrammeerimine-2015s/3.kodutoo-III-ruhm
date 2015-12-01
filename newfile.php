@@ -3,6 +3,10 @@
 	// LOGIN.PHP
 	
 	require_once("functions.php");
+	
+	if(isset($_SESSION["logged_in_user_id"])){
+		header("Location: data.php");
+	}
 
 	$email_error = "";
 	$password_error = "";
