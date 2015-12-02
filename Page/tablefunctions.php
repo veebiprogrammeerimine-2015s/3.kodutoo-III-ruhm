@@ -49,8 +49,8 @@ require_once("../../config_global.php");
 	function deletePosts($id){
 	$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 	
-	$stmt = $mysqli->prepare("UPDATE posts SET deleted=NOW() WHERE id=?");
-	$stmt->bind_param("i", $id);
+	$stmt = $mysqli->prepare("UPDATE posts SET deleted=NOW() WHERE id=? AND user_id=?");
+	$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);
 	if($stmt->execute()){
 		
 		header("Location: poststable.php");
@@ -65,8 +65,8 @@ require_once("../../config_global.php");
 	
 	function updatePosts ($id, $post){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE posts SET post=?  WHERE id=?");
-        $stmt->bind_param("si", $post, $posts_id);
+		$stmt = $mysqli->prepare("UPDATE posts SET post=?  WHERE id=? AND user_id=?");
+        $stmt->bind_param("sii", $post, $posts_id, $_SESSION["logged_in_user_id"]);
         if($stmt->execute()){
 			
 		

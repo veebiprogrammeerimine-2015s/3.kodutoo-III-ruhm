@@ -1,6 +1,7 @@
 <?php
-	
+	require_once("functions.php");
 	require_once("tablefunctions.php");
+	
 	
 	
 	
@@ -29,7 +30,7 @@
 	}
 
 ?>
-
+<a href="data.php">Lisa uus postitus</a>
 <h2>Tabel</h2>
 <form action="poststable.php" method="get" >
 	<input type="search" name="keyword" value="<?=$keyword;?>" >
@@ -67,8 +68,13 @@
 			echo"<td>".$array_of_posts[$i]->id."</td>";
 			echo"<td>".$array_of_posts[$i]->user_id."</td>";
 			echo"<td>".$array_of_posts[$i]->post."</td>";
-			echo"<td><a href='?delete=".$array_of_posts[$i]->id."'>X</a></td>";
-			echo"<td><a href=edit.php?edit_id=".$array_of_posts[$i]->id."'>edit</a></td>";
+			
+			if($_SESSION["logged_in_user_id"]==$array_of_posts[$i]->user_id){
+				echo"<td><a href='?delete=".$array_of_posts[$i]->id."'>X</a></td>";
+				echo"<td><a href=edit.php?edit_id=".$array_of_posts[$i]->id."'>edit</a></td>";
+			}
+			
+			
 			echo"</tr>";
 				
 				
