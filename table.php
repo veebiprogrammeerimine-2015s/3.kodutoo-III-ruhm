@@ -103,3 +103,5 @@
 	
 	?>
 </table>
+
+<a href="data.php">Tagasi</a>
