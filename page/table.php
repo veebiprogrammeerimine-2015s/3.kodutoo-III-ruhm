@@ -11,7 +11,7 @@
 		updateThread($_POST["id"], $_POST["thread"], $_POST["post"]);
 	}
 
-		$thread = "";
+		$forum = "";
 	
 	//aadressireal on keyword
 	if(isset($_GET["thread"])){
