@@ -3,7 +3,9 @@
 	require_once("../config_global.php");
 	$database = "if15_helepuh_3";
 
-//SEE OSA VEEL MUUTA
+
+
+
 	function getEditData($edit_id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("SELECT animal, animal_name FROM animals WHERE id=? AND deleted IS NULL");
@@ -28,6 +30,54 @@
 		$mysqli->close();
 		
 	}
+	
+	function getAllData(){
+
+       
+       $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+        // deleted IS NULL - ei ole kustutatud
+        /*if ($role_id_in == 9) {
+        	$stmt = $mysqli->prepare("SELECT animal, animal_name FROM animals WHERE id=? AND deleted IS NULL");
+		}
+		else {
+		
+        	$stmt = $mysqli->prepare("SELECT animal, animal_name FROM animals WHERE deleted IS NULL");
+        }*/
+		$stmt = $mysqli->prepare("SELECT id, animal, animal_name FROM animals");
+        //$stmt->bind_param("s", $_SESSION["logged_in_user_id"], $id, $animal, $animal_name);
+        echo $mysqli->error;
+		$stmt->bind_result($id, $animal, $animal_name);
+        $stmt->execute();
+       
+        $array = array();
+        
+        // iga rea kohta mis on ab'is teeme midagi
+        while($stmt->fetch()){
+            //suvaline muutuja, kus hoiame  andmeid 
+            //selle hetkeni kui lisame massiivi
+               
+            // tühi objekt kus hoiame väärtusi
+            $animals = new StdClass();
+            
+			$animals->id = $id;
+            $animals->animal = $animal;
+            $animals->animal_name = $animal_name; 
+
+            
+            //lisan andmed massivi
+            array_push($array, $animals);
+            //echo "<pre>";
+            //var_dump($array);
+            //echo "</pre>";
+        }
+        
+        //saadan tagasi
+        return $array;
+       
+        $stmt->close();
+        $mysqli->close();
+    }
+	
 	
 	function deleteAnimal($id){
 		

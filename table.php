@@ -22,9 +22,10 @@
 		updateAnimal($_POST["id"], $_POST["animal"], $_POST["animal_name"]);
 	}
 	
+	$array_of_animals = getAllData();
 	
 	//käivitan funktsiooni
-	$array_of_animals = getEditData($edit_id);
+	//$array_of_animals = getEditData($edit_id);
 	
 	//trükin välja esimese looma
 	//echo $array_of_animals[0]->id." ".$array_of_animals[0]->animal;
@@ -67,7 +68,7 @@
 				
 				echo "<tr>";
 				echo "<td>".$array_of_animals[$i]->id."</td>";
-				echo "<td>".$array_of_animals[$i]->user_id."</td>";
+				echo "<td>".$array_of_animals[$i]->id."</td>";
 				echo "<td>".$array_of_animals[$i]->animal."</td>";
 				echo "<td>".$array_of_animals[$i]->animal_name."</td>";
 				echo "<td><a href='?delete=".$array_of_animals[$i]->id."'>X</a></td>";
