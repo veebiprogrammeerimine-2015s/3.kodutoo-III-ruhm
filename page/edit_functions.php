@@ -13,13 +13,9 @@
 		$stmt->bind_result($post);
 		$stmt->execute();
 		
-		//object
 		$forum = new StdClass();
 		
-		// kas sain ühe rea andmeid kätte
-		// $stmt->fetch() annab ühe rea andmeid
 		if($stmt->fetch()){
-			// sain
 			$forum->post = $post;
 			
 		}else{
@@ -32,15 +28,14 @@
 		$mysqli->close();
 	}
 
-	function updateCar($id, $number_plate, $color){
+	function updateThread($id, $post){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE martin_threads SET =? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE martin_threads SET post=? WHERE id=?");
 		$stmt->bind_param("si", $post, $id);
 		if($stmt->execute()){
-			// sai uuendatud
-			// kustutame aadressirea tühjaks
-			header("Location: table.php");
+
+			header("Location: data.php");
 			
 		}
 		
