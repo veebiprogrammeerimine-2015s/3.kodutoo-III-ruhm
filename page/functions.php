@@ -105,9 +105,7 @@
 			$place->user_id=$user_id_from_db;
 			//lisan massiivi
 			array_push($place_array,$place);
-			//echo "<pre>";
-			//var_dump ($car_array);
-			//echo"</pre><br>";
+			
 		}
 		
 		//tagastan massiivi,kus kõik read sees

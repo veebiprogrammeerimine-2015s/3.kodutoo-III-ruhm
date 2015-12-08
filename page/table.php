@@ -1,5 +1,20 @@
 <?php
 	require_once("functions.php");
+	$page_file_name = "table.php";
+	require_once("../header.php");
+	
+	if(!isset($_SESSION["logged_in_user_id"])){
+		header("Location: login.php");
+	}
+	//kasutaja tahab vÃ¤lja logida
+	if(isset($_GET["logout"])){
+		//aadressireal on olemas muutuja logout
+		
+		//kustutame kÃµik sessiooni muutujad ja peatame sessiooni
+		session_destroy();
+		
+		header("Location: login.php");
+	}
 	
 	//kas kustutame
 	//?delete=vastav id mida kustutada on aadressireal
@@ -31,7 +46,7 @@
 
 <form action="table.php" method="get">
 	<input type="search" name="keyword" value="<?=$keyword;?>">
-	<input type="submit">
+	<input type="submit" value="Otsi">
 </form>
 <table>
 	<tr>
@@ -43,7 +58,6 @@
 		<th>KÃ¼lastusaeg</th>
 		<th>Kustuta</th>
 		<th>Redigeeri</th>
-		<th>midagi</th>
 	</tr>
 	<?php
 		//trükime välja read
@@ -58,10 +72,10 @@
 				echo "<input type='hidden' name='id' value='".$array_of_places[$i]->id."'>";
 				echo "<td>".$array_of_places[$i]->id."</td>";
 				echo "<td>".$array_of_places[$i]->user_id."</td>";
-				echo "<td><input name='plate_number' value='".$array_of_places[$i]->location."'></td>";
-				echo "<td><input name='color' value='".$array_of_places[$i]->condition."'></td>";
-				echo "<td><input name='color' value='".$array_of_places[$i]->description."'></td>";
-				echo "<td><input name='color' value='".$array_of_places[$i]->date_visited."'></td>";
+				echo "<td><input name='location' value='".$array_of_places[$i]->location."'></td>";
+				echo "<td><input name='condition' value='".$array_of_places[$i]->condition."'></td>";
+				echo "<td><input name='description' value='".$array_of_places[$i]->description."'></td>";
+				echo "<td><input name='date_visited' value='".$array_of_places[$i]->date_visited."'></td>";
 				echo "<td><a href='table.php'>Cancel</a></td>";
 				echo "<td><input type='submit' name='salvesta'></td>";
 				echo "</form>";
@@ -78,7 +92,6 @@
 				echo "<td>".$array_of_places[$i]->date_visited."</td>";
 				echo "<td><a href='?delete=".$array_of_places[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$array_of_places[$i]->id."'>edit</a></td>";
-				echo "<td><a href='edit.php?edit_id=".$array_of_places[$i]->id."'>edit.php</a></td>";
 				echo "</tr>";
 			}
 		}

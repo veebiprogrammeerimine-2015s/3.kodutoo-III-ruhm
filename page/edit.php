@@ -4,8 +4,7 @@
 require_once("edit_functions.php");
 
 if(isset($_POST["update_place"])){
-	//vajutas salvesta nuppu
-	//number plate ja color tulevad vormist aga id aadressirealt
+	
 	
 	updatePlace($_POST["id"],$_POST["location"],$_POST["condition"],$_POST["description"],$_POST["date_visited"]);
 	}
@@ -15,8 +14,8 @@ if(isset($_POST["update_place"])){
 		//id oli aadressireal
 		//tahaks ühte rida kõige uuemaid andmeid kus id on $_GET["edit_id"]
 		
-		$car=getEditData($_GET["edit_id"]);
-		var_dump($car);
+		$place=getEditData($_GET["edit_id"]);
+		var_dump($place);
 		
 		}else{
 		//ei olnud aadressireal
@@ -37,6 +36,6 @@ if(isset($_POST["update_place"])){
 	<label for="descrption">Kirjeldus</label><br>
 	<input id="description" name="description" type="text" value="<?php echo $description;?>"><br><br>
 	<label for="date_visited">Külastuse kuupäev</label><br>
-	<input id="date_visited" name="date_visited" type="date" value="<?php echo $date;?>"><br><br>
+	<input id="date_visited" name="date_visited" type="date" value="<?php echo $date_visited;?>"><br><br>
 	<input name="update_place" type="submit" value="Salvesta">
 </form>

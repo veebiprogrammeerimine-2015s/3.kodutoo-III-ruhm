@@ -1,5 +1,7 @@
 <?php
 require_once("functions.php");
+$page_file_name = "data.php";
+require_once("../header.php");
 $location = $condition = $description = $date_visited = "";
 $location_error = "";
 $condition_error = "";
@@ -68,10 +70,7 @@ function test_input($data) {
 	}
 	
 ?>
-<p>
-	Tere,<?php echo $_SESSION["logged_in_user_email"];?>
-	<a href="?logout=1"> Logi välja <a>
-</p>
+
 <h2>Lisa huvitav koht mida külastada</h2>
 <form action="data.php" method="post">
 			<label for="location">Asukoht</label><br>
