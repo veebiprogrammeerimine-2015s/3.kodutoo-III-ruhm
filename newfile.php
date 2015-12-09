@@ -202,7 +202,7 @@
 			<input name="create_email_confirm" type="email" placeholder="Re-enter email"> <?php echo $create_email_confirm_error; ?>*<br><br>
 			<input name="create_password" type="password" placeholder="Password"> <?php echo $create_password_error; ?>*<br><br>
 			<input name="create_password_confirm" type="password" placeholder="Password"> <?php echo $create_password_confirm_error; ?>*<br><br>
-			<input name="create" type="submit" value="Create">
+			<input name="create" type=<a href="data.php">submit</a> value="Create">
 		</form>
 		
 		<form>
