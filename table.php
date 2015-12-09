@@ -1,4 +1,22 @@
 <?php
+$i = 0;
+$array_menu = array();
+
+$array_menu[$i]['url']="data.php";
+$array_menu[$i++]['name']='Lisa märkuse';
+
+
+echo "<ul>\n";
+for ($i=0;$i<count($array_menu);$i++)
+{
+       echo ($_SERVER["REQUEST_URI"] == $array_menu[$i]['url']) ? '<li class="active">': '<li>';
+       echo "<a href=\"".$array_menu[$i]['url']."\">".$array_menu[$i]['name']."</a></li>\n";
+}
+echo "</ul>";
+?>
+
+
+<?php
 	require_once("functions.php");
 	
 	if(!isset($_SESSION["logged_in_user_id"])){
