@@ -1,5 +1,5 @@
 <?php
-
+	
 	require_once("functions.php");
 	
 	
@@ -26,7 +26,7 @@
 	
 ?>
 
-<h2>Tabel</h2>
+<h2>Minu säutsud</h2>
 
 <form action="table.php" method="get">
 	<input type="search" name="keyword" value="<?=$keyword;?>">
@@ -40,7 +40,6 @@
 		<th>Säuts</th>
 		<th>Kustuta</th>
 		<th>Muuda</th>
-		<th>Muudan</th>
 	</tr>
 	
 	<?php
@@ -70,7 +69,6 @@
 				echo "<td>".$array_of_tweets[$i]->tweet."</td>";
 				echo "<td> <a href ='?delete=".$array_of_tweets[$i]->id."'>X</a></td>";
 				echo "<td> <a href ='?edit=".$array_of_tweets[$i]->id."'>edit</a></td>";
-				echo "<td> <a href ='edit.php?edit_id=".$array_of_tweets[$i]->id."'>edit.php</a></td>";
 				echo"</tr>";
 			
 			}
