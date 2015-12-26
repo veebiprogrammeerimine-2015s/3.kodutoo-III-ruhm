@@ -12,11 +12,11 @@
 		//aadressireal on olemas muutuja logout
 		
 		//kustutame kõik session muutujad ja peatame sessiooni
-		session_destroy();
+	session_destroy();
 		
 		header("Location: login.php");
 	}
-		
+	
 	$tweet = "";
 	$tweet_error = "";
 	
