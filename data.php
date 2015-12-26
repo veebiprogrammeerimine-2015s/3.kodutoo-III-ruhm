@@ -1,11 +1,10 @@
 <?php
-	require_once("function.php");
+	require_once("functions.php");
 	//data.php
 	//siia pääseb ligi sisseloginud kasutaja
 	//kui kasutaja ei ole sisseloginud, siis suunan login.php lehele
-	//kui kasutaja on issse loginud, siis suunan data.php lehele
 	if(!isset($_SESSION["logged_in_user_id"])){
-		header("Location: data.php");
+			//header("Location: login.php");
 	}
 
 	//kasutaja tahab välja logida
@@ -18,38 +17,29 @@
 		header("Location: login.php");
 	}
 		
-	$number_plate = $color = "";
-	$number_plate_error = $color_error = "";
+	$tweet = "";
+	$tweet_error = "";
 	
-		if(isset($_POST["add_plate"])){
-			
-			if(empty($_POST["number_plate"]) ){
-				$number_plate_error = " See väli on kohustuslik.";
-			}else{
-				$number_plate = cleanInput($_POST["number_plate"]);
-			}
-				
-			if(empty($_POST["color"]) ){
-				$color_error = " See väli on kohustuslik.";
-			}else{
-				$color = cleanInput($_POST["color"]);
-			}
-			
-			if(	$number_plate_error == "" && $color_error == ""){
+	if(isset($_POST["add_tweet"])){
 		
-				$msg = addCarPlate($number_plate, $color);
-				
-				if($msg != ""){
-					$number_plate = "";
-					$color = "";
-					echo "$msg";
-					
-				}
-				
-			}	
+		if(empty($_POST["tweet"]) ){
+			$tweet_error = " See väli on kohustuslik.";
+		}else{
+			$tweet = cleanInput($_POST["tweet"]);
 		}
-			
+		
+		if(	$tweet_error == ""){
 	
+			$msg = addPost($tweet);
+			
+			if($msg != ""){
+				$tweet = "";
+				echo "$msg";
+				
+			}
+			
+		}	
+	}	
 	
 	function cleanInput($data) {
 		$data = trim($data);
@@ -60,17 +50,15 @@
 	
 	
 ?>
-<p>Tere,  <?php echo $_SESSION["logged_in_user_email"];?>
+<p>	Tere,  <?=$_SESSION["logged_in_user_email"];?>
 	<a href="?logout=1"> Logi välja</a> 
-	</p> 
+</p> 
 	
 	
-<h2>Lisa autonumbrimärk</h2>
+<h2>Lisa säuts</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-	<label for="number_plate">Auto numbrimärk</label><br>
-	<input name="number_plate" id="number_plate" type="text"  value="<?php echo $number_plate; ?>">* <?php echo $number_plate_error; ?> <br><br>
-	<label for="color">Värv</label><br>
-	<input name="color" type="text"  value="<?php echo $color; ?>">* <?php echo $color_error; ?> <br><br>
-	<input name="add_plate" type="submit" value="Salvesta">
-	<input name="change_plate" type="submit" value="Muuda" onclick="window.open('table.php')">
+	<label for="tweet">Säuts</label><br>
+	<input name="tweet" id="tweet" type="text"  value="<?php echo $tweet; ?>">* <?php echo $tweet_error; ?> <br><br>
+	<input name="add_tweet" type="submit" value="Salvesta">
+	<input name="change_tweet" type="submit" value="Muuda" onclick="window.open('table.php')">
 </form>

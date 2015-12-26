@@ -1,6 +1,6 @@
 <?php
 	
-	require_once("function.php");
+	require_once("functions.php");
 	
 	//kui kasutaja on issse loginud; siisi suunan data.php lehele
 	if(isset($_SESSION["logged_in_user_id"])){
@@ -69,7 +69,6 @@
 			
 			echo "Vajutas create nuppu!";
 			
-			// kontrollin, et kasutaja ei ole tühi
 			if(empty($_POST["user_email"]) ){
 				$user_email_error = " See väli on kohustuslik.";
 			}else{
@@ -101,7 +100,11 @@
 				echo "Võib kasutajat luua! Kasutajanimi on ".$user_email." ja parool on ".$user_password. "ja räsi on" .$hash;
 			
 			}
+
+			// create if end
 			
+				
+			//valideerimine create user vormile
 			//kontrollin, et perekonnanimi ei ole tühi
 			if( empty($_POST["lastname"]) ) {
 				$lastname_error = "See väli on kohustuslik";
@@ -110,16 +113,21 @@
 				//test_input eemaldab pahatahtlikud osad
 				$lastname = cleanInput($_POST["lastname"]);
 			
+				
 			}
 			if($lastname_error == ""){
 				echo "salvestan ab'i".$lastname;
 			}
+			
+			//valideerimine create user vormile
 			//kontrollin, et eesnimi ei ole tühi
 			if( empty($_POST["firstname"]) ) {
 				$firstname_error = "See väli on kohustuslik";
 			}else{
-				
+				//kõik korras
+				//test_input eemaldab pahatahtlikud osad
 				$firstname = cleanInput($_POST["firstname"]);
+			
 				
 			}
 			if($firstname_error == ""){
@@ -134,18 +142,16 @@
 		$data = htmlspecialchars($data);
 		return $data;
 	}
-?> 
-
+?>  
 <?php
 	$page_title = "Sisselogimise leht";
 	$page_file_name = "login.php";
-?>
-
-<!DOCTYPE html>
+?>  
+<!DOCTYPE html>                                               
 <html>
 <head>
 	<title><?php echo $page_title; ?></title>
-	<h1> Lehekülg <h1>
+	
 </head>
 <body>
 	
@@ -161,8 +167,8 @@
 		<form action="login.php" method="post">
 			<input name="user_email" type="email" placeholder="E-post" value="<?php echo $user_email; ?>">* <?php echo $user_email_error; ?> <br><br>
 			<input name="user_password" type="password" placeholder="Parool" value="<?php echo $user_password; ?>">* <?php echo $user_password_error; ?> <br><br>
-			<input name="lastname" type="text" placeholder="Perekonnanimi" value="<?php echo $lastname; ?>">* <?php echo$lastname_error; ?><br><br>
-			<input name="firstname" type="text" placeholder="Eesnimi" value="<?php echo $firstname; ?>">* <?php echo$firstname_error; ?><br><br>
+			<input name="lastname" type="text" placeholder="Perekonnanimi" value="<?php echo $lastname; ?>">* <?php echo $lastname_error; ?><br><br>
+			<input name="firstname" type="text" placeholder="Eesnimi" value="<?php echo $firstname; ?>">* <?php echo $firstname_error; ?><br><br>
 			<input name="create" type="submit" value="Create">
 		</form>
 		

@@ -1,11 +1,11 @@
 <?php
 
-	require_once("function.php");
+	require_once("functions.php");
 	
-	if(isset($_POST["update_plate"])){
+	if(isset($_POST["update_post"])){
 		//vajutas salvesta nuppu
 		//numberplate ja color tulevad vormist, aga id varjatud väljas
-		updateCar($_POST["id"], $_POST["number_plate"], $_POST["color"]);
+		updatePost($_POST["id"], $_POST["tweet"]);
 		
 	}
 	
@@ -17,8 +17,8 @@
 		//id oli aadressireal
 		//tahaks ühte rida kõige uuemaid andmeid kus id on $_GET["edit_id"]
 		
-		$car = getEditData($_GET["edit_id"]);
-		var_dump($car);
+		$post = getEditData($_GET["edit_id"]);
+		var_dump($post);
 		
 	}else{
 		//ei olnud aadressireal
@@ -30,15 +30,12 @@
 		header("Location: table.php");
 	}
 	
-	
 ?>
 
-<h2>Muuda autonumbrimärkki</h2>
+<h2>Muuda postitusi</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 	<input type="hidden" name="id" value="<?=$_GET["edit_id"];?>">
-	<label for="number_plate">Auto numbrimärk</label><br>
-	<input name="number_plate" id="number_plate" type="text" value="<?$car->number_plate;?>"> <br><br>
-	<label for="color">Värv</label><br>
-	<input name="color" type="text" value="<?$car->color;?>"> <br><br>
-	<input name="update_plate" type="submit" value="Salvesta">
+	<label for="tweet">Tweet:</label><br>
+	<input name="tweet" id="tweet" type="text" value="<?$post->tweet;?>"> <br><br>
+	<input name="update_tweet" type="submit" value="Salvesta"> 
 </form>
