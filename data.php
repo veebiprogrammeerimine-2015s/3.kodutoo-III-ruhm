@@ -91,7 +91,6 @@
 ?>
 <table border="1">
 	<tr>
-		<th>id</th>
 		<th>Kasutaja Id</th>
 		<th>Säuts</th>
 
@@ -106,7 +105,6 @@
 				echo"<tr>";
 				echo"<form action='table.php' method='post'>";
 				echo "<input type='hidden' name='id' value='".$array_of_tweets[$i]->id."'>";
-				echo "<td>".$array_of_tweets[$i]->id."</td>";
 				echo "<td>".$array_of_tweets[$i]->user_id."</td>";
 				echo "<td><input name='tweet' value='".$array_of_tweets[$i]->tweet."'></td>";
 				echo"</form>";
@@ -114,7 +112,6 @@
 				
 			}else{
 				echo"<tr>";
-				echo "<td>".$array_of_tweets[$i]->id."</td>";
 				echo "<td>".$array_of_tweets[$i]->user_id."</td>";
 				echo "<td>".$array_of_tweets[$i]->tweet."</td>";
 				echo"</tr>";
