@@ -87,22 +87,7 @@
 				}else{
 					$user_password = cleanInput($_POST["user_password"]);
 				}
-			}
-
-			if(	$user_email_error == "" && $user_password_error == ""){
-				
-				// räsi paroolist, mille salvestame ab'i
-				$hash = hash("sha512", $user_password);
-				
-				//kasutaja sisselogimise funktsioon failist function.php
-				createUser($user_email, $hash);
-				
-				echo "Võib kasutajat luua! Kasutajanimi on ".$user_email." ja parool on ".$user_password. "ja räsi on" .$hash;
-			
-			}
-
-			// create if end
-			
+			}			
 				
 			//valideerimine create user vormile
 			//kontrollin, et perekonnanimi ei ole tühi
@@ -132,6 +117,18 @@
 			}
 			if($firstname_error == ""){
 				echo "salvestan ab'i".$firstname;
+			}
+			
+			if(	$user_email_error == "" && $user_password_error == ""){
+				
+				// räsi paroolist, mille salvestame ab'i
+				$hash = hash("sha512", $user_password);
+				
+				//kasutaja sisselogimise funktsioon failist function.php
+				createUser($user_email, $hash, $lastname, $firstname);
+				
+				echo "Võib kasutajat luua! Kasutajanimi on ".$user_email." ja parool on ".$user_password. "ja räsi on" .$hash;
+			
 			}
 		
 		}	

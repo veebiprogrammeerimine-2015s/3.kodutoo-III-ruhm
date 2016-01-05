@@ -3,12 +3,13 @@
 	require_once("../config_global.php");
 	$database = "if15_henrrom";
 	session_start();
+	
 		//võtab andmed ja sisestab andmebaasi
-	function createUser($user_email, $hash){
+	function createUser($user_email, $hash, $lastname, $firstname){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare('INSERT INTO user_sample (email, password) VALUES (?, ?)');
+		$stmt = $mysqli->prepare('INSERT INTO user_info (email, password, lastname, firstname) VALUES (?, ?, ?, ?)');
 		// asendame küsimärgid. ss - s on string email, s on string password
-		$stmt->bind_param("ss", $user_email, $hash);
+		$stmt->bind_param("ssss", $user_email, $hash, $lastname, $firstname);
 		$stmt->execute();
 		
 		$stmt->close();
@@ -17,7 +18,7 @@
 
 	function loginUser($log_email, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT email, id FROM user_sample WHERE email=? AND password=?");
+		$stmt = $mysqli->prepare("SELECT email, id FROM user_info WHERE email=? AND password=?");
 		$stmt->bind_param("ss", $log_email, $hash);
 		//muutujad tulemustele
 		$stmt->bind_result($email_from_db, $id_from_db);
@@ -64,11 +65,11 @@
 		$mysqli->close();
 	}
 	function getPostData($keyword=""){
+
 		$search = "%%";
 		
 		if($keyword == ""){
-			//ei oti midagi
-			echo "Ei otsi ";
+
 		}else{
 			//otsin
 			echo"Otsin ".$keyword;
@@ -112,8 +113,8 @@
 	function deletePost($id){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE posts SET deleted=NOW() WHERE id=?");
-		$stmt->bind_param("i", $id);
+		$stmt = $mysqli->prepare("UPDATE posts SET deleted=NOW() WHERE id=? AND user_id=?");
+		$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			
 			header("Location: table.php");
@@ -124,8 +125,8 @@
 	
 	function updatePost($id, $tweet){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE posts SET tweet=? WHERE id=?");
-		$stmt->bind_param("si", $tweet, $id);
+		$stmt = $mysqli->prepare("UPDATE posts SET tweet=? WHERE id=? AND user_id=?");
+		$stmt->bind_param("sii", $tweet, $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 
 			header("Location: table.php");
@@ -133,7 +134,7 @@
 		$stmt->close();
 		$mysqli->close();
 	}
-	function getEditData($edit_id){
+	/*function getEditData($edit_id){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("SELECT tweet FROM posts WHERE id=? AND deleted IS NULL");
@@ -160,6 +161,6 @@
 		
 		$stmt->close();
 		$mysqli->close();
-	}
+	}*/
 
 ?>

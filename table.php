@@ -2,7 +2,6 @@
 	
 	require_once("functions.php");
 	
-	
 	if(isset($_GET["delete"])){
 		
 		echo "Kustutame id".$_GET["delete"];
@@ -35,8 +34,6 @@
 </form>
 <table border="1">
 	<tr>
-		<th>id</th>
-		<th>Kasutaja id</th>
 		<th>Säuts</th>
 		<th>Kustuta</th>
 		<th>Muuda</th>
@@ -49,27 +46,26 @@
 			//echo $array_of_cars[$i]->id;
 			//echo "<tr>";
 			
-			if(isset($_GET["edit"]) && $array_of_tweets[$i]->id == $_GET["edit"]){
+			if($array_of_tweets[$i]->user_id == $_SESSION["logged_in_user_id"]){
+				
+				if(isset($_GET["edit"]) && $array_of_tweets[$i]->id == $_GET["edit"]){
 				
 				echo"<tr>";
 				echo"<form action='table.php' method='post'>";
 				echo "<input type='hidden' name='id' value='".$array_of_tweets[$i]->id."'>";
-				echo "<td>".$array_of_tweets[$i]->id."</td>";
-				echo "<td>".$array_of_tweets[$i]->user_id."</td>";
 				echo "<td><input name='tweet' value='".$array_of_tweets[$i]->tweet."'></td>";
 				echo "<td><a href ='table.php'>cancel</a></td>";
 				echo "<td><input type='submit' name='save'></td>";
 				echo"</form>";
 				echo"</tr>";
 				
-			}else{
+				}else{
 				echo"<tr>";
-				echo "<td>".$array_of_tweets[$i]->id."</td>";
-				echo "<td>".$array_of_tweets[$i]->user_id."</td>";
 				echo "<td>".$array_of_tweets[$i]->tweet."</td>";
 				echo "<td> <a href ='?delete=".$array_of_tweets[$i]->id."'>X</a></td>";
 				echo "<td> <a href ='?edit=".$array_of_tweets[$i]->id."'>edit</a></td>";
 				echo"</tr>";
+				}
 			
 			}
 				
