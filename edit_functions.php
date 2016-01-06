@@ -9,7 +9,7 @@ function getEditData($edit_id){
 	
 	$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 	
-	$stmt = $mysqli->prepare("SELECT product, color FROM addClient WHERE id=? AND deleted IS NULL");
+	$stmt = $mysqli->prepare("SELECT product, product_material FROM Clients WHERE id=? AND deleted IS NULL");
 	$stmt->bind_param("i", $edit_id);
 	$stmt->bind_result($product, $product_material);
 	$stmt->execute();
@@ -39,7 +39,7 @@ function getEditData($edit_id){
 function updateClient($id, $product, $product_material){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE addClient SET product=?, product_material=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE Clients SET product=?, product_material=? WHERE id=?");
 		$stmt->bind_param("ssi", $product, $product_material, $id);
 		if($stmt->execute()){
 			// sai uuendatud
