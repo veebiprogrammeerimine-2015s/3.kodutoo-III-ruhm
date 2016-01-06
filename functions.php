@@ -88,4 +88,59 @@
 		
 	}
 	
+	function getDreamData(){
+	
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+	
+		$stmt = $mysqli->prepare("SELECT id, user_id, blog_post from dream_post");
+		$stmt->bind_result($id, $user_id_from_database, $blog_post);
+		$stmt->execute();
+		
+		$dream_array=array();
+		$row = 0;
+		
+		//tee midagi seni kuni saame ab'st ühe rea andmeid
+		while($stmt->fetch()){
+			//seda siin sees tehakse nii mitu korda kui on ridu
+			$dream = new StdClass();
+			$dream->id = $id;
+			$dream->post = $blog_post;
+			$dream->user_id = $id;
+			
+			
+			//lisan massiivi
+			array_push($dream_array, $dream);
+
+	}
+	return $dream_array;
+	
+	$stmt->close();
+	$mysqli->close();
+}
+
+function deleteDream($id){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("UPDATE dream_post SET deleted=NOW() WHERE id=?");
+		
+		$stmt->bind_param("i", $id);
+		if($stmt->execute()){
+			//sai kustutatud
+			header("Location: table.php");
+		}
+	
+	}
+	
+	function updateDream($id, $blog_post){
+	
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("UPDATE dream_post SET blog_post=? WHERE id=?");
+		
+		$stmt->bind_param("si", $blog_post, $id);
+		if($stmt->execute()){
+			//sai kustutatud
+			header("Location: table.php");
+	
+		}
+	}
+	
 ?>
