@@ -1,5 +1,8 @@
 <?php
 
+	require_once("../config_global.php");
+	$database = "if15_mkoinc_3”;
+
 function getEditData($edit_id){
 	
 	
@@ -11,29 +14,32 @@ function getEditData($edit_id){
 	$stmt->bind_result($product, $product_material);
 	$stmt->execute();
 	
-	$car = new StdClass();
+	$Client = new StdClass();
 	
 	//kas sain ühe rea andmeid kätte
 	if($stmt->fetch()){
 		//sain
-		$car->product = $product;
-		$car->product_material = $product_material;
+		$Client->product = $product;
+		$Client->product_material = $product_material;
 		
 		
 	}else{
 		//ei saanud
-		//id ei olnud olemas, näiteks- id=123456
-		//rida on kustutatud, deleted ei ole NULL
+
 		header("Location: table.php");
 		
 	}
+		return $Client;
+		$stmt->close();
+		$mysqli->close();
+
 }
 
 
 function updateClient($id, $product, $product_material){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE car_plates SET number_plate=?, color=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE addClient SET product=?, product_material=? WHERE id=?");
 		$stmt->bind_param("ssi", $product, $product_material, $id);
 		if($stmt->execute()){
 			// sai uuendatud

@@ -24,10 +24,9 @@ require_once("functions.php");
 	$product_error = "";
 	$product_material_error = "";
 	
-	// keegi vajutas nuppu numbrimärgi lisamiseks
+	// keegi vajutas nuppu
 	if(isset($_POST["add_product"])){
 		
-		//echo $_SESSION["logged_in_user_id"];
 		
 		// valideerite väljad
 		if ( empty($_POST["product"]) ) {

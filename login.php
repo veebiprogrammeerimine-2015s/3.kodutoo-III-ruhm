@@ -93,9 +93,7 @@
 				$name = test_input($_POST["name"]);
 				
 			}
-			if($name_error == ""){
-				echo "salvestan ab'i ".$name;
-			}
+			
 			//kontrollin et perekonnanimi ei oleks tühi	
 			if ( empty($_POST["surename"]) ) {
 				$surename_error = "See väli on kohustuslik";

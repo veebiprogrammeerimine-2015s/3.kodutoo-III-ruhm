@@ -1,11 +1,13 @@
 <?php
 
-require_once("../config_global.php");
+require_once(Òedit_functions.php");
+	$product = "";
+	$product_material = "";
 
 if(isset($_POST["update_product"])){
 		//vajutas salvesta nuppu
-		//numberplate ja color tulevad vormist aga id varjatud väljast
-		updateCar($_GET["id"],$_POST["product"], $_PIST["product_material"]);
+		
+		updateProduct($_GET["id"],$_POST["product"], $_PIST["product_material"]);
 		
 		
 	}
@@ -29,7 +31,6 @@ echo $_GET["edit_id"];
 	header("Location: table.php");
 }
 
-return $car;
 
 
 

@@ -5,13 +5,10 @@
 	require_once("../config_global.php");
 	$database = "if15_mkoinc_3";
 	
-	//tekitatakse sessioon mis hoitakse serveris,
-	//kõik session muutujad on kättesaadavad kuni viimase brauseriakna sulgemiseni
+
 	session_start();
 	
 	
-	//tõtab andmed ja sisetab ab'i
-	//võtame vastu kaks muutujat
 	
 	function createUser($name, $surename, $mail, $hash){
 		$mysqli = new mysqli($GLOBALS["servername"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS ["database"]);
@@ -38,7 +35,7 @@
 					
 					//tekitan sessiooni muutujad
 					$_SESSION["logged_in_user_id"] = $id_from_db;
-					$_SESSION["logged_in_user_email"] = $id_from_db;
+					$_SESSION["logged_in_user_email"] = $email_from_db;
 					
 					//suunan data.php lehele
 					header("Location: data.php");
