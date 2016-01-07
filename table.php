@@ -32,7 +32,7 @@
 		
 		//otsin
 		$keyword = $_GET["keyword"];
-		$Cleint_array = getClientData($keyword);
+		$review_array = getreviewData($keyword);
 	
 	}else{
 		
@@ -41,7 +41,7 @@
 	}
 	
 //käivitan funktsiooni
-	$Cleint_array = getClientData();
+	$review_array = getReviewData();
 
 ?>
 
@@ -70,18 +70,18 @@
 	<?php
 	//trükime välja read
 	//
-	for($i = 0; $i < count($Cleint_array); $i++){
+	for($i = 0; $i < count($review_array); $i++){
 		
 		
-		if(isset($_GET["edit"]) && $Cleint_array[$i]->id == $_GET["edit"]){
+		if(isset($_GET["edit"]) && $review_array[$i]->id == $_GET["edit"]){
 			
 			echo"<tr>";
 			echo"<from action='table.php' method='post'>";
-			echo"<input type='hidden' name='id' value='".$Cleint_array[$i]->id."'>";
-			echo"<td>".$Cleint_array[$i]->id."</td>";
-			echo"<td>".$Cleint_array[$i]->user_id."</td>";
-			echo"<td><input name='product' value='".$Cleint_array[$i]->product."’></td>";
-			echo"<td><input name='product_material'>value='".$Cleint_array[$i]->product_material."’</td>";
+			echo"<input type='hidden' name='id' value='".$review_array[$i]->id."'>";
+			echo"<td>".$review_array[$i]->id."</td>";
+			echo"<td>".$review_array[$i]->user_id."</td>";
+			echo"<td><input name='product' value='".$review_array[$i]->product."’></td>";
+			echo"<td><input name='product_material'>value='".$review_array[$i]->product_material."’</td>";
 			echo "<td><a href='table.php'>cancel</a></td>";
 			echo "<td><input type='submit' name='save'></td>";
 			echo"</form>";
@@ -90,15 +90,15 @@
 			
 		}else{
 		
-		//echo $Cleint_array[$i]->id;
+		//echo $review_array[$i]->id;
 			echo"<tr>";
-			echo"<td>".$Cleint_array[$i]->id."</td>";
-			echo"<td>".$Cleint_array[$i]->ptoduct."</td>";
-			echo"<td>".$Cleint_array[$i]->user_id."</td>";
-			echo"<td>".$Cleint_array[$i]->product_material."</td>";
+			echo"<td>".$review_array[$i]->id."</td>";
+			echo"<td>".$review_array[$i]->ptoduct."</td>";
+			echo"<td>".$review_array[$i]->user_id."</td>";
+			echo"<td>".$review_array[$i]->product_material."</td>";
 			echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
-			echo "<td><a href='?edit=".$Cleint_array[$i]->id."'>edit</a></td>";
-			echo "<td><a href='?edit.php?edit_id=3".$Cleint_array[$i]->id."'>edit</a></td>";
+			echo "<td><a href='?edit=".$review_array[$i]->id."'>edit</a></td>";
+			echo "<td><a href='?edit.php?edit_id=3".$review_array[$i]->id."'>edit</a></td>";
 			echo"</tr>";
 			}
 		
