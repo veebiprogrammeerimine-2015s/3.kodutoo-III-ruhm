@@ -1,7 +1,7 @@
 <?php
 
 	require_once("../config_global.php");
-	$database = "if15_mkoinc_3”;
+	$database = "if15_mkoinc_3";
 
 function getEditData($edit_id){
 	

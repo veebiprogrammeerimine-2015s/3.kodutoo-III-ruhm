@@ -7,8 +7,7 @@ require_once("edit_functions.php");
 if(isset($_POST["update_product"])){
 		//vajutas salvesta nuppu
 		
-		updateClient($_GET["id"],$_POST["product"], $_PIST["product_material"]);
-		
+		updateClient($_GET["id"],$_POST["product"], $_POST["product_material"]);
 		
 	}
 
