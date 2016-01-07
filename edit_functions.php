@@ -21,16 +21,16 @@
 			//dlited ei ole 0
 			header("Location: table.php");
 		}
-		return $bl;
+		return $blog;
 		
 		$stmt->close();
 		$mysqli->close();
 	}
 
-	function updateCar($id, $blog_post, $color){
+	function updateDream($id, $blog_post){
 	
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE dream_post SET blog_post=?, color=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE dream_post SET blog_post=? WHERE id=?");
 		
 		$stmt->bind_param("si", $blog_post, $id);
 		if($stmt->execute()){

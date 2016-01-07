@@ -88,11 +88,25 @@
 		
 	}
 	
-	function getDreamData(){
+	function getDreamData($keyword=""){
+	
+		$search = "%%";
+		
+		//kas otsisõna on tühi
+		if($keyword == ""){
+			//ei otsi midagi
+			echo "Ei otsi";
+			
+		}else{
+			//otsin
+			echo "Otsin ".$keyword;
+			$search = "%".$keyword."%";
+		}
 	
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 	
 		$stmt = $mysqli->prepare("SELECT id, user_id, blog_post from dream_post");
+	
 		$stmt->bind_result($id, $user_id_from_database, $blog_post);
 		$stmt->execute();
 		
@@ -105,7 +119,7 @@
 			$dream = new StdClass();
 			$dream->id = $id;
 			$dream->post = $blog_post;
-			$dream->user_id = $id;
+			$dream->user_id = $user_id_from_database;
 			
 			
 			//lisan massiivi
@@ -120,27 +134,33 @@
 
 function deleteDream($id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE dream_post SET deleted=NOW() WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE dream_post SET deleted=NOW() WHERE id=? AND user_id=?");
 		
-		$stmt->bind_param("i", $id);
+		$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			//sai kustutatud
 			header("Location: table.php");
 		}
-	
+		$stmt->close();
+		$mysqli->close();
 	}
 	
-	function updateDream($id, $blog_post){
-	
+function updateDream($id, $blog_post){
+		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE dream_post SET blog_post=? WHERE id=?");
-		
-		$stmt->bind_param("si", $blog_post, $id);
+		$stmt = $mysqli->prepare("UPDATE dream_post SET blog_post=? WHERE id=? AND user_id=?");
+		$stmt->bind_param("sii", $blog_post, $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
-			//sai kustutatud
+			// sai uuendatud
+			// kustutame aadressirea tühjaks
 			header("Location: table.php");
-	
+			
 		}
+		
+		$stmt->close();
+		$mysqli->close();
 	}
+	
+	
 	
 ?>

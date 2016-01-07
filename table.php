@@ -10,16 +10,41 @@
 	
 	}
 	
+	if(isset($_POST["save"])){
+		
+		updateDream($_POST["id"], $_POST["blog_post"]);
+	}
 	
-	//käivitan funktsiooni
-	$array_of_dreams = getDreamData();
+	$keyword = "";
+	
+	//aadressireal on keyword
+	if(isset($_GET["keyword"])){
+		
+		//otsin
+		$keyword = $_GET["keyword"];
+		$array_of_dreams = getDreamData($keyword);
+		
+	}else{
+		
+		// küsin kõik andmed
+		
+		//käivitan funktsiooni
+		$array_of_dreams = getDreamData();
+	}
+	
 	
 	//trükin välja esimese auto
-	echo $array_of_dreams[0]->id. " ".$array_of_dreams[0]->post;
+	//echo $array_of_dreams[0]->id. " ".$array_of_dreams[0]->post;
 
 ?>
 
 <h2>Tabel</h2>
+
+<form action="table.php" method="get" >
+	<input type="search" name="keyword" value="<?=$keyword;?>" >
+	<input type="submit">
+</form>
+
 <table border=1>
 	<tr>
 		<th>id</th>
@@ -60,3 +85,4 @@
 			}
 		}
 	?>
+</table>
