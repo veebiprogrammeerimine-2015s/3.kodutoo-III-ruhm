@@ -80,8 +80,8 @@
 			echo"<input type='hidden' name='id' value='".$Cleint_array[$i]->id."'>";
 			echo"<td>".$Cleint_array[$i]->id."</td>";
 			echo"<td>".$Cleint_array[$i]->user_id."</td>";
-			echo"<td><input name='product' value='".$Cleint_array[$i]->product.”’></td>";
-			echo"<td><input name='product_material'>value='".$Cleint_array[$i]->product_material.”’</td>";
+			echo"<td><input name='product' value='".$Cleint_array[$i]->product."’></td>";
+			echo"<td><input name='product_material'>value='".$Cleint_array[$i]->product_material."’</td>";
 			echo "<td><a href='table.php'>cancel</a></td>";
 			echo "<td><input type='submit' name='save'></td>";
 			echo"</form>";
@@ -93,9 +93,9 @@
 		//echo $Cleint_array[$i]->id;
 			echo"<tr>";
 			echo"<td>".$Cleint_array[$i]->id."</td>";
-			echo"<td>".$Cleint_array[$i]->ptoduct.”</td>";
+			echo"<td>".$Cleint_array[$i]->ptoduct."</td>";
 			echo"<td>".$Cleint_array[$i]->user_id."</td>";
-			echo"<td>".$Cleint_array[$i]->product_material.”</td>";
+			echo"<td>".$Cleint_array[$i]->product_material."</td>";
 			echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
 			echo "<td><a href='?edit=".$Cleint_array[$i]->id."'>edit</a></td>";
 			echo "<td><a href='?edit.php?edit_id=3".$Cleint_array[$i]->id."'>edit</a></td>";

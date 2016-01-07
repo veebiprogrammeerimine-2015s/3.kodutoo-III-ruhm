@@ -1,6 +1,6 @@
 <?php
 
-require_once(Òedit_functions.php");
+require_once("edit_functions.php");
 	$product = "";
 	$product_material = "";
 

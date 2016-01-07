@@ -9,7 +9,7 @@ function getEditData($edit_id){
 	
 	$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 	
-	$stmt = $mysqli->prepare("SELECT product, product_material FROM Clients WHERE id=? AND deleted IS NULL");
+	$stmt = $mysqli->prepare("SELECT product, product_material FROM Orders WHERE id=? AND deleted IS NULL");
 	$stmt->bind_param("i", $edit_id);
 	$stmt->bind_result($product, $product_material);
 	$stmt->execute();
