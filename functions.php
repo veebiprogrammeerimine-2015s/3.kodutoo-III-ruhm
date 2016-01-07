@@ -105,7 +105,7 @@
 	
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 	
-		$stmt = $mysqli->prepare("SELECT id, user_id, blog_post from dream_post");
+		$stmt = $mysqli->prepare("SELECT id, user_id, blog_post from dream_post WHERE deleted IS NULL");
 	
 		$stmt->bind_result($id, $user_id_from_database, $blog_post);
 		$stmt->execute();
