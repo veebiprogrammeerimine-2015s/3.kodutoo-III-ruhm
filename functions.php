@@ -146,12 +146,12 @@ function getAllData($user_id_in, $role_id_in, $keyword_in){
         $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
         
         // uuendan välja deleted, lisan praeguse date'i
-        $stmt = $mysqli->prepare("UPDATE car_plates SET deleted=NOW() WHERE id=?");
+        $stmt = $mysqli->prepare("UPDATE k3_medical_history SET deleted=NOW() WHERE id=?");
         $stmt->bind_param("i", $car_id);
         $stmt->execute();
         
         // tühjendame aadressirea
-        header("Location: table.php");
+        header("Location: data.php");
         
         $stmt->close();
         $mysqli->close();
