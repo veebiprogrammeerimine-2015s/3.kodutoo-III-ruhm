@@ -1,6 +1,6 @@
 <?php
 
-	//loob AB'i ¸henduse
+//loob AB'i ¸henduse
 	
 	require_once("../config_global.php");
 	$database = "if15_mkoinc_3";
@@ -87,19 +87,13 @@
 
 function getOrdersData($keyword=""){
 		
-		$search="%%";
-		
-		//kas otsisõna on tühi
-		if($keyword==""){
-			//ei otsi midagi
-			//echo "Ei otsi";
+		$search = "%%";
+		if($keyword == ""){
+		}
+		else{
 			
-		}else{
-			//otsin
 			echo "Otsin " .$keyword;
-			$search="%".$keyword."%";
-			// "linex"
-			// "%linex%"
+			$search = "%".$keyword."%";
 			
 		}
 		
@@ -109,33 +103,31 @@ function getOrdersData($keyword=""){
 		$stmt->bind_result($id, $user_id, $product, $product_material);
 		$stmt->execute();
 		
-		$Client_array = array ();
+		$Orders_array = array ();
 		
 		
 		while($stmt->fetch()){
 			
-			$Client = new StdClass();
-			$Client->id = $id;
-			$Client->product =$product;
-			$Client->product_material = $product_material;
+			$Orders = new StdClass();
+			$Orders->id = $id;
+			$Orders->user_id = $user_id;
+			$Orders->product =$product;
+			$Orders->product_material = $product_material;
 						
-			array_push($Client_array, $Client);
-			//var dump ütleb muutuja tüübi ja sisu
-			//echo "<pre>";
-			//var_dump($car_array);
-			//echo "</pre><br>";
+			array_push($Orders_array, $Orders);
+			
 			
 		}
 		//tagastan massiivi, kus kõik read sees
-		return $Cleint_array;
+		return $Orders_array;
 		
 		$stmt->close();
 		$mysqli->close();
 		
 	}
-	function deleteCleint($id){
+	function deleteOrders($id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE Clients SET deleted=NOW() WHERE id=? AND user_id=?");
+		$stmt = $mysqli->prepare("UPDATE Orders SET deleted=NOW() WHERE id=? AND user_id=?");
 		$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 		
@@ -146,7 +138,7 @@ function getOrdersData($keyword=""){
 		$mysqli->close();
 		
 	}
-	function updateClient($id, $product, $product_material){
+	function updateOrders($id, $product, $product_material){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("UPDATE Orders SET product=?, product_material=? WHERE id=? AND user_id =?");
 		echo $mysqli->error;
@@ -162,4 +154,4 @@ function getOrdersData($keyword=""){
 	}
 	
 	
-?>	
+?>
