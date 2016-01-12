@@ -85,24 +85,22 @@
 		
 	}
 
-function getOrdersData($keyword=""){
+function getOrdersData($keyword = ""){
 		
-		$search = "%%";
-		if($keyword == ""){
-		}
-		else{
-			
-			echo "Otsin " .$keyword;
-			$search = "%".$keyword."%";
+		$search="%%";
+ 		if($keyword!=""){
+ 			echo "Otsin " .$keyword;
+ 			$search="%".$keyword."%";
 			
 		}
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, user_id, product, product_material FROM Orders WHERE deleted IS NULL AND (product LIKE ?)");
-		$stmt->bind_param("s", $search);
-		$stmt->bind_result($id, $user_id, $product, $product_material);
-		$stmt->execute();
-		
+ 		$stmt = $mysqli->prepare("SELECT id, user_id, product, product_material FROM Orders WHERE deleted IS NULL AND (product LIKE ?)");
+		echo $mysqli->error;
+ 		$stmt->bind_param("s", $search);
+ 		$stmt->bind_result($id, $user_id, $product, $product_material);
+ 		$stmt->execute();
+ 		
 		$Orders_array = array ();
 		
 		
@@ -111,7 +109,7 @@ function getOrdersData($keyword=""){
 			$Orders = new StdClass();
 			$Orders->id = $id;
 			$Orders->user_id = $user_id;
-			$Orders->product =$product;
+			$Orders->product = $product;
 			$Orders->product_material = $product_material;
 						
 			array_push($Orders_array, $Orders);
@@ -125,7 +123,7 @@ function getOrdersData($keyword=""){
 		$mysqli->close();
 		
 	}
-	function deleteOrders($id){
+function deleteOrders($id){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("UPDATE Orders SET deleted=NOW() WHERE id=? AND user_id=?");
 		$stmt->bind_param("ii", $id, $_SESSION["logged_in_user_id"]);

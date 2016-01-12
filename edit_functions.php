@@ -36,10 +36,10 @@ function getEditData($edit_id){
 }
 
 
-function updateClient($id, $product, $product_material){
+function updateOrders($id, $product, $product_material){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE Clients SET product=?, product_material=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE Orders SET product=?, product_material=? WHERE id=?");
 		$stmt->bind_param("ssi", $product, $product_material, $id);
 		if($stmt->execute()){
 			// sai uuendatud

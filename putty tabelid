@@ -13,5 +13,6 @@ CREATE TABLE Orders (
   user_id INT NOT NULL,
   product TEXT,   
   product_material TEXT,
+deleted TIMESTAMP NULL DEFAULT NULL
   FOREIGN KEY (user_id) REFERENCES Clients(id)
 );

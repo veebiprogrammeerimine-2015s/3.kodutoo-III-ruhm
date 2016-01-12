@@ -98,8 +98,7 @@
 			echo"<td>".$Orders_array[$i]->product_material."</td>";
 			echo "<td><a href='?delete=".$Orders_array[$i]->id."'>X</a></td>";
 			echo "<td><a href='?edit=".$Orders_array[$i]->id."'>edit</a></td>";
-			echo "<td><a href='edit.php?edit_id=".$Orders_array[$i]->id."'>edit.php</a></td>";
-			echo "</tr>";			}
+					}
 		
 		}
 		
