@@ -80,8 +80,8 @@
 			echo"<input type='hidden' name='id' value='".$Orders_array[$i]->id."'>";
 			echo"<td>".$Orders_array[$i]->id."</td>";
 			echo"<td>".$Orders_array[$i]->user_id."</td>";
-			echo"<td><input name='product' value='".$Orders_array[$i]->product."’></td>";
-			echo"<td><input name='product_material'>value='".$Orders_array[$i]->product_material."’</td>";
+			echo"<td><input name='product' value='".$Orders_array[$i]->product."'></td>";
+			echo"<td><input name='product_material'value='".$Orders_array[$i]->product_material."'></td>";
 			echo "<td><a href='table.php'>cancel</a></td>";
 			echo "<td><input type='submit' name='save'></td>";
 			echo"</form>";

@@ -2,6 +2,7 @@
 
 	require_once("../config_global.php");
 	$database = "if15_mkoinc_3";
+	require_once("functions.php");
 
 function getEditData($edit_id){
 	
@@ -39,8 +40,8 @@ function getEditData($edit_id){
 function updateOrders($id, $product, $product_material){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE Orders SET product=?, product_material=? WHERE id=?");
-		$stmt->bind_param("ssi", $product, $product_material, $id);
+		$stmt = $mysqli->prepare("UPDATE Orders SET product=?, product_material=? WHERE id=?" AND user_id=?);
+		$stmt->bind_param("ssii", $product, $product_material, $id, $_SESSION["logged_in_user_id"]);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tühjaks
