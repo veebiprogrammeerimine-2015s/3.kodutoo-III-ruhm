@@ -98,11 +98,12 @@
 		
 	}
 	
-	function updateAnimal($animal, $animal_name){
-		
+	function updateAnimal($id, $animal, $animal_name){
+	
+
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE animals SET animal=?, animal_name=? WHERE id=?");
-		$stmt->bind_param("ssi", $animal, $animal_name);
+		$stmt = $mysqli->prepare("UPDATE animals SET user_id=?, animal=?, animal_name=? WHERE id=?");
+		$stmt->bind_param("issi", $_SESSION["logged_in_user_id"], $animal, $animal_name, $id);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tühjaks
