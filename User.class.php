@@ -19,7 +19,7 @@ class User {
 		$response = new StdClass();
 		
 		//kas selline email on juba olemas
-		$stmt = $this->connection->prepare("SELECT id FROM user_sample WHERE email=?");
+		$stmt = $this->connection->prepare("SELECT id FROM users_sample1 WHERE email=?");
 		$stmt->bind_param("s", $create_email);
 		$stmt->bind_result($id);
 		$stmt->execute();
@@ -42,7 +42,7 @@ class User {
 		// panen eelmise päringu kinni
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("INSERT INTO user_sample (email, password) VALUES (?,?)");
+		$stmt = $this->connection->prepare("INSERT INTO users_sample1 (email, password) VALUES (?,?)");
 		$stmt->bind_param("ss", $create_email, $hash);
 		
 		// sai edukalt salvestatud
@@ -74,7 +74,7 @@ class User {
 		$response = new StdClass();
 		
 		//kas selline email on juba olemas
-		$stmt = $this->connection->prepare("SELECT id FROM user_sample WHERE email=?");
+		$stmt = $this->connection->prepare("SELECT id FROM users_sample1 WHERE email=?");
 		$stmt->bind_param("s", $email);
 		$stmt->bind_result($id);
 		$stmt->execute();
@@ -95,7 +95,7 @@ class User {
 		//*********************
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");
+		$stmt = $this->connection->prepare("SELECT id, email FROM users_sample1 WHERE email=? AND password=?");
 		$stmt->bind_param("ss", $email, $hash);
 		$stmt->bind_result($id_from_db, $email_from_db);
 		$stmt->execute();

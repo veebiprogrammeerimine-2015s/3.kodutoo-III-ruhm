@@ -1,6 +1,6 @@
 <?php
 		
-	// k√µik funktsioonid, kus tegeleme AB'iga
+	// kıik funktsioonid, kus tegeleme AB'iga
 	require_once("functions.php");
 	
 	//kui kasutaja on sisseloginud,
@@ -16,30 +16,34 @@
 	$password_error = "";
 	$create_email_error = "";
 	$create_password_error = "";
-  // muutujad v√§√§rtuste jaoks
+	$lastname_error = "";
+ 	$firstname_error = "";
+  // muutujad v‰‰rtuste jaoks
 	$email = "";
 	$password = "";
 	$create_email = "";
 	$create_password = "";
+	$lastname = "";
+ 	$firstname= "";
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		// *********************
 		// **** LOGI SISSE *****
 		// *********************
 		if(isset($_POST["login"])){
 			if ( empty($_POST["email"]) ) {
-				$email_error = "See v√§li on kohustuslik";
+				$email_error = "See v‰li on kohustuslik";
 			}else{
-			// puhastame muutuja v√µimalikest √ºleliigsetest s√ºmbolitest
+			// puhastame muutuja vıimalikest ¸leliigsetest s¸mbolitest
 				$email = cleanInput($_POST["email"]);
 			}
 			if ( empty($_POST["password"]) ) {
-				$password_error = "See v√§li on kohustuslik";
+				$password_error = "See v‰li on kohustuslik";
 			}else{
 				$password = cleanInput($_POST["password"]);
 			}
-			// Kui oleme siia j√µudnud, v√µime kasutaja sisse logida
+			// Kui oleme siia jıudnud, vıime kasutaja sisse logida
 			if($password_error == "" && $email_error == ""){
-				echo "V√µib sisse logida! Kasutajanimi on ".$email." ja parool on ".$password;
+				echo "Vıib sisse logida! Kasutajanimi on ".$email." ja parool on ".$password;
 			
 				$hash = hash("sha512", $password);
 				
@@ -53,7 +57,7 @@
 					$_SESSION["logged_in_user_id"] = $login_response->user->id;
 					$_SESSION["logged_in_user_email"] = $login_response->user->email;
 					
-					//saadan s√µnumi teise faili kasutades SESSIOONI
+					//saadan sınumi teise faili kasutades SESSIOONI
 					$_SESSION["login_success_message"] = $login_response->success->message;
 					
 					header("Location: data.php");
@@ -68,25 +72,30 @@
 		// *********************
 		if(isset($_POST["create"])){
 				if ( empty($_POST["create_email"]) ) {
-					$create_email_error = "See v√§li on kohustuslik";
+					$create_email_error = "See v‰li on kohustuslik";
 				}else{
 					$create_email = cleanInput($_POST["create_email"]);
 				}
 				if ( empty($_POST["create_password"]) ) {
-					$create_password_error = "See v√§li on kohustuslik";
+					$create_password_error = "See v‰li on kohustuslik";
 				} else {
 					if(strlen($_POST["create_password"]) < 8) {
-						$create_password_error = "Peab olema v√§hemalt 8 t√§hem√§rki pikk!";
+						$create_password_error = "Peab olema v‰hemalt 8 t‰hem‰rki pikk!";
 					}else{
 						$create_password = cleanInput($_POST["create_password"]);
 					}
+					if ( empty($_POST["firstname"]) ) {
+					$firstname_error = "See v‰li on kohustuslik";
 				}
-				if(	$create_email_error == "" && $create_password_error == ""){
+				if ( empty($_POST["lastname"]) ) {
+					$lastname_error = "See v‰li on kohustuslik";
+				}
+				if(	$create_email_error == "" && $create_password_error == "")
 					
-					// r√§si paroolist, mille salvestame ab'i
+					// r‰si paroolist, mille salvestame ab'i
 					$hash = hash("sha512", $create_password);
 					
-					echo "V√µib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password." ja r√§si on ".$hash;
+					echo "Vıib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password." ja r‰si on ".$hash;
 					
 					// kasutaja loomise fn, failist functions.php,
 					// saadame kaasa muutujad
@@ -97,7 +106,7 @@
 				}
 		} // create if end
 	}
-  // funktsioon, mis eemaldab k√µikv√µimaliku √ºleliigse tekstist
+  // funktsioon, mis eemaldab kıikvıimaliku ¸leliigse tekstist
   function cleanInput($data) {
   	$data = trim($data);
   	$data = stripslashes($data);
@@ -163,13 +172,15 @@
 		<?=$create_response->success->message;?>
 	</p>
 	
-  <?php endif; ?>
+		<?php endif; ?>
   
   
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
   	<input name="create_email" type="email" placeholder="E-post" value="<?php echo $create_email; ?>"> <?php echo $create_email_error; ?><br><br>
   	<input name="create_password" type="password" placeholder="Parool"> <?php echo $create_password_error; ?> <br><br>
+	<input name="firstname" type="firstname" placeholder="Nimi"> <?php echo $firstname_error; ?> <br><br>
+	<input name="lastname" type="lastname" placeholder="Perekonnanimi"> <?php echo $lastname_error; ?> <br><br>
   	<input type="submit" name="create" value="Create user">
   </form>
-<body>
-<html>
+</body>
+</html>
