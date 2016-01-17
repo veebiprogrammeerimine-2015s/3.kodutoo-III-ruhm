@@ -1,16 +1,12 @@
 <?php
 	require_once("functions.php");
-	require_once("edit_functions.php");
 	
 	
-	if(!isset($_SESSION["logged_in_user_id"])){
-	header("Location: login.php");
-	}
 	// kas kustutame
 	// ?delete=vastav id mida kustutada on aadressireal
 	if(isset($_GET["delete"])){
 		
-		echo "Delete id ".$_GET["delete"];
+		echo "Kustutame id ".$_GET["delete"];
 		//käivitan funktsiooni, saadan kaasa id!
 		deleteboot($_GET["delete"]);
 		
@@ -22,13 +18,25 @@
 		updateboot($_POST["id"], $_POST["boot_brand"], $_POST["model"]);
 	}
 	
-	$array_of_boots = getAllData();
+	$keyword = "";
 	
-	//käivitan funktsiooni
-	//$array_of_boots = getEditData($edit_id);
+	//aadressireal on keyword
+	if(isset($_GET["keyword"])){
+		
+		//otsin
+		$keyword = $_GET["keyword"];
+		$array_of_boots = getAllData($keyword);
+		
+	}else{
+		
+		// küsin kõik andmed
+		
+		//käivitan funktsiooni
+		$array_of_boots = getAllData();
+	}
 	
-	//trükin välja esimese looma
-	//echo $array_of_boots[0]->id." ".$array_of_boots[0]->boot_brand;
+	//trükin välja esimese auto
+	//echo $array_of_cars[0]->id." ".$array_of_cars[0]->plate;
 	
 ?>
 

@@ -1,6 +1,5 @@
 <?php
  	require_once("functions.php");
- 	require_once("table.php");
  	//data.php
  	// siia pääseb ligi sisseloginud kasutaja
  	//kui kasutaja ei ole sisseloginud,
@@ -83,3 +82,5 @@
 	<input id="model" name="model" type="text" value="<?php echo $model; ?>"> <?php echo $model_error; ?><br><br>
 	<input name="add boot" type="submit" value="Save">
 </form>
+
+<a href="table.php">Look and Change Boots</a>

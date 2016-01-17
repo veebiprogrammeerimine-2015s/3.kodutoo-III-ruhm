@@ -62,7 +62,7 @@
 			if (empty($_POST["email_create"])){
 				$create_email_error = "This field is obligatory, you cannot leave it empty";
 			}else{
-				$create_email = test_input($_POST["email_create"]);
+				$create_email = cleanInput($_POST["email_create"]);
 			}	
 			
 			if (empty($_POST["password_create"])){
@@ -71,20 +71,20 @@
 				if(strlen($_POST["password_create"]) <8) {
 				$password_error_create = "Password is too short, it has to be at least 8 characters long!";
 				}else{
-				$password_create = test_input($_POST["password_create"]);
+				$password_create = cleanInput($_POST["password_create"]);
 				}
 			}
 		
 			if (empty ($_POST["first_name"])){
 				$first_name_error = "This field is obligatory, you cannot leave it empty";
 			}else{
-				$first_name = test_input($_POST["first_name"]);
+				$first_name = cleanInput($_POST["first_name"]);
 			}
 			
 			if (empty ($_POST["last_name"])){
 				$last_name_error = "This field is obligatory, you cannot leave it empty";
 			}else{
-				$last_name = test_input($_POST["last_name"]);
+				$last_name = cleanInput($_POST["last_name"]);
 			}
 			
 			if( $create_email_error== "" && $create_password_error=="" && $first_name_error=="" && $last_name_error==""){
